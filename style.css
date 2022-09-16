@@ -1,0 +1,7 @@
+body {
+    background-color: #000;
+}
+canvas {
+    max-width: 1024px;
+    height: auto !important;
+}
