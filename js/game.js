@@ -37,29 +37,28 @@ function create () {
   this.player.setCollideWorldBounds('true');
   this.cameras.main.startFollow(this.player);
 
-
-  this.player.play('Walk left');
   // this.player.setFrame(0);
 }
 
 function update() {
   this.player.setVelocity(0);
 
-
-
   if (this.keys.A.isDown) {
     this.player.setVelocityX(-100);
+    this.player.play('Walk left', true);
   } else if (this.keys.D.isDown) {
     this.player.setVelocityX(100);
+    this.player.play('Walk right', true);
   }
 
   if (this.keys.W.isDown) {
     this.player.setVelocityY(-100);
+    this.player.play('Walk up', true);
   } else if (this.keys.S.isDown) {
     this.player.setVelocityY(100);
+    this.player.play('Walk down', true);
   }
 
-  // if (this.player.body.velocity.x === 0 && this.player.body.velocity.y === 0) {
-  //   this.player.anims.stop();
-  // }
+  if (this.player.body.velocity.x === 0 && this.player.body.velocity.y === 0) {
+  }
 }
