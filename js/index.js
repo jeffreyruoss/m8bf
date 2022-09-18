@@ -3,8 +3,10 @@ import Main from "./scenes/Main.js";
 
 const config = {
   type: Phaser.CANVAS,
-  width: 256,
-  height: 200,
+  width: 1024,
+  height: 800,
+  // width: 256,
+  // height: 200,
   pixelArt: true,
   scene: [Intro, Main],
   scale: {

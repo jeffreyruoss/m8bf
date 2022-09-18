@@ -1,25 +1,12 @@
 @font-face {
-    font-family: 'savior1medium';
-    src: url('./fonts/webfontkit-20220918-180523/savior1-webfont.woff2') format('woff2'),
-    url('./fonts/webfontkit-20220918-180523/savior1-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
     font-family: 'vcrosdmono';
-    src: url('./fonts/VCR_OSD_MONO_1.001.ttf') format('ttf');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'rainyhearts';
-    src: url('./fonts/rainyhearts.ttf') format('ttf');
+    src: url('./fonts/vcrosdmomo/vcr_osd_mono_1.001-webfont.woff') format('woff'),
+    url('./fonts/vcrosdmomo/vcr_osd_mono_1.001-webfont.woff2') format('woff2');
 }
 
 body {
     background-color: #2f2f2f;
+    margin: 0;
 }
 canvas {
     max-width: 1024px;
