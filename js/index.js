@@ -1,3 +1,5 @@
+import PlayerMovement from './player-movement.js';
+
 const config = {
   type: Phaser.CANVAS,
   width: 256,
@@ -20,7 +22,7 @@ const config = {
   }
 };
 
-const game = new Phaser.Game(config);
+const index = new Phaser.Game(config);
 
 function preload () {
   this.load.aseprite('player', 'img/player.png', 'img/player.json');
@@ -38,27 +40,12 @@ function create () {
   this.cameras.main.startFollow(this.player);
 
   // this.player.setFrame(0);
+
+  this.playerMovement = new PlayerMovement(this.player, this.keys);
+
 }
 
 function update() {
-  this.player.setVelocity(0);
+  this.playerMovement.playerMove();
 
-  if (this.keys.A.isDown) {
-    this.player.setVelocityX(-100);
-    this.player.play('Walk left', true);
-  } else if (this.keys.D.isDown) {
-    this.player.setVelocityX(100);
-    this.player.play('Walk right', true);
-  }
-
-  if (this.keys.W.isDown) {
-    this.player.setVelocityY(-100);
-    this.player.play('Walk up', true);
-  } else if (this.keys.S.isDown) {
-    this.player.setVelocityY(100);
-    this.player.play('Walk down', true);
-  }
-
-  if (this.player.body.velocity.x === 0 && this.player.body.velocity.y === 0) {
-  }
 }
