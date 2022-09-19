@@ -8,7 +8,8 @@ const config = {
   // width: 256,
   // height: 200,
   pixelArt: true,
-  scene: [Intro, Main],
+  // scene: [Intro, Main],
+  scene: [Main, Intro],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
