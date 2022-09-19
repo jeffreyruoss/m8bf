@@ -1,0 +1,19 @@
+{
+  "name": "m8bf",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeffreyruoss/m8bf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeffreyruoss/m8bf/issues"
+  },
+  "homepage": "https://github.com/jeffreyruoss/m8bf#readme"
+}
