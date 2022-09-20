@@ -10,12 +10,15 @@ export default class Main extends Phaser.Scene {
 
   preload() {
     this.load.aseprite('player', './../../img/player.png', './../../img/player.json');
-    this.load.image('testbg', './../../img/test-bg.png');
+    this.load.image('grass', './../../img/grass.png');
+    this.load.image('tree', './../../img/tree.png');
   }
 
   create() {
+    this.mapGenerator = new MapGenerator();
+    this.mapGenerator.generateMap(this);
+
     this.keys = this.input.keyboard.addKeys("W,A,S,D");
-    this.add.image(0, 0, 'testbg').setOrigin(0, 0).setScale(4);
     this.anims.createFromAseprite('player');
     this.player = this.physics.add.sprite(100, 100, "player").setScale(4);
     const gameWidth = this.sys.game.config.width;
