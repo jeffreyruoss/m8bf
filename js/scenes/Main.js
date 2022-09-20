@@ -1,4 +1,5 @@
 import PlayerMovement from "./../PlayerMovement.js";
+import MapGenerator from "./../MapGenerator.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
