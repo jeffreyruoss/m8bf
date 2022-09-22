@@ -14,10 +14,11 @@ const config = {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,
   },
+  title: "M8BF",
   physics: {
     default: "arcade",
     arcade: {
-      // debug: true
+      debug: true
     }
   }
 };

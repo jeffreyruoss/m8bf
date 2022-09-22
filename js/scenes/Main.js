@@ -16,23 +16,30 @@ export default class Main extends Phaser.Scene {
   }
 
   create() {
-    this.mapGenerator = new MapGenerator();
-    this.mapGenerator.generateMap(this);
-
-    this.keys = this.input.keyboard.addKeys("W,A,S,D");
-    this.anims.createFromAseprite('player');
-    this.player = this.physics.add.sprite(100, 100, "player").setScale(4);
     const gameWidth = this.sys.game.config.width;
     const gameHeight = this.sys.game.config.height;
+
+    // Grass
+    this.add.tileSprite(0, 0, gameWidth * 4, gameHeight * 4, 'grass').setOrigin(0).setScale(4);
+
+    // Player, movement and camera
+    this.keys = this.input.keyboard.addKeys("W,A,S,D");
+    this.anims.createFromAseprite('player');
+    this.player = this.physics.add.sprite(gameWidth * 4 / 2, gameHeight * 4 /2, "player").setScale(4);
     this.cameras.main.setBounds(0, 0, gameWidth * 4, gameHeight * 4);
     this.physics.world.setBounds(0, 0, gameWidth * 4, gameHeight * 4);
     this.player.setCollideWorldBounds('true');
     this.cameras.main.startFollow(this.player);
     this.playerMovement = new PlayerMovement(this.player, this.keys);
+
+    // Generate map
+    this.mapGenerator = new MapGenerator();
+    this.mapGenerator.generateMap(this);
   }
 
   update() {
     this.playerMovement.playerMove();
+    // console.log(this.game.loop.actualFps);
   }
 
 }
