@@ -1,9 +1,9 @@
 export default class PlayerMovement {
-  constructor(player, keys) {
+  constructor(scene, player) {
     this.player = player;
-    this.keys = keys;
     this.player.direction = 'down';
     this.player.velecity = 300;
+    this.keys = scene.input.keyboard.addKeys("W,A,S,D");
   }
 
   playerMove() {
