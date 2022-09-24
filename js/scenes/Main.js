@@ -7,9 +7,6 @@ export default class Main extends Phaser.Scene {
     super('Main');
   }
 
-  init() {
-  }
-
   preload() {
     this.load.aseprite('player', './../../img/player.png', './../../img/player.json');
     this.load.image('grass', './../../img/grass.png');
@@ -17,18 +14,18 @@ export default class Main extends Phaser.Scene {
   }
 
   create() {
-    const gameWidth = this.sys.game.config.width;
-    const gameHeight = this.sys.game.config.height;
+    this.sceneWidth = this.sys.game.config.width;
+    this.sceneHeight = this.sys.game.config.height;
 
     // Grass
-    this.add.tileSprite(0, 0, gameWidth * 4, gameHeight * 4, 'grass').setOrigin(0).setScale(4);
+    this.add.tileSprite(0, 0, this.sceneWidth * 4, this.sceneHeight * 4, 'grass').setOrigin(0).setScale(4);
 
     // Player
     new Player(this);
 
     // Bounds and camera
-    this.cameras.main.setBounds(0, 0, gameWidth * 4, gameHeight * 4);
-    this.physics.world.setBounds(0, 0, gameWidth * 4, gameHeight * 4);
+    this.cameras.main.setBounds(0, 0, this.sceneWidth * 4, this.sceneHeight * 4);
+    this.physics.world.setBounds(0, 0, this.sceneWidth * 4, this.sceneHeight * 4);
     this.player.setCollideWorldBounds('true');
     this.cameras.main.startFollow(this.player);
 
