@@ -21,4 +21,5 @@ const config = {
   }
 };
 
-const index = new Phaser.Game(config);
+const game = new Phaser.Game(config);
+document.game = game; // for debugging

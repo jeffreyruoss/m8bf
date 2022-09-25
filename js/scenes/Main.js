@@ -1,5 +1,6 @@
 import Player from './../Player.js';
 import PlayerMovement from "./../PlayerMovement.js";
+import PlayerActions from "./../PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
 
 export default class Main extends Phaser.Scene {
@@ -8,6 +9,7 @@ export default class Main extends Phaser.Scene {
   }
 
   preload() {
+    this.time.advancedTiming = true;
     this.load.aseprite('player', './../../img/player.png', './../../img/player.json');
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
@@ -34,11 +36,13 @@ export default class Main extends Phaser.Scene {
 
     // Generate map
     this.mapGenerator = new MapGenerator(this);
+
+    // Player actions
+    this.playerActions = new PlayerActions(this);
   }
 
   update() {
     this.playerMovement.playerMove();
-    // console.log(this.game.loop.actualFps);
+    this.playerActions.collectTree();
   }
-
 }
