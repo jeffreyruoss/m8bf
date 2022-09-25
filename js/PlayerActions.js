@@ -18,6 +18,9 @@ export default class PlayerActions {
               tree.destroy();
               this.scene.player.inventory.wood += 1;
               console.log('player.inventory.wood', this.scene.player.inventory.wood);
+              this.scene.sound.play('treeFall');
+            } else {
+              this.scene.sound.play('treeChop');
             }
           }
         }
