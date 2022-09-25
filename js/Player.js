@@ -12,6 +12,7 @@ export default class Player {
     this.scene.anims.createFromAseprite('player');
     this.scene.player = this.scene.physics
       .add.sprite(this.scene.playerStartX, this.scene.playerStartY, "player")
-      .setScale(4);
+      .setScale(4)
+      .setSize(7, 11);
   }
 }
