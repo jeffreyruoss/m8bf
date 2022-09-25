@@ -18,7 +18,7 @@ export default class Main extends Phaser.Scene {
     this.sceneHeight = this.sys.game.config.height;
 
     // Grass
-    this.add.tileSprite(0, 0, this.sceneWidth * 4, this.sceneHeight * 4, 'grass').setOrigin(0).setScale(4);
+    this.add.tileSprite(0, 0, this.sceneWidth * 4, this.sceneHeight * 4, 'grass').setOrigin(0);
 
     // Player
     new Player(this);

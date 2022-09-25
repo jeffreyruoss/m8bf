@@ -5,8 +5,6 @@ const config = {
   type: Phaser.CANVAS,
   width: 1024,
   height: 800,
-  // width: 256,
-  // height: 200,
   pixelArt: true,
   // scene: [Intro, Main],
   scene: [Main, Intro],
