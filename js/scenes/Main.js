@@ -19,6 +19,8 @@ export default class Main extends Phaser.Scene {
   }
 
   create() {
+    this.cameras.main.fadeIn(1000);
+
     this.sceneWidth = this.sys.game.config.width;
     this.sceneHeight = this.sys.game.config.height;
 
