@@ -14,7 +14,14 @@ export default class Player {
       .add.sprite(this.scene.playerStartX, this.scene.playerStartY, "player")
       .setSize(32, 40);
     this.scene.player.inventory = {
-      wood: 0
+      Wood: 0,
+      Stone: 0,
+      Iron: 0,
+      Gold: 0,
+      Water: 0,
+      Berries: 0,
+      Soybeans: 0,
+      Mana: 0,
     }
   }
 }

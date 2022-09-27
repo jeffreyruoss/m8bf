@@ -48,16 +48,27 @@ export default class Main extends Phaser.Scene {
     // Player actions
     this.playerActions = new PlayerActions(this);
 
-    // get the number of wood in player inventory
-    this.woodText = this.add.text(10, 10, `Wood: ${this.player.inventory.wood}`, { fontFamily: 'vcrosdmono', fontSize: '23px', fill: '#000' });
-    this.woodText.setScrollFactor(0);
+    // UI top bar - player inventory
+    this.add.rectangle(0, 0, this.sceneWidth, 40, 0x000000)
+      .setOrigin(0).setAlpha(0.8).setScrollFactor(0);
+    this.uiItems = [];
+    for (let item in this.player.inventory) {
+      let x = this.sceneWidth / Object.keys(this.player.inventory).length * Object.keys(this.player.inventory)
+        .indexOf(item) + 15;
+      let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center" };
+      let value = this.player.inventory[item];
+      this.uiItems[`${item}`] = this.add.text(x, 12, `${item}: ${value}`, style)
+        .setScrollFactor(0);
+    }
   }
 
   update() {
     this.playerMovement.playerMove();
     this.playerActions.collectTree();
 
-    // update the number of wood in player inventory
-    this.woodText.setText(`Wood: ${this.player.inventory.wood}`);
+    // Update UI top bar with player inventory values
+    for (let item in this.player.inventory) {
+      this.uiItems[`${item}`].setText(`${item}: ${this.player.inventory[item]}`);
+    }
   }
 }
