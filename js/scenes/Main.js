@@ -58,7 +58,7 @@ export default class Main extends Phaser.Scene {
       let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center", textTransform: "uppercase" };
       let name = item.charAt(0).toUpperCase() + item.slice(1);
       let value = this.player.inventory[item];
-      this.uiItems[`${item}`] = this.add.text(x, 12, `${name} ${value}`, style)
+      this.uiItems[`${item}`] = this.add.text(x, 12, `${name}: ${value}`, style)
         .setScrollFactor(0);
     }
   }
@@ -66,12 +66,5 @@ export default class Main extends Phaser.Scene {
   update() {
     this.playerMovement.playerMove();
     this.playerActions.collectTree();
-
-    // Update UI top bar with player inventory values
-    for (let item in this.player.inventory) {
-      let name = item.charAt(0).toUpperCase() + item.slice(1);
-      let value = this.player.inventory[item];
-      this.uiItems[`${item}`].setText(`${name} ${value}`);
-    }
   }
 }

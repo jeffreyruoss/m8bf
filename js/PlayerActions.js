@@ -19,6 +19,8 @@ export default class PlayerActions {
               this.scene.player.inventory.wood += 1;
               console.log('player.inventory.wood', this.scene.player.inventory.wood);
               this.scene.sound.play('treeFall');
+            const woodUIitem = this.scene.uiItems['wood'];
+            woodUIitem.setText(`Wood: ${this.scene.player.inventory.wood}`);
             } else {
               this.scene.sound.play('treeChop');
             }
