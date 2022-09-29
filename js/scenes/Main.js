@@ -27,6 +27,14 @@ export default class Main extends Phaser.Scene {
     this.sound.add('treeChop');
     this.sound.add('treeFall');
 
+    // Register the space bar
+    this.keys = {
+      space: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE),
+    }
+
+    // Stop the space bar from propagating up to the browser
+    this.input.keyboard.addCapture(this.keys.space);
+
     // Grass
     this.add.tileSprite(0, 0, this.sceneWidth * 4, this.sceneHeight * 4, 'grass').setOrigin(0);
 
