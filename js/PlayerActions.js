@@ -1,13 +1,13 @@
 export default class PlayerActions {
   constructor(scene) {
     this.scene = scene;
-    this.spaceJustPressed = false;
+    this.treeCollectTime = 0;
   }
 
   collectTree() {
     if (this.scene.input.keyboard.checkDown(this.scene.keys.space)) {
       this.scene.trees.children.iterate((tree) => {
-        if (tree && this.spaceJustPressed === false) {
+        if (tree && this.scene.time.now > this.treeCollectTime) {
           const playerBounds = this.scene.player.getBounds();
           const treeBounds = tree.getBounds();
           if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, treeBounds)) {
@@ -21,13 +21,7 @@ export default class PlayerActions {
             } else {
               this.scene.sound.play('treeChop');
             }
-            this.spaceJustPressed = true;
-            this.scene.time.addEvent({
-              delay: 500,
-              callback: () => {
-                this.spaceJustPressed = false;
-              }
-            });
+            this.treeCollectTime = this.scene.time.now + 500;
           }
         }
       });
