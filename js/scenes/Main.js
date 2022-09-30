@@ -2,6 +2,7 @@ import Player from './../Player.js';
 import PlayerMovement from "./../PlayerMovement.js";
 import PlayerActions from "./../PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
+import UIbar from "./../UIbar.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -51,18 +52,7 @@ export default class Main extends Phaser.Scene {
     this.playerActions = new PlayerActions(this);
 
     // UI top bar - player inventory
-    this.add.rectangle(0, 0, this.sceneWidth, 40, 0x000000)
-      .setOrigin(0).setAlpha(0.8).setScrollFactor(0);
-    this.uiItems = [];
-    for (let item in this.player.inventory) {
-      let x = this.sceneWidth / Object.keys(this.player.inventory).length * Object.keys(this.player.inventory)
-        .indexOf(item) + 15;
-      let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center", textTransform: "uppercase" };
-      let name = item.charAt(0).toUpperCase() + item.slice(1);
-      let value = this.player.inventory[item];
-      this.uiItems[`${item}`] = this.add.text(x, 12, `${name}: ${value}`, style)
-        .setScrollFactor(0);
-    }
+    this.uiBar = new UIbar(this);
   }
 
   update() {
