@@ -1,47 +1,47 @@
 export default class PlayerMovement {
   constructor(scene, player) {
+    this.scene = scene;
     this.player = player;
     this.player.direction = 'down';
     this.player.velecity = 300;
-    this.keys = scene.input.keyboard.addKeys("W,A,S,D");
   }
 
   playerMove() {
     this.player.setVelocity(0);
 
-    if (this.keys.A.isDown && this.keys.W.isDown) {
+    if (this.scene.keys.A.isDown && this.scene.keys.W.isDown) {
       this.player.setVelocityX(-this.player.velecity);
       this.player.setVelocityY(-this.player.velecity);
       this.player.direction = 'left';
       this.player.anims.play('Walk left', true);
-    } else if (this.keys.A.isDown && this.keys.S.isDown) {
+    } else if (this.scene.keys.A.isDown && this.scene.keys.S.isDown) {
       this.player.setVelocityX(-this.player.velecity);
       this.player.setVelocityY(this.player.velecity);
       this.player.anims.play('Walk left', true);
       this.player.direction = 'left';
-    } else if (this.keys.D.isDown && this.keys.W.isDown) {
+    } else if (this.scene.keys.D.isDown && this.scene.keys.W.isDown) {
       this.player.setVelocityX(this.player.velecity);
       this.player.setVelocityY(-this.player.velecity);
       this.player.anims.play('Walk right', true);
       this.player.direction = 'right';
-    } else if (this.keys.D.isDown && this.keys.S.isDown) {
+    } else if (this.scene.keys.D.isDown && this.scene.keys.S.isDown) {
       this.player.setVelocityX(this.player.velecity);
       this.player.setVelocityY(this.player.velecity);
       this.player.anims.play('Walk right', true);
       this.player.direction = 'right';
-    } else if (this.keys.A.isDown) {
+    } else if (this.scene.keys.A.isDown) {
       this.player.setVelocityX(-this.player.velecity);
       this.player.play('Walk left', true);
       this.player.direction = 'left';
-    } else if (this.keys.D.isDown) {
+    } else if (this.scene.keys.D.isDown) {
       this.player.setVelocityX(this.player.velecity);
       this.player.play('Walk right', true);
       this.player.direction = 'right';
-    } else if (this.keys.W.isDown) {
+    } else if (this.scene.keys.W.isDown) {
       this.player.setVelocityY(-this.player.velecity);
       this.player.play('Walk up', true);
       this.player.direction = 'up';
-    } else if (this.keys.S.isDown) {
+    } else if (this.scene.keys.S.isDown) {
       this.player.setVelocityY(this.player.velecity);
       this.player.play('Walk down', true);
       this.player.direction = 'down';

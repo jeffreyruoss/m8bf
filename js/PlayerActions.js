@@ -5,7 +5,7 @@ export default class PlayerActions {
   }
 
   collectTree() {
-    if (this.scene.input.keyboard.checkDown(this.scene.keys.space)) {
+    if (this.scene.input.keyboard.checkDown(this.scene.keys.SPACE)) {
       this.scene.trees.children.iterate((tree) => {
         if (tree && this.scene.time.now > this.treeCollectTime) {
           const playerBounds = this.scene.player.getBounds();
