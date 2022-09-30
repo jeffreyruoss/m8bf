@@ -2,7 +2,7 @@ import Player from './../Player.js';
 import PlayerMovement from "./../PlayerMovement.js";
 import PlayerActions from "./../PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
-import UIbar from "./../UIbar.js";
+import UIBar from "./../UIBar.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -52,7 +52,7 @@ export default class Main extends Phaser.Scene {
     this.playerActions = new PlayerActions(this);
 
     // UI top bar - player inventory
-    this.uiBar = new UIbar(this);
+    this.uiBar = new UIBar(this);
   }
 
   update() {
