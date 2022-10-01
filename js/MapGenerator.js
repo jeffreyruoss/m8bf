@@ -22,6 +22,11 @@ export default class MapGenerator {
               continue;
             }
           }
+          // don't spawn the tree if it has the same x and y as an iron mine
+          let ironMine = this.scene.ironMines.getChildren().find(ironMine => ironMine.x === i && ironMine.y === j);
+          if (ironMine) {
+            continue;
+          }
           const tree = this.scene.physics.add.staticSprite(i, j, 'tree')
             .setOrigin(0, 0)
             .setOffset(treeWidth / 2, treeHeight / 2);
