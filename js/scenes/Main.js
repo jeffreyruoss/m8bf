@@ -43,7 +43,7 @@ export default class Main extends Phaser.Scene {
     this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE");
 
     // Player movement
-    this.playerMovement = new PlayerMovement(this, this.player);
+    this.playerMovement = new PlayerMovement(this);
 
     // Generate map
     this.mapGenerator = new MapGenerator(this);

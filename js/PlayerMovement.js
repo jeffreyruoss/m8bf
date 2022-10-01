@@ -1,7 +1,7 @@
 export default class PlayerMovement {
-  constructor(scene, player) {
+  constructor(scene) {
     this.scene = scene;
-    this.player = player;
+    this.player = this.scene.player;
     this.player.direction = 'down';
     this.player.velecity = 300;
   }

@@ -3,7 +3,6 @@ export default class UIbar {
     this.scene = scene;
     this.createRectangle();
     this.placeUIItems();
-
   }
 
   createRectangle() {
