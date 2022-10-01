@@ -3,6 +3,7 @@ import PlayerMovement from "./../PlayerMovement.js";
 import PlayerActions from "./../PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
 import UIBar from "./../UIBar.js";
+import CraftBox from "./../CraftBox.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -20,9 +21,12 @@ export default class Main extends Phaser.Scene {
     this.load.audio('ironMinePick', './../../sounds/sfx_sounds_button3.mp3');
     this.load.audio('ironMineCollect', './../../sounds/sfx_coin_double4.mp3');
     this.load.audio('ironMineDeplete', './../../sounds/sfx_sounds_impact11.mp3');
+    this.load.json('craft-items', './../../js/craft-items.json');
   }
 
   create() {
+    this.craftItems = this.cache.json.get('craft-items');
+
     this.allObjects = this.add.group();
     this.cameras.main.fadeIn(1000);
 
@@ -43,13 +47,21 @@ export default class Main extends Phaser.Scene {
     this.mapGenerator.generateObjects('iron-mine', 'ironMines', 0.005);
     this.mapGenerator.generateObjects('tree', 'trees', 0.07);
 
-    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE");
+    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C");
 
     this.playerMovement = new PlayerMovement(this);
 
     this.playerActions = new PlayerActions(this);
 
     new UIBar(this);
+
+    this.craftBox = new CraftBox(this);
+
+    this.keys.C.on('down', () => {
+      this.craftBox.toggleCraftBox();
+    });
+
+    // this.craftBox.createCraftBox(); // do auto-open craftbox on start for testing
   }
 
   update() {

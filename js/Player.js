@@ -22,6 +22,11 @@ export default class Player {
       berries: 0,
       soybeans: 0,
       mana: 0,
+      stoneAxe: 0,
+      ironAxe: 0,
+      stonePickaxe: 0,
+      ironPickaxe: 0,
+      hut: 0
     }
     this.scene.allObjects.add(this.scene.player);
   }

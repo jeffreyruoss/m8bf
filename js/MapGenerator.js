@@ -25,7 +25,7 @@ export default class MapGenerator {
   /**
    * Generate objects of a type on the map (trees, iron-mines, etc.)
    * @param type {string} Type of the object (tree, iron-mine, etc.)
-   * @param group {string} Name of the group to add the object to
+   * @param group {string} Name of the group (trees, ironMines, etc.)
    * @param frequency {number} How often the object should be generated (0-1 range where 1 is 100%)
    */
   generateObjects(type, group, frequency) {
