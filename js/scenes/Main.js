@@ -54,7 +54,10 @@ export default class Main extends Phaser.Scene {
 
   update() {
     this.playerMovement.playerMove();
-    this.playerActions.collectTree();
-    this.playerActions.collectIronMine();
+
+    if (this.input.keyboard.checkDown(this.keys.SPACE)) {
+      this.playerActions.collectTree();
+      this.playerActions.collectIronMine();
+    }
   }
 }
