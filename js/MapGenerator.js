@@ -35,7 +35,7 @@ export default class MapGenerator {
 
     for (let i = 0; i < this.scene.sceneWidth * 4; i += treeWidth) {
       for (let j = 0; j < this.scene.sceneHeight * 4; j += treeHeight) {
-        if (Math.random() > 0.93) {
+        if (Math.random() < 0.07) {
           // Don't spawn the mine if there is an object at the same x and y
           let object = allObjectsXY.find(object => object.x === i && object.y === j);
           if (object) {
@@ -72,7 +72,7 @@ export default class MapGenerator {
 
     for (let i = 0; i < this.scene.sceneWidth * 4; i += mineWidth) {
       for (let j = 0; j < this.scene.sceneHeight * 4; j += mineHeight) {
-        if (Math.random() > 0.995) {
+        if (Math.random() < 0.005) {
           // Don't spawn the mine if there is an object at the same x and y
           let object = allObjectsXY.find(object => object.x === i && object.y === j);
           if (object) {
