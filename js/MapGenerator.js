@@ -1,11 +1,10 @@
 export default class MapGenerator {
   constructor(scene) {
     this.scene = scene;
-    this.generateMap();
   }
 
-  generateMap() {
-    this.generateTrees();
+  generateGrass() {
+    this.scene.add.tileSprite(0, 0, this.scene.sceneWidth * 4, this.scene.sceneHeight * 4, 'grass').setOrigin(0);
   }
 
   generateTrees() {

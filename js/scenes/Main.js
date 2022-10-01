@@ -27,32 +27,26 @@ export default class Main extends Phaser.Scene {
     this.sound.add('treeChop');
     this.sound.add('treeFall');
 
-    // Grass
-    this.add.tileSprite(0, 0, this.sceneWidth * 4, this.sceneHeight * 4, 'grass').setOrigin(0);
+    this.mapGenerator = new MapGenerator(this);
 
-    // Player
+    this.mapGenerator.generateGrass();
+
     new Player(this);
 
-    // Bounds and camera
     this.cameras.main.setBounds(0, 0, this.sceneWidth * 4, this.sceneHeight * 4);
     this.physics.world.setBounds(0, 0, this.sceneWidth * 4, this.sceneHeight * 4);
     this.player.setCollideWorldBounds('true');
     this.cameras.main.startFollow(this.player);
 
-    // Keys
+    this.mapGenerator.generateTrees();
+
     this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE");
 
-    // Player movement
     this.playerMovement = new PlayerMovement(this);
 
-    // Generate map
-    this.mapGenerator = new MapGenerator(this);
-
-    // Player actions
     this.playerActions = new PlayerActions(this);
 
-    // UI top bar - player inventory
-    this.uiBar = new UIBar(this);
+    new UIBar(this);
   }
 
   update() {
