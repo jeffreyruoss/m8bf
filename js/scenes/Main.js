@@ -17,7 +17,7 @@ export default class Main extends Phaser.Scene {
     this.load.image('iron-mine', './../../img/iron-mine.png');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');
     this.load.audio('treeFall', './../../sounds/sfx_sounds_impact11.mp3');
-    this.load.audio('ironMinePick', './../../sounds/sfx_coin_single1.mp3');
+    this.load.audio('ironMinePick', './../../sounds/sfx_sounds_button3.mp3');
     this.load.audio('ironMineCollect', './../../sounds/sfx_coin_double4.mp3');
     this.load.audio('ironMineDeplete', './../../sounds/sfx_sounds_impact11.mp3');
   }
