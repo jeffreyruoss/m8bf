@@ -23,5 +23,6 @@ export default class Player {
       soybeans: 0,
       mana: 0,
     }
+    this.scene.allObjects.add(this.scene.player);
   }
 }

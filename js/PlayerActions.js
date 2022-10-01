@@ -2,6 +2,7 @@ export default class PlayerActions {
   constructor(scene) {
     this.scene = scene;
     this.treeCollectTime = 0;
+    this.ironMineCollectTime = 0;
   }
 
   collectTree() {
@@ -21,7 +22,36 @@ export default class PlayerActions {
             } else {
               this.scene.sound.play('treeChop');
             }
-            this.treeCollectTime = this.scene.time.now + 500;
+            this.treeCollectTime = this.scene.time.now + 750;
+          }
+        }
+      });
+    }
+  }
+
+  collectIronMine() {
+    if (this.scene.input.keyboard.checkDown(this.scene.keys.SPACE)) {
+      this.scene.ironMines.children.iterate((ironMine) => {
+        if (ironMine && this.scene.time.now > this.ironMineCollectTime) {
+          const playerBounds = this.scene.player.getBounds();
+          const ironMineBounds = ironMine.getBounds();
+          if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, ironMineBounds)) {
+            ironMine.picks += 1;
+            if (ironMine.picks >= 5) {
+              this.scene.player.inventory.iron += 1;
+              this.scene.sound.play('ironMineCollect');
+              const ironUIitem = this.scene.uiItems['iron'];
+              ironUIitem.setText(`Iron: ${this.scene.player.inventory.iron}`);
+              ironMine.picks = 0;
+              ironMine.iron -= 1;
+              if (ironMine.iron <= 0) {
+                ironMine.destroy();
+                this.scene.sound.play('ironMineDeplete');
+              }
+            } else {
+              this.scene.sound.play('ironMinePick');
+            }
+            this.ironMineCollectTime = this.scene.time.now + 750;
           }
         }
       });

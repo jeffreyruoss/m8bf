@@ -14,18 +14,20 @@ export default class Main extends Phaser.Scene {
     this.load.aseprite('player', './../../img/player.png', './../../img/player.json');
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
+    this.load.image('iron-mine', './../../img/iron-mine.png');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');
     this.load.audio('treeFall', './../../sounds/sfx_sounds_impact11.mp3');
+    this.load.audio('ironMinePick', './../../sounds/sfx_coin_single1.mp3');
+    this.load.audio('ironMineCollect', './../../sounds/sfx_coin_double4.mp3');
+    this.load.audio('ironMineDeplete', './../../sounds/sfx_sounds_impact11.mp3');
   }
 
   create() {
+    this.allObjects = this.add.group();
     this.cameras.main.fadeIn(1000);
 
     this.sceneWidth = this.sys.game.config.width;
     this.sceneHeight = this.sys.game.config.height;
-
-    this.sound.add('treeChop');
-    this.sound.add('treeFall');
 
     this.mapGenerator = new MapGenerator(this);
 
@@ -39,6 +41,7 @@ export default class Main extends Phaser.Scene {
     this.cameras.main.startFollow(this.player);
 
     this.mapGenerator.generateTrees();
+    this.mapGenerator.generateIronMines();
 
     this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE");
 
@@ -52,5 +55,6 @@ export default class Main extends Phaser.Scene {
   update() {
     this.playerMovement.playerMove();
     this.playerActions.collectTree();
+    this.playerActions.collectIronMine();
   }
 }
