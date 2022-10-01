@@ -40,8 +40,8 @@ export default class Main extends Phaser.Scene {
     this.player.setCollideWorldBounds('true');
     this.cameras.main.startFollow(this.player);
 
-    this.mapGenerator.generateIronMines();
-    this.mapGenerator.generateTrees();
+    this.mapGenerator.generateObjects('iron-mine', 'ironMines', 0.005);
+    this.mapGenerator.generateObjects('tree', 'trees', 0.07);
 
     this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE");
 

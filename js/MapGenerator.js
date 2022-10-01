@@ -22,78 +22,54 @@ export default class MapGenerator {
     this.scene.add.tileSprite(0, 0, this.scene.sceneWidth * 4, this.scene.sceneHeight * 4, 'grass').setOrigin(0);
   }
 
-  generateTrees() {
-    const treeWidth = this.scene.textures.get('tree').getSourceImage().width;
-    const treeHeight = this.scene.textures.get('tree').getSourceImage().height;
+  /**
+   * Generate objects of a type on the map (trees, iron-mines, etc.)
+   * @param type {string} Type of the object (tree, iron-mine, etc.)
+   * @param group {string} Name of the group to add the object to
+   * @param frequency {number} How often the object should be generated (0-1 range where 1 is 100%)
+   */
+  generateObjects(type, group, frequency) {
+    const width = this.scene.textures.get(type).getSourceImage().width;
+    const height = this.scene.textures.get(type).getSourceImage().height;
 
-    this.scene.trees = this.scene.physics.add.staticGroup();
-
-    const allObjectsXY = this.getAllObjectsXY();
-
-    const playerX = this.scene.player.x;
-    const playerY = this.scene.player.y;
-
-    for (let i = 0; i < this.scene.sceneWidth * 4; i += treeWidth) {
-      for (let j = 0; j < this.scene.sceneHeight * 4; j += treeHeight) {
-        if (Math.random() < 0.07) {
-          // Don't spawn the mine if there is an object at the same x and y
-          let object = allObjectsXY.find(object => object.x === i && object.y === j);
-          if (object) {
-            continue;
-          }
-          // Don't spawn the tree on the player
-          if (i < playerX + 50 && i > playerX - 50) {
-            if (j < playerY + 50 && j > playerY - 50) {
-              continue;
-            }
-          }
-          const tree = this.scene.physics.add.staticSprite(i, j, 'tree')
-            .setOrigin(0, 0)
-            .setOffset(treeWidth / 2, treeHeight / 2);
-          tree.chops = 0;
-          this.scene.trees.add(tree);
-          this.scene.allObjects.add(tree);
-        }
-      }
-    }
-    this.scene.physics.add.collider(this.scene.player, this.scene.trees);
-  }
-
-  generateIronMines() {
-    const mineWidth = this.scene.textures.get('iron-mine').getSourceImage().width;
-    const mineHeight = this.scene.textures.get('iron-mine').getSourceImage().height;
-
-    this.scene.ironMines = this.scene.physics.add.staticGroup();
+    this.scene[group] = this.scene.physics.add.staticGroup();
 
     const allObjectsXY = this.getAllObjectsXY();
 
     const playerX = this.scene.player.x;
     const playerY = this.scene.player.y;
 
-    for (let i = 0; i < this.scene.sceneWidth * 4; i += mineWidth) {
-      for (let j = 0; j < this.scene.sceneHeight * 4; j += mineHeight) {
-        if (Math.random() < 0.005) {
-          // Don't spawn the mine if there is an object at the same x and y
-          let object = allObjectsXY.find(object => object.x === i && object.y === j);
-          if (object) {
+    let obj;
+
+    for (let i = 0; i < this.scene.sceneWidth * 4; i += width) {
+      for (let j = 0; j < this.scene.sceneHeight * 4; j += height) {
+        if (Math.random() < frequency) {
+          // Don't spawn the object if there is an object at the same x and y
+          obj = allObjectsXY.find(object => object.x === i && object.y === j);
+          if (obj) {
             continue;
           }
-          // Don't spawn the iron mine on the player
+
+          // Don't spawn the object on the player
           if (i < playerX + 50 && i > playerX - 50) {
             if (j < playerY + 50 && j > playerY - 50) {
               continue;
             }
           }
-          const ironMine = this.scene.physics.add.staticSprite(i, j, 'iron-mine')
+          const object = this.scene.physics.add.staticSprite(i, j, type)
             .setOrigin(0, 0)
-            .setOffset(mineWidth / 2, mineHeight / 2);
-          ironMine.picks = 0;
-          ironMine.iron = 3;
-          this.scene.ironMines.add(ironMine);
-          this.scene.allObjects.add(ironMine);
+            .setOffset(width / 2, height / 2);
+          if (type === 'tree') {
+            object.chops = 0;
+          } else if (type === 'iron-mine') {
+            object.picks = 0;
+            object.iron = 3;
+          }
+          this.scene[group].add(object);
+          this.scene.allObjects.add(object);
         }
       }
     }
-    this.scene.physics.add.collider(this.scene.player, this.scene.ironMines);
+    this.scene.physics.add.collider(this.scene.player, this.scene[group]);
   }
 }
