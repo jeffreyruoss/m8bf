@@ -1,6 +1,21 @@
 export default class MapGenerator {
   constructor(scene) {
     this.scene = scene;
+    this.allObjectsXY = [];
+  }
+
+  /**
+   * Get all objects' x and y coordinates
+   * Used to check if there is an object at the same x and y (faster than iterating through the actual objects)
+   * @returns {Array} Array of objects with x and y coordinates
+   * @memberof MapGenerator
+   */
+  getAllObjectsXY() {
+    this.scene.allObjects.getChildren().forEach(object => {
+      this.allObjectsXY.push({ x: object.x, y: object.y });
+    });
+    return this.allObjectsXY;
+
   }
 
   generateGrass() {
@@ -13,19 +28,24 @@ export default class MapGenerator {
 
     this.scene.trees = this.scene.physics.add.staticGroup();
 
+    const allObjectsXY = this.getAllObjectsXY();
+
+    const playerX = this.scene.player.x;
+    const playerY = this.scene.player.y;
+
     for (let i = 0; i < this.scene.sceneWidth * 4; i += treeWidth) {
       for (let j = 0; j < this.scene.sceneHeight * 4; j += treeHeight) {
         if (Math.random() > 0.93) {
+          // Don't spawn the mine if there is an object at the same x and y
+          let object = allObjectsXY.find(object => object.x === i && object.y === j);
+          if (object) {
+            continue;
+          }
           // Don't spawn the tree on the player
-          if (i < this.scene.player.x + 100 && i > this.scene.player.x - 100) {
-            if (j < this.scene.player.y + 100 && j > this.scene.player.y - 100) {
+          if (i < playerX + 50 && i > playerX - 50) {
+            if (j < playerY + 50 && j > playerY - 50) {
               continue;
             }
-          }
-          // don't spawn the tree if it has the same x and y as an iron mine
-          let ironMine = this.scene.ironMines.getChildren().find(ironMine => ironMine.x === i && ironMine.y === j);
-          if (ironMine) {
-            continue;
           }
           const tree = this.scene.physics.add.staticSprite(i, j, 'tree')
             .setOrigin(0, 0)
@@ -45,12 +65,22 @@ export default class MapGenerator {
 
     this.scene.ironMines = this.scene.physics.add.staticGroup();
 
+    const allObjectsXY = this.getAllObjectsXY();
+
+    const playerX = this.scene.player.x;
+    const playerY = this.scene.player.y;
+
     for (let i = 0; i < this.scene.sceneWidth * 4; i += mineWidth) {
       for (let j = 0; j < this.scene.sceneHeight * 4; j += mineHeight) {
         if (Math.random() > 0.995) {
+          // Don't spawn the mine if there is an object at the same x and y
+          let object = allObjectsXY.find(object => object.x === i && object.y === j);
+          if (object) {
+            continue;
+          }
           // Don't spawn the iron mine on the player
-          if (i < this.scene.player.x + 100 && i > this.scene.player.x - 100) {
-            if (j < this.scene.player.y + 100 && j > this.scene.player.y - 100) {
+          if (i < playerX + 50 && i > playerX - 50) {
+            if (j < playerY + 50 && j > playerY - 50) {
               continue;
             }
           }
