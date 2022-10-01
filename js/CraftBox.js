@@ -44,29 +44,24 @@ export default class CraftBox {
   }
 
   createCraftBoxRecipes() {
-    const craftItems = this.scene.craftItems;
-    for (let item in craftItems) {
-      const name = craftItems[item].name;
-      const description = craftItems[item].description;
-      const recipe = craftItems[item].recipe;
+    const items = this.scene.items;
+    for (let item in items) {
+      const name = items[item].name;
+      const description = items[item].description;
+      const recipe = items[item].recipe;
       let recipeString = "";
       for (let ingredients in recipe) {
         const ingredient = recipe[ingredients];
         for (let val in ingredient) {
-          const incredientName = val;
-          const incredientValue = ingredient[val];
-          recipeString += `${incredientName}: ${incredientValue} `;
+          const ingredientName = val;
+          const ingredientValue = ingredient[val];
+          recipeString += `${ingredientName}: ${ingredientValue} `;
         }
       }
       let x = 200;
-      let y = 80 + 30 * Object.keys(craftItems).indexOf(item);
+      let y = 80 + 30 * Object.keys(items).indexOf(item);
       let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center", textTransform: "uppercase" };
       this.scene.craftBoxItems.add(this.scene.add.text(x, y, `${name}: ${description} = ${recipeString}`, style).setScrollFactor(0));
     }
-
-
-
   }
-
-
 }

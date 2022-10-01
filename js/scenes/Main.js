@@ -21,11 +21,11 @@ export default class Main extends Phaser.Scene {
     this.load.audio('ironMinePick', './../../sounds/sfx_sounds_button3.mp3');
     this.load.audio('ironMineCollect', './../../sounds/sfx_coin_double4.mp3');
     this.load.audio('ironMineDeplete', './../../sounds/sfx_sounds_impact11.mp3');
-    this.load.json('craft-items', './../../js/craft-items.json');
+    this.load.json('items', './../../js/items.json');
   }
 
   create() {
-    this.craftItems = this.cache.json.get('craft-items');
+    this.items = this.cache.json.get('items');
 
     this.allObjects = this.add.group();
     this.cameras.main.fadeIn(1000);
