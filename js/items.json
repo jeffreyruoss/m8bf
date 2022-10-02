@@ -1,48 +1,41 @@
-[
-  {
-    "key": "stone-axe",
+{
+  "stoneAxe": {
     "name": "Stone Axe",
-    "description": "Speed up chopping of trees",
-    "recipe": [
-      {"wood":  1},
-      {"stone": 1}
-    ]
+    "description": "Speed up chopping of trees.",
+    "recipe": {
+      "wood": 1,
+      "stone": 1
+    }
   },
-  {
-    "key": "iron-axe",
-    "name": "Iron Axe",
-    "description": "Speed up chopping of trees",
-    "recipe": [
-      {"wood":  1},
-      {"iron": 1}
-    ]
-  },
-  {
-    "key": "stone-pickaxe",
+  "stonePickaxe": {
     "name": "Stone Pickaxe",
-    "description": "Speed up mining",
-    "recipe": [
-      {"wood":  1},
-      {"stone": 1}
-    ]
+    "description": "Speeding up mining.",
+    "recipe": {
+      "wood": 1,
+      "stone": 1
+    }
   },
-  {
-    "key": "iron-pickaxe",
+  "ironAxe": {
+    "name": "Iron Axe",
+    "description": "Speed up chopping of trees.",
+    "recipe": {
+      "wood": 1,
+      "iron": 1
+    }
+  },
+  "ironPickaxe": {
     "name": "Iron Pickaxe",
-    "description": "Speed up mining",
-    "recipe": [
-      {"wood":  1},
-      {"iron": 1}
-    ]
+    "description": "Speeding up mining.",
+    "recipe": {
+      "wood": 1,
+      "iron": 1
+    }
   },
-  {
-    "key": "hut",
+  "hut": {
     "name": "Hut",
-    "description": "A place to live",
-    "recipe": [
-      {"grass":  10},
-      {"mud": 5}
-    ]
+    "description": "A place to live.",
+    "recipe": {
+      "wood": 1
+    }
   }
-
-]
+}
