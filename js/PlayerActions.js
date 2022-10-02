@@ -19,7 +19,11 @@ export default class PlayerActions {
           } else {
             this.scene.sound.play('treeChop');
           }
-          this.treeCollectTime = this.scene.time.now + this.scene.player.attributes.treeCollectionSpeed;
+          let collectionSpeed = this.scene.player.attributes.treeCollectionSpeed
+          if (this.scene.player.inventory.stoneAxe > 0) {
+            collectionSpeed -= this.scene.items.stoneAxe.effects.addTreeCollectionSpeed;
+          }
+          this.treeCollectTime = this.scene.time.now + collectionSpeed;
         }
       }
     });

@@ -5,6 +5,9 @@
     "recipe": {
       "wood": 1,
       "stone": 1
+    },
+    "effects": {
+      "addTreeCollectionSpeed": 300
     }
   },
   "stonePickaxe": {
