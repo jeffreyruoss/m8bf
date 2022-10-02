@@ -17,6 +17,11 @@ export default class CraftBox {
     }
   }
 
+  updateCraftBox() {
+    this.scene.craftBox.toggleCraftBox();
+    this.scene.craftBox.toggleCraftBox();
+  }
+
   createCraftBox() {
     this.createCraftBoxRectangle();
     this.createCraftBoxInventory();

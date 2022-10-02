@@ -21,6 +21,7 @@ export default class Main extends Phaser.Scene {
     this.load.audio('ironMinePick', './../../sounds/sfx_sounds_button3.mp3');
     this.load.audio('ironMineCollect', './../../sounds/sfx_coin_double4.mp3');
     this.load.audio('ironMineDeplete', './../../sounds/sfx_sounds_impact11.mp3');
+    this.load.audio('craft', './../../sounds/sfx_coin_cluster3.mp3');
     this.load.json('items', './../../js/items.json');
   }
 
@@ -56,6 +57,7 @@ export default class Main extends Phaser.Scene {
     this.craft = new Craft(this);
 
     this.craftBox = new CraftBox(this);
+
 
     this.keys.C.on('down', () => {
       this.craftBox.toggleCraftBox();
