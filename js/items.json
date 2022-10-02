@@ -16,6 +16,9 @@
     "recipe": {
       "wood": 1,
       "stone": 1
+    },
+    "effects": {
+      "addOreCollectionSpeed": 300
     }
   },
   "ironAxe": {
@@ -24,6 +27,9 @@
     "recipe": {
       "wood": 1,
       "iron": 1
+    },
+    "effects": {
+      "addTreeCollectionSpeed": 600
     }
   },
   "ironPickaxe": {
@@ -32,6 +38,9 @@
     "recipe": {
       "wood": 1,
       "iron": 1
+    },
+    "effects": {
+      "addOreCollectionSpeed": 600
     }
   },
   "hut": {
