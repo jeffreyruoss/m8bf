@@ -6,13 +6,7 @@ export default class Craft {
   craftItem(itemName, itemObj) {
     let playerInventory = this.scene.player.inventory;
     let recipe = itemObj.recipe;
-    let enoughResources = true;
-    for (let resource in recipe) {
-      if (playerInventory[resource] < recipe[resource]) {
-        enoughResources = false;
-      }
-    }
-    if (enoughResources) {
+    if (this.isEnoughResources(itemObj)) {
       for (let resource in recipe) {
         playerInventory[resource] -= recipe[resource];
       }
@@ -23,5 +17,17 @@ export default class Craft {
     } else {
       console.log("not enough resources");
     }
+  }
+
+  isEnoughResources(itemObj) {
+    let playerInventory = this.scene.player.inventory;
+    let recipe = itemObj.recipe;
+    let enoughResources = true;
+    for (let resource in recipe) {
+      if (playerInventory[resource] < recipe[resource] || playerInventory[resource] === undefined) {
+        enoughResources = false;
+      }
+    }
+    return enoughResources;
   }
 }

@@ -69,16 +69,27 @@ export default class CraftBox {
         .setOrigin(0)
         .setAlpha(0.4)
         .setScrollFactor(0));
+      let buttonColor, buttonTextColor, alpha;
+      if (this.scene.craft.isEnoughResources(items[item])) {
+        buttonColor = "#0049b6";
+        buttonTextColor = "#ffffff";
+        alpha = 0.8;
+      } else {
+        buttonColor = "#bdbdbd";
+        buttonTextColor = "#3d3d3d";
+        alpha = 0.1;
+      }
+      buttonColor = buttonColor.replace("#", "0x");
       this.scene.craftBoxItems.add(this.scene.add
-        .rectangle(x + 15, y + 15, 80, 45, 0x333333)
+        .rectangle(x + 15, y + 15, 80, 45, buttonColor)
         .setOrigin(0)
-        .setAlpha(0.8)
-        .setScrollFactor(0));
+        .setAlpha(alpha)
+        .setScrollFactor(0)
+        .setInteractive()
+        .on("pointerdown", () => this.scene.craft.craftItem(item, items[item])));
       this.scene.craftBoxItems.add(this.scene.add
-          .text(x + 30, y + 30, 'CRAFT', style)
-          .setScrollFactor(0)
-          .setInteractive()
-          .on("pointerdown", () => this.scene.craft.craftItem(item, items[item])));
+          .text(x + 30, y + 30, 'CRAFT', { font: "17px vcrosdmono", fill: buttonTextColor, align: "center"})
+          .setScrollFactor(0));
       this.scene.craftBoxItems.add(this.scene.add
         .text(x + 115, y + 15 , name, style)
         .setScrollFactor(0));
