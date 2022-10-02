@@ -28,6 +28,11 @@ export default class Player {
       ironPickaxe: 0,
       hut: 0
     }
+    this.scene.player.attributes = {
+      movementSpeed: 300,
+      treeCollectionSpeed: 750,
+      mineCollectionSpeed: 750
+    }
     this.scene.allObjects.add(this.scene.player);
   }
 }

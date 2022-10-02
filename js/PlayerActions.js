@@ -19,7 +19,7 @@ export default class PlayerActions {
           } else {
             this.scene.sound.play('treeChop');
           }
-          this.treeCollectTime = this.scene.time.now + 750;
+          this.treeCollectTime = this.scene.time.now + this.scene.player.attributes.treeCollectionSpeed;
         }
       }
     });
@@ -44,7 +44,7 @@ export default class PlayerActions {
           } else {
             this.scene.sound.play('ironMinePick');
           }
-          this.ironMineCollectTime = this.scene.time.now + 750;
+          this.ironMineCollectTime = this.scene.time.now + this.scene.player.attributes.treeCollectionSpeed;
         }
       }
     });
