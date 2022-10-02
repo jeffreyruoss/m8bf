@@ -25,7 +25,7 @@ export default class CraftBox {
 
   createCraftBoxRectangle() {
     this.scene.craftBox.box = this.scene.add
-      .rectangle(20, 60, this.scene.sceneWidth - 40, this.scene.sceneHeight - 100, 0x000000)
+      .rectangle(30, 30, this.scene.sceneWidth - 60, this.scene.sceneHeight - 60, 0x000000)
       .setOrigin(0)
       .setAlpha(0.8)
       .setScrollFactor(0);
@@ -34,8 +34,8 @@ export default class CraftBox {
   createCraftBoxInventory() {
     const playerInventory = this.scene.player.inventory;
     for (let item in playerInventory) {
-      let x = 40;
-      let y = 80 + 30 * Object.keys(playerInventory).indexOf(item);
+      let x = 60;
+      let y = 60 + 30 * Object.keys(playerInventory).indexOf(item);
       let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center", textTransform: "uppercase" };
       let name = item.charAt(0).toUpperCase() + item.slice(1);
       let value = playerInventory[item];
@@ -55,10 +55,37 @@ export default class CraftBox {
         recipeArray.push(`${property}: ${recipeObj[property]}`);
       }
       recipe = recipeArray.join(" / ");
-      let x = 200;
-      let y = 80 + 30 * Object.keys(items).indexOf(item);
-      let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center", textTransform: "uppercase" };
-      this.scene.craftBoxItems.add(this.scene.add.text(x, y, `${name}: ${description} = ${recipe}`, style).setScrollFactor(0));
+      recipe = recipe.replace(/\b\w/g, l => l.toUpperCase());
+      let x = 250;
+      let y = 60 + 100 * Object.keys(items).indexOf(item);
+      let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center"};
+      this.scene.craftBoxItems.add(this.scene.add
+        .rectangle(x, y, 710, 75, 0x000000)
+        .setOrigin(0)
+        .setAlpha(0.4)
+        .setScrollFactor(0));
+      this.scene.craftBoxItems.add(this.scene.add
+        .rectangle(x + 15, y + 15, 80, 45, 0x333333)
+        .setOrigin(0)
+        .setAlpha(0.8)
+        .setScrollFactor(0));
+      this.scene.craftBoxItems.add(this.scene.add
+          .text(x + 30, y + 30, 'CRAFT', style)
+          .setScrollFactor(0)
+          .setInteractive()
+          .on("pointerdown", () => {
+            console.log("clicked craft item button");
+            console.log(item);
+          }));
+      this.scene.craftBoxItems.add(this.scene.add
+        .text(x + 115, y + 15 , name, style)
+        .setScrollFactor(0));
+      this.scene.craftBoxItems.add(this.scene.add
+        .text(x + 315, y + 15, recipe, style)
+        .setScrollFactor(0));
+      this.scene.craftBoxItems.add(this.scene.add
+        .text(x + 115, y + 45, description, style)
+        .setScrollFactor(0));
     }
   }
 }

@@ -15,7 +15,6 @@ export default class MapGenerator {
       this.allObjectsXY.push({ x: object.x, y: object.y });
     });
     return this.allObjectsXY;
-
   }
 
   generateGrass() {

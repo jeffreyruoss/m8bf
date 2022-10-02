@@ -35,7 +35,9 @@
     "name": "Hut",
     "description": "A place to live.",
     "recipe": {
-      "wood": 1
+      "grass": 10,
+      "wood": 5,
+      "mud": 10
     }
   }
 }
