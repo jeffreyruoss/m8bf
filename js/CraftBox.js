@@ -73,10 +73,7 @@ export default class CraftBox {
           .text(x + 30, y + 30, 'CRAFT', style)
           .setScrollFactor(0)
           .setInteractive()
-          .on("pointerdown", () => {
-            console.log("clicked craft item button");
-            console.log(item);
-          }));
+          .on("pointerdown", () => this.scene.craft.craftItem(item, items[item])));
       this.scene.craftBoxItems.add(this.scene.add
         .text(x + 115, y + 15 , name, style)
         .setScrollFactor(0));

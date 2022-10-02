@@ -3,6 +3,7 @@ import PlayerMovement from "./../PlayerMovement.js";
 import PlayerActions from "./../PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
 import CraftBox from "./../CraftBox.js";
+import Craft from "./../Craft.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -51,6 +52,8 @@ export default class Main extends Phaser.Scene {
     this.playerMovement = new PlayerMovement(this);
 
     this.playerActions = new PlayerActions(this);
+
+    this.craft = new Craft(this);
 
     this.craftBox = new CraftBox(this);
 
