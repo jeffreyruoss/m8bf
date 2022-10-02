@@ -16,8 +16,6 @@ export default class PlayerActions {
             tree.destroy();
             this.scene.player.inventory.wood += 1;
             this.scene.sound.play('treeFall');
-            const woodUIitem = this.scene.uiItems['wood'];
-            woodUIitem.setText(`Wood: ${this.scene.player.inventory.wood}`);
           } else {
             this.scene.sound.play('treeChop');
           }
@@ -37,8 +35,6 @@ export default class PlayerActions {
           if (ironMine.picks >= 5) {
             this.scene.player.inventory.iron += 1;
             this.scene.sound.play('ironMineCollect');
-            const ironUIitem = this.scene.uiItems['iron'];
-            ironUIitem.setText(`Iron: ${this.scene.player.inventory.iron}`);
             ironMine.picks = 0;
             ironMine.iron -= 1;
             if (ironMine.iron <= 0) {
