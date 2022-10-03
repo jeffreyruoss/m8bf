@@ -26,14 +26,14 @@ export default class CraftBox {
     this.createCraftBoxRectangle();
     this.createCraftBoxInventory();
     this.createCraftBoxRecipes();
+    this.scene.craftBoxItems.children.each(item => item.setScrollFactor(0).setOrigin(0));
   }
 
   createCraftBoxRectangle() {
     this.scene.craftBox.box = this.scene.add
       .rectangle(30, 30, this.scene.sceneWidth - 60, this.scene.sceneHeight - 60, 0x000000)
-      .setOrigin(0)
-      .setAlpha(0.8)
-      .setScrollFactor(0);
+      .setAlpha(0.9);
+    this.scene.craftBoxItems.add(this.scene.craftBox.box);
   }
 
   createCraftBoxInventory() {
@@ -44,7 +44,7 @@ export default class CraftBox {
       let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center", textTransform: "uppercase" };
       let name = item.charAt(0).toUpperCase() + item.slice(1);
       let value = playerInventory[item];
-      this.scene.craftBoxItems.add(this.scene.add.text(x, y, `${name}: ${value}`, style).setScrollFactor(0));
+      this.scene.craftBoxItems.add(this.scene.add.text(x, y, `${name}: ${value}`, style));
     }
   }
 
@@ -61,44 +61,39 @@ export default class CraftBox {
       }
       recipe = recipeArray.join(" / ");
       recipe = recipe.replace(/\b\w/g, l => l.toUpperCase());
-      let x = 250;
-      let y = 60 + 100 * Object.keys(items).indexOf(item);
-      let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center"};
-      this.scene.craftBoxItems.add(this.scene.add
-        .rectangle(x, y, 710, 75, 0x000000)
-        .setOrigin(0)
-        .setAlpha(0.4)
-        .setScrollFactor(0));
-      let buttonColor, buttonTextColor, alpha;
-      if (this.scene.craft.isEnoughResources(items[item])) {
+      let boxColor, buttonColor, buttonTextColor, textColor;
+      const isEnoughResources = this.scene.craft.isEnoughResources(items[item]);
+      if (isEnoughResources) {
+        boxColor = "#131e2f";
         buttonColor = "#0049b6";
         buttonTextColor = "#ffffff";
-        alpha = 0.8;
+        textColor = "#ffffff";
       } else {
-        buttonColor = "#bdbdbd";
-        buttonTextColor = "#3d3d3d";
-        alpha = 0.1;
+        boxColor = "#191b1e";
+        buttonColor = "#24282d";
+        buttonTextColor = "#4d5157";
+        textColor = "#aaaaaa";
       }
       buttonColor = buttonColor.replace("#", "0x");
+      let x = 250;
+      let y = 60 + 100 * Object.keys(items).indexOf(item);
+      boxColor = parseInt(boxColor.replace("#", "0x"));
       this.scene.craftBoxItems.add(this.scene.add
-        .rectangle(x + 15, y + 15, 80, 45, buttonColor)
-        .setOrigin(0)
-        .setAlpha(alpha)
-        .setScrollFactor(0)
-        .setInteractive()
-        .on("pointerdown", () => this.scene.craft.craftItem(item, items[item])));
+        .rectangle(x, y, 710, 75, boxColor));
+      if (isEnoughResources) {
+        this.scene.craftBoxItems.add(this.scene.add
+          .rectangle(x + 15, y + 15, 80, 45, buttonColor)
+          .setInteractive()
+          .on("pointerdown", () => this.scene.craft.craftItem(item, items[item])));
+        this.scene.craftBoxItems.add(this.scene.add
+          .text(x + 30, y + 30, 'CRAFT', { font: "17px vcrosdmono", fill: buttonTextColor}));
+      }
       this.scene.craftBoxItems.add(this.scene.add
-          .text(x + 30, y + 30, 'CRAFT', { font: "17px vcrosdmono", fill: buttonTextColor, align: "center"})
-          .setScrollFactor(0));
+        .text(x + 115, y + 15 , name, {font: "22px vcrosdmono", fill: textColor}));
       this.scene.craftBoxItems.add(this.scene.add
-        .text(x + 115, y + 15 , name, style)
-        .setScrollFactor(0));
+        .text(x + 315, y + 15, recipe, {font: "17px vcrosdmono", fill: textColor}));
       this.scene.craftBoxItems.add(this.scene.add
-        .text(x + 315, y + 15, recipe, style)
-        .setScrollFactor(0));
-      this.scene.craftBoxItems.add(this.scene.add
-        .text(x + 115, y + 45, description, style)
-        .setScrollFactor(0));
+        .text(x + 115, y + 45, description, {font: "17px vcrosdmono", fill: textColor}));
     }
   }
 }
