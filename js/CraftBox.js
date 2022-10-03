@@ -61,39 +61,24 @@ export default class CraftBox {
       }
       recipe = recipeArray.join(" / ");
       recipe = recipe.replace(/\b\w/g, l => l.toUpperCase());
-      let boxColor, buttonColor, buttonTextColor, textColor;
-      const isEnoughResources = this.scene.craft.isEnoughResources(items[item]);
-      if (isEnoughResources) {
-        boxColor = "#131e2f";
-        buttonColor = "#0049b6";
-        buttonTextColor = "#ffffff";
-        textColor = "#ffffff";
-      } else {
-        boxColor = "#191b1e";
-        buttonColor = "#24282d";
-        buttonTextColor = "#4d5157";
-        textColor = "#aaaaaa";
-      }
-      buttonColor = buttonColor.replace("#", "0x");
       let x = 250;
       let y = 60 + 100 * Object.keys(items).indexOf(item);
-      boxColor = parseInt(boxColor.replace("#", "0x"));
-      this.scene.craftBoxItems.add(this.scene.add
-        .rectangle(x, y, 710, 75, boxColor));
+      const isEnoughResources = this.scene.craft.isEnoughResources(items[item]);
+      let boxColor = isEnoughResources ? 0x131e2f : 0x191b1e;
+      this.scene.craftBoxItems.add(this.scene.add.rectangle(x, y, 710, 75, boxColor));
       if (isEnoughResources) {
-        this.scene.craftBoxItems.add(this.scene.add
-          .rectangle(x + 15, y + 15, 80, 45, buttonColor)
+        this.scene.craftBoxItems.add(this.scene.add.rectangle(x + 15, y + 15, 80, 45, 0x0049b6)
           .setInteractive()
           .on("pointerdown", () => this.scene.craft.craftItem(item, items[item])));
         this.scene.craftBoxItems.add(this.scene.add
-          .text(x + 30, y + 30, 'CRAFT', { font: "17px vcrosdmono", fill: buttonTextColor}));
+          .text(x + 30, y + 30, 'CRAFT', { font: "17px vcrosdmono", fill: "#ffffff"}));
       }
       this.scene.craftBoxItems.add(this.scene.add
-        .text(x + 115, y + 15 , name, {font: "22px vcrosdmono", fill: textColor}));
+        .text(x + 115, y + 15 , name, {font: "22px vcrosdmono", fill: "#ffffff"}));
       this.scene.craftBoxItems.add(this.scene.add
-        .text(x + 315, y + 15, recipe, {font: "17px vcrosdmono", fill: textColor}));
+        .text(x + 315, y + 15, recipe, {font: "17px vcrosdmono", fill: "#ffffff"}));
       this.scene.craftBoxItems.add(this.scene.add
-        .text(x + 115, y + 45, description, {font: "17px vcrosdmono", fill: textColor}));
+        .text(x + 115, y + 45, description, {font: "17px vcrosdmono", fill: "#ffffff"}));
     }
   }
 }
