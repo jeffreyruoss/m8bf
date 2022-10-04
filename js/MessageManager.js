@@ -19,7 +19,10 @@ export default class MessageManager {
     this.scene.tweens.add({targets: message.message, y: message.message.y - 30, duration: 300,});
     this.messages.push(message);
     setTimeout(() => {
-      this.destroyMessage(message);
+      this.scene.tweens.add({targets: message.message, alpha: 0, duration: 300,});
+      setTimeout(() => {
+        this.destroyMessage(message);
+      }, 300);
     }, 2000);
   }
 
