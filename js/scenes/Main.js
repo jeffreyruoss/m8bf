@@ -4,6 +4,7 @@ import PlayerActions from "./../PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
 import CraftBox from "./../CraftBox.js";
 import Craft from "./../Craft.js";
+import MessageManager from "./../MessageManager.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -60,6 +61,8 @@ export default class Main extends Phaser.Scene {
     this.keys.C.on('down', () => this.craftBox.toggleCraftBox() );
     this.keys.ESC.on('down', () => !this.craftBox.open || this.craftBox.toggleCraftBox() );
     // this.craftBox.createCraftBox(); // do auto-open craftbox on start for testing
+
+    this.MessageManager = new MessageManager(this);
   }
 
   update() {
