@@ -48,7 +48,7 @@ export default class Main extends Phaser.Scene {
     this.mapGenerator.generateObjects('iron-mine', 'ironMines', 0.005);
     this.mapGenerator.generateObjects('tree', 'trees', 0.07);
 
-    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C");
+    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,ESC");
 
     this.playerMovement = new PlayerMovement(this);
 
@@ -57,12 +57,8 @@ export default class Main extends Phaser.Scene {
     this.craft = new Craft(this);
 
     this.craftBox = new CraftBox(this);
-
-
-    this.keys.C.on('down', () => {
-      this.craftBox.toggleCraftBox();
-    });
-
+    this.keys.C.on('down', () => this.craftBox.toggleCraftBox() );
+    this.keys.ESC.on('down', () => !this.craftBox.open || this.craftBox.toggleCraftBox() );
     // this.craftBox.createCraftBox(); // do auto-open craftbox on start for testing
   }
 
