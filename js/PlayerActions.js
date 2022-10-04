@@ -15,8 +15,8 @@ export default class PlayerActions {
           if (tree.chops >= 5) {
             tree.destroy();
             this.scene.player.inventory.wood += 1;
-            this.scene.MessageManager.createMessage(tree.x, tree.y, '+1 Wood', { color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
             this.scene.sound.play('treeFall');
+            this.scene.MessageManager.createMessage(tree.x, tree.y, '+1 Wood', { color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
           } else {
             this.scene.sound.play('treeChop');
           }
@@ -39,14 +39,18 @@ export default class PlayerActions {
           ironMine.picks += 1;
           if (ironMine.picks >= 5) {
             this.scene.player.inventory.iron += 1;
-            this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, '+1 Iron', { color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
             this.scene.sound.play('ironMineCollect');
+            const style = { color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
+            this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, '+1 Iron', style);
             ironMine.picks = 0;
             ironMine.iron -= 1;
             if (ironMine.iron <= 0) {
               ironMine.destroy();
-              this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, 'Iron deposit is depleted', { color: '#ac3232', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
               this.scene.sound.play('ironMineDeplete');
+              this.scene.time.delayedCall(300, () => {
+                const style = { color: '#ac3232', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
+                this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, 'Iron deposit is depleted', style);
+              });
             }
           } else {
             this.scene.sound.play('ironMinePick');
