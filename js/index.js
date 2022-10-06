@@ -2,7 +2,7 @@ import Intro from "./scenes/Intro.js";
 import Main from "./scenes/Main.js";
 
 const config = {
-  type: Phaser.CANVAS,
+  type: Phaser.WEBGL,
   width: 1024,
   height: 800,
   pixelArt: true,
