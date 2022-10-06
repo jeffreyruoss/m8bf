@@ -7,6 +7,19 @@ export default class MessageManager {
   }
 
   createMessage(x, y, text, style) {
+    const message = new Message(this.scene, text, x, y, style);
+    this.floatUpMessage(message);
+    this.floatUpPreviousMessage(x, y);
+    this.messages.push(message);
+    this.scene.time.delayedCall(1700, () => this.fadeOutMessage(message) );
+    this.scene.time.delayedCall(2000, () => this.destroyMessage(message) );
+  }
+
+  floatUpMessage(message) {
+    this.scene.tweens.add({targets: message.message, y: message.message.y - 30, duration: 300,});
+  }
+
+  floatUpPreviousMessage(x, y) {
     if (this.messages.length > 0) {
       this.messages.forEach((message) => {
         if (message.x === x && message.y === y) {
@@ -15,15 +28,10 @@ export default class MessageManager {
         }
       });
     }
-    const message = new Message(this.scene, text, x, y, style);
-    this.scene.tweens.add({targets: message.message, y: message.message.y - 30, duration: 300,});
-    this.messages.push(message);
-    setTimeout(() => {
-      this.scene.tweens.add({targets: message.message, alpha: 0, duration: 300,});
-      setTimeout(() => {
-        this.destroyMessage(message);
-      }, 300);
-    }, 2000);
+  }
+
+  fadeOutMessage(message) {
+    this.scene.tweens.add({targets: message.message, alpha: 0, duration: 300});
   }
 
   destroyMessage(message) {
