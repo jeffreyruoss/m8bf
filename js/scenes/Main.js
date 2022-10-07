@@ -27,12 +27,12 @@ export default class Main extends Phaser.Scene {
     this.load.audio('place-structure', './../../sounds/sfx_wpn_punch3.mp3');
     this.load.audio('craft', './../../sounds/sfx_coin_cluster3.mp3');
     this.load.json('menuJSON', './../../js/menu/menu.json');
-    this.load.json('items', './../../js/items.json');
+    this.load.json('itemsJSON', './../../js/items.json');
   }
 
   create() {
     this.menuJSON = this.cache.json.get('menuJSON');
-    this.items = this.cache.json.get('items');
+    this.itemsJSON = this.cache.json.get('itemsJSON');
 
     this.allObjects = this.add.group();
     this.cameras.main.fadeIn(1000);

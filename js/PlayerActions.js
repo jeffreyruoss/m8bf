@@ -22,7 +22,7 @@ export default class PlayerActions {
           }
           let collectionSpeed = this.scene.player.attributes.treeCollectionSpeed
           if (this.scene.player.inventory.stoneAxe > 0) {
-            collectionSpeed -= this.scene.items.stoneAxe.effects.addTreeCollectionSpeed;
+            collectionSpeed -= this.scene.itemsJSON.stoneAxe.effects.addTreeCollectionSpeed;
           }
           this.treeCollectTime = this.scene.time.now + collectionSpeed;
         }

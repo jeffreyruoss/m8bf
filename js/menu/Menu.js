@@ -76,7 +76,7 @@ export default class Menu {
 
   // Dynamically called method name
   createCraftPanel() {
-    const items = this.scene.items;
+    const items = this.scene.itemsJSON;
     let x = this.box.x + this.padding;
     let y = this.box.y + this.padding + this.navHeight;
     let spacing = 5;
