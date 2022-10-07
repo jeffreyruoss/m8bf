@@ -59,6 +59,7 @@ export default class Menu {
     }
   }
 
+  // Dynamically called method name
   createInventoryPanel() {
     const playerInventory = this.scene.player.inventory;
     let x = this.box.x + this.padding;
@@ -73,6 +74,7 @@ export default class Menu {
     }
   }
 
+  // Dynamically called method name
   createCraftPanel() {
     const items = this.scene.items;
     let x = this.box.x + this.padding;
@@ -83,7 +85,7 @@ export default class Menu {
     let height = 64 + padding * 2;
     for (let item in items) {
       const name = items[item].name;
-      // const description = items[item].description;
+      const description = items[item].description;
       const recipeObj = items[item].recipe;
       let recipeArray = [];
       let recipe = "";
@@ -96,32 +98,33 @@ export default class Menu {
       let boxColor = isEnoughResources ? 0x27253b : 0x1d1b2c;
       this.scene.menuItems.add(this.scene.add.rectangle(x, y, width, height, boxColor));
 
-      // Name
-      this.scene.menuItems.add(this.scene.add
-        .text(x + padding, y + padding , name, {font: "21px vcrosdmono", fill: "#ffffff"}));
-
-      // Ingredients
-      this.scene.menuItems.add(this.scene.add
-        .text(x + padding, y + 50, recipe, {font: "17px vcrosdmono", fill: "#ffffff"}));
-
-      // Craft button
       const style = { font: "17px vcrosdmono", fill: "#ffffff", backgroundColor: "#3f3f74", padding: 24.5, textAlign: "center" };
-      const craftButton = this.scene.add.text(x + width - padding, y + padding, 'CRAFT', style);
-      craftButton.x -= craftButton.width;
+      const craftButton = this.scene.add.text(x + padding, y + padding, 'CRAFT', style);
       this.scene.menuItems.add(craftButton);
       if (isEnoughResources) {
         craftButton.setInteractive().on("pointerdown", () => {
-          this.scene.craft.craftItem(items[item]);
+          this.scene.craft.craftItem(item, items[item]);
           this.updateMenu();
         });
+      } else {
+        craftButton.alpha = 0.2;
       }
 
-      // Add a placeholder rectangle for the item that is 64x64 and to the left of the craft button
-      const itemPlaceholder = this.scene.add.rectangle(craftButton.x - padding - 64, y + padding, 64, 64, 0x9AACB6).setOrigin(0);
+      const itemPlaceholder = this.scene.add.rectangle(craftButton.x + craftButton.width + padding, y + padding, 64, 64, 0x9AACB6);
+      this.scene.menuItems.add(itemPlaceholder);
 
-      // Description
-      // this.scene.menuItems.add(this.scene.add
-      //   .text(x + 15, y + 75, description, {font: "17px vcrosdmono", fill: "#ffffff"}));
+      const itemTitle = this.scene.add
+        .text(itemPlaceholder.x + itemPlaceholder.width + padding, y + padding , name, {font: "21px vcrosdmono", fill: "#ffffff"})
+      this.scene.menuItems.add(itemTitle);
+
+      const itemIngredients = this.scene.add
+        .text(itemTitle.x + 300, y + padding, recipe, {font: "17px vcrosdmono", fill: "#ffffff"})
+      this.scene.menuItems.add(itemIngredients);
+
+      const itemDescription = this.scene.add
+        .text(itemTitle.x, y + 53, description, {font: "17px vcrosdmono", fill: "#ffffff"})
+      this.scene.menuItems.add(itemDescription);
+
       y += height + spacing;
     }
   }
