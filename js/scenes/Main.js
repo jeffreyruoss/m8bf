@@ -2,7 +2,7 @@ import Player from './../Player.js';
 import PlayerMovement from "./../PlayerMovement.js";
 import PlayerActions from "./../PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
-import CraftBox from "./../CraftBox.js";
+import Menu from "./../menu/Menu.js";
 import Craft from "./../Craft.js";
 import MessageManager from "./../MessageManager.js";
 import Build from "./../BuildManager.js";
@@ -26,10 +26,12 @@ export default class Main extends Phaser.Scene {
     this.load.audio('ironMineDeplete', './../../sounds/sfx_sounds_impact11.mp3');
     this.load.audio('place-structure', './../../sounds/sfx_wpn_punch3.mp3');
     this.load.audio('craft', './../../sounds/sfx_coin_cluster3.mp3');
+    this.load.json('menuJSON', './../../js/menu/menu.json');
     this.load.json('items', './../../js/items.json');
   }
 
   create() {
+    this.menuJSON = this.cache.json.get('menuJSON');
     this.items = this.cache.json.get('items');
 
     this.allObjects = this.add.group();
@@ -60,10 +62,6 @@ export default class Main extends Phaser.Scene {
 
     this.craft = new Craft(this);
 
-    this.craftBox = new CraftBox(this);
-    this.keys.C.on('down', () => this.craftBox.toggleCraftBox() );
-    this.keys.ESC.on('down', () => !this.craftBox.open || this.craftBox.toggleCraftBox() );
-
     this.MessageManager = new MessageManager(this);
 
     this.BuildManager = new Build(this);
@@ -74,7 +72,11 @@ export default class Main extends Phaser.Scene {
       }
     });
 
-    // this.craftBox.createCraftBox(); // do auto-open craftbox on start for testing
+    this.Menu = new Menu(this);
+    this.keys.C.on('down', () => this.Menu.toggleMenu(this.Menu.currentPanel) );
+    this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
+
+    // this.Menu.createMenu(); // do auto-open menu on start for testing
   }
 
   update() {

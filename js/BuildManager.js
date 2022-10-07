@@ -27,16 +27,6 @@ export default class BuildManager {
         this.scene.physics.add.collider(this.scene.player, structure);
       }
     });
-
-
-
-
-    // if (this.scene.player.inventory[this.scene.craftBox.selectedItem] > 0) {
-    //   if (this.scene.craftBox.selectedItem === 'workshop') {
-    //     this.scene.mapGenerator.generateObjects('workshop', 'workshops', 0, pointer.worldX, pointer.worldY);
-    //     this.scene.player.inventory[this.scene.craftBox.selectedItem]--;
-    //   }
-    // }
   }
 
   structureInHand() {
