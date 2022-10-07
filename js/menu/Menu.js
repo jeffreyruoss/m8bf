@@ -3,7 +3,9 @@ export default class Menu {
     this.scene = scene;
     this.open = false;
     this.box = null;
-    this.currentPanel = 'inventory';
+    this.currentPanel = 'craft';
+    this.padding = 30;
+    this.navHeight = null;
     this.scene.menuItems = this.scene.add.group();
   }
 
@@ -25,12 +27,9 @@ export default class Menu {
 
   createMenu() {
     this.createMenuRectangle();
-    this.createSubMenu();
-    if (this.currentPanel === 'inventory') {
-      this.createMenuInventory();
-    } else if (this.currentPanel === 'craft') {
-      this.createMenuRecipes();
-    }
+    this.createNav();
+    const panelName = this.currentPanel.charAt(0).toUpperCase() + this.currentPanel.slice(1);
+    this[`create${panelName}Panel`]();
     this.scene.menuItems.children.each(item => item.setScrollFactor(0).setOrigin(0));
   }
 
@@ -40,49 +39,51 @@ export default class Menu {
     this.scene.menuItems.add(this.scene.Menu.box);
   }
 
-  createSubMenu() {
+  createNav() {
     const menuJSON = this.scene.menuJSON;
     let lastItemX = 0;
     let lastItemWidth = 0;
     for (let item in menuJSON) {
-      if (lastItemX === 0) {
-        lastItemX = 30;
-      } else {
-        lastItemX += 2;
-      }
+      lastItemX = lastItemX === 0 ? 30 : lastItemX += 2;
       let x = lastItemX + lastItemWidth;
       let y = 30;
-      const currentItem = this.scene.add
-        .text(x, y, menuJSON[item].name,
-          { font: "17px vcrosdmono", fill: "#ffffff", padding: 15, textAlign: "center", backgroundColor: "#3f3f74"}
-        )
-        .setInteractive().on("pointerdown", () => {
+      let style = { font: "17px vcrosdmono", fill: "#ffffff", padding: 15, textAlign: "center", backgroundColor: "#3f3f74"};
+      let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive().on("pointerdown", () => {
           this.currentPanel = item;
           this.updateMenu();
-        });
+      });
       this.scene.menuItems.add(currentItem);
       lastItemX = currentItem.x;
       lastItemWidth = currentItem.width;
+      this.navHeight = this.navHeight || currentItem.height;
     }
   }
 
-  createMenuInventory() {
+  createInventoryPanel() {
     const playerInventory = this.scene.player.inventory;
+    let x = this.box.x + this.padding;
+    let y = this.box.y + this.padding + this.navHeight;
+    let itemSpacing = 30;
     for (let item in playerInventory) {
-      let x = 60;
-      let y = 60 + 30 * Object.keys(playerInventory).indexOf(item);
       let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center", textTransform: "uppercase" };
       let name = item.charAt(0).toUpperCase() + item.slice(1);
       let value = playerInventory[item];
       this.scene.menuItems.add(this.scene.add.text(x, y, `${name}: ${value}`, style));
+      y += itemSpacing;
     }
   }
 
-  createMenuRecipes() {
+  createCraftPanel() {
     const items = this.scene.items;
+    let x = this.box.x + this.padding;
+    let y = this.box.y + this.padding + this.navHeight;
+    let spacing = 5;
+    let padding = 11;
+    let width = this.box.width - this.padding * 2;
+    let height = 64 + padding * 2;
     for (let item in items) {
       const name = items[item].name;
-      const description = items[item].description;
+      // const description = items[item].description;
       const recipeObj = items[item].recipe;
       let recipeArray = [];
       let recipe = "";
@@ -91,24 +92,37 @@ export default class Menu {
       }
       recipe = recipeArray.join(" / ");
       recipe = recipe.replace(/\b\w/g, l => l.toUpperCase());
-      let x = 250;
-      let y = 60 + 120 * Object.keys(items).indexOf(item);
       const isEnoughResources = this.scene.craft.isEnoughResources(items[item]);
-      let boxColor = isEnoughResources ? 0x131e2f : 0x191b1e;
-      this.scene.menuItems.add(this.scene.add.rectangle(x, y, 710, 105, boxColor));
+      let boxColor = isEnoughResources ? 0x27253b : 0x1d1b2c;
+      this.scene.menuItems.add(this.scene.add.rectangle(x, y, width, height, boxColor));
+
+      // Name
+      this.scene.menuItems.add(this.scene.add
+        .text(x + padding, y + padding , name, {font: "21px vcrosdmono", fill: "#ffffff"}));
+
+      // Ingredients
+      this.scene.menuItems.add(this.scene.add
+        .text(x + padding, y + 50, recipe, {font: "17px vcrosdmono", fill: "#ffffff"}));
+
+      // Craft button
+      const style = { font: "17px vcrosdmono", fill: "#ffffff", backgroundColor: "#3f3f74", padding: 24.5, textAlign: "center" };
+      const craftButton = this.scene.add.text(x + width - padding, y + padding, 'CRAFT', style);
+      craftButton.x -= craftButton.width;
+      this.scene.menuItems.add(craftButton);
       if (isEnoughResources) {
-        this.scene.menuItems.add(this.scene.add.rectangle(x + 615, y + 15, 80, 45, 0x0049b6)
-          .setInteractive()
-          .on("pointerdown", () => this.scene.craft.craftItem(item, items[item])));
-        this.scene.menuItems.add(this.scene.add
-          .text(x + 630, y + 30, 'CRAFT', { font: "17px vcrosdmono", fill: "#ffffff"}));
+        craftButton.setInteractive().on("pointerdown", () => {
+          this.scene.craft.craftItem(items[item]);
+          this.updateMenu();
+        });
       }
-      this.scene.menuItems.add(this.scene.add
-        .text(x + 15, y + 15 , name, {font: "22px vcrosdmono", fill: "#ffffff"}));
-      this.scene.menuItems.add(this.scene.add
-        .text(x + 15, y + 45, recipe, {font: "17px vcrosdmono", fill: "#ffffff"}));
-      this.scene.menuItems.add(this.scene.add
-        .text(x + 15, y + 75, description, {font: "17px vcrosdmono", fill: "#ffffff"}));
+
+      // Add a placeholder rectangle for the item that is 64x64 and to the left of the craft button
+      const itemPlaceholder = this.scene.add.rectangle(craftButton.x - padding - 64, y + padding, 64, 64, 0x9AACB6).setOrigin(0);
+
+      // Description
+      // this.scene.menuItems.add(this.scene.add
+      //   .text(x + 15, y + 75, description, {font: "17px vcrosdmono", fill: "#ffffff"}));
+      y += height + spacing;
     }
   }
 
