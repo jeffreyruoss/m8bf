@@ -10,8 +10,6 @@ import Build from "./../BuildManager.js";
 export default class Main extends Phaser.Scene {
   constructor() {
     super('Main');
-    // this.font = 'vcrosdmono';
-    // this.font = 'pressstart2p';
     this.font = 'earls-revenge';
   }
 
