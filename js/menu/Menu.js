@@ -57,7 +57,16 @@ export default class Menu {
       let x = lastItemX + lastItemWidth;
       let y = 30;
       let style = { fontSize: "19px", fontFamily: this.scene.font, fill: "#ffffff", padding: 15, textAlign: "center", backgroundColor: "#3f3f74"};
-      let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive().on("pointerdown", () => {
+      let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive();
+      currentItem.on('pointerover', () => {
+        this.scene.input.setDefaultCursor('pointer');
+        currentItem.setStyle({ backgroundColor: "#5f5f94" });
+      });
+      currentItem.on('pointerout', () => {
+        this.scene.input.setDefaultCursor('default');
+        currentItem.setStyle({ backgroundColor: "#3f3f74" });
+      });
+      currentItem.on("pointerdown", () => {
           this.currentPanelName = item;
           this.updateMenu();
       });
