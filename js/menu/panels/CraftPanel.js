@@ -3,7 +3,7 @@ export default class CraftPanel {
     this.scene = scene;
   }
 
-  // method called dynamically from Menu.js
+  // This method is called dynamically from Menu.js
   createCraftPanel(Menu) {
     const items = this.scene.itemsJSON;
     let x = Menu.box.x + Menu.padding;

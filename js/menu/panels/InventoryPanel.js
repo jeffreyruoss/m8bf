@@ -3,7 +3,7 @@ export default class InventoryPanel {
     this.scene = scene;
   }
 
-  // method called dynamically from Menu.js
+  // This method is called dynamically from Menu.js
   createInventoryPanel(Menu) {
     const playerInventory = this.scene.player.inventory;
     let x = Menu.box.x + Menu.padding;

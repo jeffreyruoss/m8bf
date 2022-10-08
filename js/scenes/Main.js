@@ -14,7 +14,6 @@ export default class Main extends Phaser.Scene {
   }
 
   preload() {
-    this.time.advancedTiming = true;
     this.load.aseprite('player', './../../img/player.png', './../../img/player.json');
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
@@ -32,6 +31,8 @@ export default class Main extends Phaser.Scene {
   }
 
   create() {
+    this.time.advancedTiming = true;
+
     this.menuJSON = this.cache.json.get('menuJSON');
     this.itemsJSON = this.cache.json.get('itemsJSON');
 
@@ -66,13 +67,7 @@ export default class Main extends Phaser.Scene {
     this.MessageManager = new MessageManager(this);
 
     this.BuildManager = new Build(this);
-
-    this.keys.B.on('down', () => {
-      if (this.BuildManager.prePlaceStructure === null) {
-        this.BuildManager.build('workshop');
-      }
-    });
-
+    
     this.Menu = new Menu(this);
     this.keys.C.on('down', () => this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );

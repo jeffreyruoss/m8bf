@@ -1,12 +1,14 @@
+// These classes are being called dynamically
 import InventoryPanel from './panels/InventoryPanel.js';
 import CraftPanel from './panels/CraftPanel.js';
+import BuildPanel from './panels/BuildPanel.js';
 
 export default class Menu {
   constructor(scene) {
     this.scene = scene;
     this.open = false;
     this.box = null;
-    this.currentPanelName = 'inventory';
+    this.currentPanelName = 'build';
     this.currentPanel = null;
     this.padding = 30;
     this.navHeight = null;

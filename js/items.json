@@ -51,5 +51,14 @@
       "wood": 5,
       "mud": 10
     }
+  },
+  "workshop": {
+    "name": "Workshop",
+    "description": "A place to work on things.",
+    "recipe": {
+      "wood": 10,
+      "iron": 5
+    },
+    "buildable": true
   }
 }
