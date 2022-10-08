@@ -1,9 +1,17 @@
 @font-face {
     font-family: 'vcrosdmono';
-    src: url('./fonts/vcrosdmomo/vcr_osd_mono_1.001-webfont.woff') format('woff'),
-    url('./fonts/vcrosdmomo/vcr_osd_mono_1.001-webfont.woff2') format('woff2');
+    src: url('./fonts/vcrosdmono/vcr_osd_mono_1.001-webfont.woff') format('woff'),
+    url('./fonts/vcrosdmono/vcr_osd_mono_1.001-webfont.woff2') format('woff2');
 }
-
+@font-face {
+    font-family: 'pressstart2p';
+    src: url('./fonts/pressstart2p/PressStart2P-vaV7.woff') format('woff'),
+    url('./fonts/pressstart2p/PressStart2P-vaV7.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'earls-revenge';
+    src: url('./fonts/earls-revenge/EarlsRevenge-69Kg.woff2') format('woff2');
+}
 body {
     background-color: #2f2f2f;
     margin: 0;

@@ -16,7 +16,7 @@ export default class PlayerActions {
             tree.destroy();
             this.scene.player.inventory.wood += 1;
             this.scene.sound.play('treeFall');
-            this.scene.MessageManager.createMessage(tree.x, tree.y, '+1 Wood', { color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
+            this.scene.MessageManager.createMessage(tree.x, tree.y, '+1 Wood', { fontFamily: this.scene.font, color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
           } else {
             this.scene.sound.play('treeChop');
           }
@@ -40,7 +40,7 @@ export default class PlayerActions {
           if (ironMine.picks >= 5) {
             this.scene.player.inventory.iron += 1;
             this.scene.sound.play('ironMineCollect');
-            const style = { color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
+            const style = { color: '#37946e', fontFamily: this.scene.font, fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
             this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, '+1 Iron', style);
             ironMine.picks = 0;
             ironMine.iron -= 1;
@@ -48,7 +48,7 @@ export default class PlayerActions {
               ironMine.destroy();
               this.scene.sound.play('ironMineDeplete');
               this.scene.time.delayedCall(300, () => {
-                const style = { color: '#ac3232', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
+                const style = { color: '#ac3232', fontFamily: this.scene.font, fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
                 this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, 'Iron deposit is depleted', style);
               });
             }

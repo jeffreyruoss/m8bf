@@ -47,7 +47,7 @@ export default class Menu {
       lastItemX = lastItemX === 0 ? 30 : lastItemX += 2;
       let x = lastItemX + lastItemWidth;
       let y = 30;
-      let style = { font: "17px vcrosdmono", fill: "#ffffff", padding: 15, textAlign: "center", backgroundColor: "#3f3f74"};
+      let style = { fontSize: "19px", fontFamily: this.scene.font, fill: "#ffffff", padding: 15, textAlign: "center", backgroundColor: "#3f3f74"};
       let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive().on("pointerdown", () => {
           this.currentPanel = item;
           this.updateMenu();
@@ -64,9 +64,9 @@ export default class Menu {
     const playerInventory = this.scene.player.inventory;
     let x = this.box.x + this.padding;
     let y = this.box.y + this.padding + this.navHeight;
-    let itemSpacing = 30;
+    let itemSpacing = 35;
     for (let item in playerInventory) {
-      let style = { font: "17px vcrosdmono", fill: "#ffffff", align: "center", textTransform: "uppercase" };
+      let style = { fontSize: "19px", fontFamily: this.scene.font, fill: "#ffffff", align: "center", textTransform: "uppercase" };
       let name = item.charAt(0).toUpperCase() + item.slice(1);
       let value = playerInventory[item];
       this.scene.menuItems.add(this.scene.add.text(x, y, `${name}: ${value}`, style));
@@ -98,7 +98,7 @@ export default class Menu {
       let boxColor = isEnoughResources ? 0x27253b : 0x1d1b2c;
       this.scene.menuItems.add(this.scene.add.rectangle(x, y, width, height, boxColor));
 
-      const style = { font: "17px vcrosdmono", fill: "#ffffff", backgroundColor: "#3f3f74", padding: 24.5, textAlign: "center" };
+      const style = { fontSize: "20px", fontFamily: this.scene.font, fill: "#ffffff", backgroundColor: "#3f3f74", padding: 24.5, textAlign: "center" };
       const craftButton = this.scene.add.text(x + padding, y + padding, 'CRAFT', style);
       this.scene.menuItems.add(craftButton);
       if (isEnoughResources) {
@@ -114,15 +114,15 @@ export default class Menu {
       this.scene.menuItems.add(itemPlaceholder);
 
       const itemTitle = this.scene.add
-        .text(itemPlaceholder.x + itemPlaceholder.width + padding, y + padding , name, {font: "21px vcrosdmono", fill: "#ffffff"})
+        .text(itemPlaceholder.x + itemPlaceholder.width + padding, y + padding , name, {fontSize: "21px", fontFamily: this.scene.font, fill: "#ffffff"})
       this.scene.menuItems.add(itemTitle);
 
       const itemIngredients = this.scene.add
-        .text(itemTitle.x + 300, y + padding, recipe, {font: "17px vcrosdmono", fill: "#ffffff"})
+        .text(itemTitle.x + 300, y + padding, recipe, {fontSize: "17px", fontFamily: this.scene.font, fill: "#ffffff"})
       this.scene.menuItems.add(itemIngredients);
 
       const itemDescription = this.scene.add
-        .text(itemTitle.x, y + 53, description, {font: "17px vcrosdmono", fill: "#ffffff"})
+        .text(itemTitle.x, y + 53, description, {fontSize: "17px", fontFamily: this.scene.font, fill: "#ffffff"})
       this.scene.menuItems.add(itemDescription);
 
       y += height + spacing;
