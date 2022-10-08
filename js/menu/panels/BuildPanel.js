@@ -34,7 +34,6 @@ export default class BuildPanel {
           if (this.scene.Build.prePlaceStructure === null) {
             this.scene.Menu.toggleMenu(this.scene.Menu.currentPanel)
             this.scene.Build.build(item);
-            this.scene.player.inventory[item] -= 1;
           }
         } else {
           const messageStyle = { fontSize: "18px", fontFamily: this.scene.font, align: "center", color: "#AE3737", backgroundColor: "#ffffff", padding: 12 };

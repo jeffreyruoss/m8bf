@@ -21,6 +21,10 @@ export default class Build {
   prePlace(key) {
     this.prePlaceStructure = this.scene.physics.add.image(this.pointer.worldX, this.pointer.worldY, key)
       .setSize(32, 40).setAlpha(0.7).setTint(0xa1ff4b);
+    this.scene.input.keyboard.on('keydown-ESC', () => {
+      this.destroyPrePlace();
+      this.scene.input.keyboard.off('keydown-ESC');
+    });
   }
 
   destroyPrePlace() {
@@ -36,5 +40,10 @@ export default class Build {
     this.scene.sound.play('placeStructure');
     this.scene.physics.add.collider(this.scene.player, structure);
     this.pointer = null;
+    this.scene.player.inventory[key] -= 1;
+  }
+
+  cancel() {
+    this.destroyPrePlace();
   }
 }
