@@ -11,9 +11,9 @@ export default class BuildPanel {
     const margin = 12;
     const width = Menu.box.width - Menu.padding * 2;
     const height = 64 + padding * 2;
-    const itemsJSON = this.scene.itemsJSON
-    for (let item in itemsJSON) {
-      if (!itemsJSON[item].buildable) continue;
+    const items = this.scene.itemsJSON
+    for (let item in items) {
+      if (!items[item].buildable) continue;
       const inInventory = this.inInventory(item);
       const rectangleBackgroundColor = inInventory ? 0x27253b : 0x1d1b2c;
 
@@ -28,16 +28,20 @@ export default class BuildPanel {
       buttonText.y = buttonRectangle.y - buttonText.height / 2 + buttonRectangle.height / 2;
       this.scene.menuItems.add(buttonText);
       this.scene.menuItems.add(buttonRectangle);
-      if (inInventory) {
-        buttonRectangle.setInteractive();
-        buttonRectangle.on("pointerdown", () => {
+      buttonRectangle.setInteractive();
+      buttonRectangle.on("pointerdown", () => {
+        if (inInventory) {
           if (this.scene.Build.prePlaceStructure === null) {
             this.scene.Menu.toggleMenu(this.scene.Menu.currentPanel)
             this.scene.Build.build(item);
             this.scene.player.inventory[item] -= 1;
           }
-        });
-      } else {
+        } else {
+          const messageStyle = { fontSize: "18px", fontFamily: this.scene.font, align: "center", color: "#AE3737", backgroundColor: "#ffffff", padding: 12 };
+          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have this item in your inventory", messageStyle);
+        }
+      });
+      if (!inInventory) {
         buttonRectangle.alpha = 0.2;
         buttonText.alpha = 0.2;
       }
@@ -46,11 +50,11 @@ export default class BuildPanel {
       this.scene.menuItems.add(image);
 
       const titleStyle = { fontSize: "22px", fontFamily: this.scene.font, align: "center" };
-      const titleText = this.scene.add.text(image.x + image.width + padding, y + padding, itemsJSON[item].name, titleStyle);
+      const titleText = this.scene.add.text(image.x + image.width + padding, y + padding, items[item].name, titleStyle);
       this.scene.menuItems.add(titleText);
 
       const descriptionStyle = { fontSize: "18px", fontFamily: this.scene.font, align: "center" };
-      const descriptionText = this.scene.add.text(titleText.x, titleText.y + titleText.height + padding + 5, itemsJSON[item].description, descriptionStyle);
+      const descriptionText = this.scene.add.text(titleText.x, titleText.y + titleText.height + padding + 5, items[item].description, descriptionStyle);
       this.scene.menuItems.add(descriptionText);
 
       y += height + margin;
