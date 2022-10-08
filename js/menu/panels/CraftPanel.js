@@ -38,6 +38,9 @@ export default class CraftPanel {
       this.scene.menuItems.add(buttonText);
       this.scene.menuItems.add(buttonRectangle);
       buttonRectangle.setInteractive();
+      if (isEnoughResources) {
+        this.scene.Mouse.buttonHover(buttonRectangle);
+      }
       buttonRectangle.on("pointerdown", () => {
         if (isEnoughResources) {
             this.scene.Craft.craftItem(item, items[item]);

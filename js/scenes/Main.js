@@ -7,6 +7,7 @@ import Craft from "./../Craft.js";
 import MessageManager from "./../MessageManager.js";
 import Build from "./../Build.js";
 import InfoBar from "./../InfoBar.js";
+import Mouse from "./../Mouse.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -62,6 +63,8 @@ export default class Main extends Phaser.Scene {
     this.InfoBar = new InfoBar(this);
 
     this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,ESC, SHIFT");
+
+    this.Mouse = new Mouse(this);
 
     this.PlayerMovement = new PlayerMovement(this);
 
