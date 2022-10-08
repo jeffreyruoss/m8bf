@@ -40,9 +40,9 @@ export default class Main extends Phaser.Scene {
     this.sceneWidth = this.sys.game.config.width;
     this.sceneHeight = this.sys.game.config.height;
 
-    this.mapGenerator = new MapGenerator(this);
+    this.MapGenerator = new MapGenerator(this);
 
-    this.mapGenerator.generateGrass();
+    this.MapGenerator.generateGrass();
 
     new Player(this);
 
@@ -51,16 +51,16 @@ export default class Main extends Phaser.Scene {
     this.player.setCollideWorldBounds('true');
     this.cameras.main.startFollow(this.player);
 
-    this.mapGenerator.generateObjects('iron-mine', 'ironMines', 0.005);
-    this.mapGenerator.generateObjects('tree', 'trees', 0.07);
+    this.MapGenerator.generateObjects('iron-mine', 'ironMines', 0.005);
+    this.MapGenerator.generateObjects('tree', 'trees', 0.07);
 
     this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,ESC");
 
-    this.playerMovement = new PlayerMovement(this);
+    this.PlayerMovement = new PlayerMovement(this);
 
-    this.playerActions = new PlayerActions(this);
+    this.PlayerActions = new PlayerActions(this);
 
-    this.craft = new Craft(this);
+    this.Craft = new Craft(this);
 
     this.MessageManager = new MessageManager(this);
 
@@ -80,11 +80,11 @@ export default class Main extends Phaser.Scene {
   }
 
   update() {
-    this.playerMovement.playerMove();
+    this.PlayerMovement.playerMove();
 
     if (this.input.keyboard.checkDown(this.keys.SPACE)) {
-      this.playerActions.collectTree();
-      this.playerActions.collectIronMine();
+      this.PlayerActions.collectTree();
+      this.PlayerActions.collectIronMine();
     }
 
     // set this.BuildManager.prePlaceStructure to the x and y of the mouse

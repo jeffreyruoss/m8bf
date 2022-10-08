@@ -94,7 +94,7 @@ export default class Menu {
       }
       recipe = recipeArray.join(" / ");
       recipe = recipe.replace(/\b\w/g, l => l.toUpperCase());
-      const isEnoughResources = this.scene.craft.isEnoughResources(items[item]);
+      const isEnoughResources = this.scene.Craft.isEnoughResources(items[item]);
       let boxColor = isEnoughResources ? 0x27253b : 0x1d1b2c;
       this.scene.menuItems.add(this.scene.add.rectangle(x, y, width, height, boxColor));
 
@@ -103,7 +103,7 @@ export default class Menu {
       this.scene.menuItems.add(craftButton);
       if (isEnoughResources) {
         craftButton.setInteractive().on("pointerdown", () => {
-          this.scene.craft.craftItem(item, items[item]);
+          this.scene.Craft.craftItem(item, items[item]);
           this.updateMenu();
         });
       } else {
