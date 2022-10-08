@@ -58,7 +58,7 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('iron-mine', 'ironMines', 0.005);
     this.MapGenerator.generateObjects('tree', 'trees', 0.07);
 
-    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,ESC");
+    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,ESC, SHIFT");
 
     this.PlayerMovement = new PlayerMovement(this);
 
@@ -86,8 +86,13 @@ export default class Main extends Phaser.Scene {
     }
 
     if (this.Build.prePlaceStructure) {
-      this.Build.prePlaceStructure.x = this.pointer.worldX;
-      this.Build.prePlaceStructure.y = this.pointer.worldY;
+      if (this.input.keyboard.checkDown(this.keys.SHIFT)) {
+        this.Build.prePlaceStructure.x = this.pointer.worldX;
+        this.Build.prePlaceStructure.y = this.pointer.worldY;
+      } else {
+        this.Build.prePlaceStructure.x = Math.round(this.pointer.worldX / 64) * 64;
+        this.Build.prePlaceStructure.y = Math.round(this.pointer.worldY / 64) * 64;
+      }
     }
   }
 }
