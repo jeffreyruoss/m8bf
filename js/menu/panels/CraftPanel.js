@@ -56,15 +56,15 @@ export default class CraftPanel {
       this.scene.menuItems.add(itemPlaceholder);
 
       const itemTitle = this.scene.add
-        .text(itemPlaceholder.x + itemPlaceholder.width + padding, y + padding , name, {fontSize: "21px", fontFamily: this.scene.font, fill: "#ffffff"})
+        .text(itemPlaceholder.x + itemPlaceholder.width + padding, y + padding , name, {fontSize: "21px", fontFamily: this.scene.font})
       this.scene.menuItems.add(itemTitle);
 
       const itemIngredients = this.scene.add
-        .text(itemTitle.x + 300, y + padding, recipe, {fontSize: "17px", fontFamily: this.scene.font, fill: "#ffffff"})
+        .text(itemTitle.x + 300, y + padding, recipe, {fontSize: "17px", fontFamily: this.scene.font})
       this.scene.menuItems.add(itemIngredients);
 
       const itemDescription = this.scene.add
-        .text(itemTitle.x, y + 53, description, {fontSize: "17px", fontFamily: this.scene.font, fill: "#ffffff"})
+        .text(itemTitle.x, y + 53, description, {fontSize: "17px", fontFamily: this.scene.font})
       this.scene.menuItems.add(itemDescription);
 
       y += height + spacing;
