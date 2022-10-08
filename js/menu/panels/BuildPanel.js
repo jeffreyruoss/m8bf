@@ -28,8 +28,8 @@ export default class BuildPanel {
       buttonText.y = buttonRectangle.y - buttonText.height / 2 + buttonRectangle.height / 2;
       this.scene.menuItems.add(buttonText);
       this.scene.menuItems.add(buttonRectangle);
-      if (inInventory) buttonRectangle.setInteractive();
-      this.scene.Mouse.buttonHover(buttonRectangle);
+      buttonRectangle.setInteractive();
+      if (inInventory) this.scene.Mouse.buttonHover(buttonRectangle);
       buttonRectangle.on("pointerdown", () => {
         if (inInventory) {
           if (this.scene.Build.prePlaceStructure === null) {
