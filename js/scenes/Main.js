@@ -33,6 +33,7 @@ export default class Main extends Phaser.Scene {
 
   create() {
     this.time.advancedTiming = true;
+    this.pointer = this.input.activePointer;
 
     this.menuJSON = this.cache.json.get('menuJSON');
     this.itemsJSON = this.cache.json.get('itemsJSON');
@@ -85,9 +86,8 @@ export default class Main extends Phaser.Scene {
     }
 
     if (this.Build.prePlaceStructure) {
-      const pointer = this.input.activePointer;
-      this.Build.prePlaceStructure.x = pointer.worldX;
-      this.Build.prePlaceStructure.y = pointer.worldY;
+      this.Build.prePlaceStructure.x = this.pointer.worldX;
+      this.Build.prePlaceStructure.y = this.pointer.worldY;
     }
   }
 }
