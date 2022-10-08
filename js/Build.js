@@ -23,7 +23,7 @@ export default class Build {
     this.prePlaceStructure = this.scene.physics.add.image(this.pointer.worldX, this.pointer.worldY, key)
       .setSize(32, 40).setAlpha(0.7).setTint(0xa1ff4b).setOrigin(1);
 
-    this.infoBox();
+    this.scene.InfoBar.createInfoBar(['Press ESC to cancel', 'Hold SHIFT to ignore grid']);
 
     this.scene.input.keyboard.on('keydown-ESC', () => {
       this.destroyPrePlace();
@@ -31,22 +31,11 @@ export default class Build {
     });
   }
 
-  infoBox() {
-    const rectangle = this.scene.add.rectangle(0, 0, this.scene.sceneWidth, 64, 0x212133).setOrigin(0).setAlpha(0.99).setScrollFactor(0);
-    const text1 = this.scene.add.text(15, 15, "Press ESC to cancel", { font: "18px", fontFamily: this.scene.font}).setScrollFactor(0);
-    const text2 = this.scene.add.text(0, 0, "Hold SHIFT to ignore grid", { font: "18px", fontFamily: this.scene.font}).setScrollFactor(0);
-    Phaser.Display.Align.In.LeftCenter(text1, rectangle, 15);
-    Phaser.Display.Align.In.LeftCenter(text2, rectangle, 15);
-    text1.x = 30;
-    text2.x = text1.width + 100;
-    this.infoBoxItems.push(rectangle, text1, text2);
-  }
-
   destroyPrePlace() {
     if (this.prePlaceStructure) {
       this.prePlaceStructure.destroy();
       this.prePlaceStructure = null;
-      this.infoBoxItems.forEach(item => item.destroy());
+      this.scene.InfoBar.destroyInfoBar();
     }
   }
 

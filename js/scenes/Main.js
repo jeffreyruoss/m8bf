@@ -6,6 +6,7 @@ import Menu from "./../menu/Menu.js";
 import Craft from "./../Craft.js";
 import MessageManager from "./../MessageManager.js";
 import Build from "./../Build.js";
+import InfoBar from "./../InfoBar.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -57,6 +58,8 @@ export default class Main extends Phaser.Scene {
 
     this.MapGenerator.generateObjects('iron-mine', 'ironMines', 0.005);
     this.MapGenerator.generateObjects('tree', 'trees', 0.07);
+
+    this.InfoBar = new InfoBar(this);
 
     this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,ESC, SHIFT");
 
