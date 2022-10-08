@@ -60,5 +60,14 @@
       "iron": 5
     },
     "buildable": true
+  },
+  "advancedWorkshop": {
+    "name": "Advanced Workshop",
+    "description": "A place to work on things.",
+    "recipe": {
+      "wood": 10,
+      "iron": 5
+    },
+    "buildable": true
   }
 }

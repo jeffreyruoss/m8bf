@@ -5,7 +5,7 @@ import MapGenerator from "./../MapGenerator.js";
 import Menu from "./../menu/Menu.js";
 import Craft from "./../Craft.js";
 import MessageManager from "./../MessageManager.js";
-import Build from "./../BuildManager.js";
+import Build from "./../Build.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -19,12 +19,13 @@ export default class Main extends Phaser.Scene {
     this.load.image('tree', './../../img/tree.png');
     this.load.image('iron-mine', './../../img/iron-mine.png');
     this.load.image('workshop', './../../img/workshop.png');
+    this.load.image('advancedWorkshop', './../../img/advanced-workshop.png');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');
     this.load.audio('treeFall', './../../sounds/sfx_sounds_impact11.mp3');
     this.load.audio('ironMinePick', './../../sounds/sfx_sounds_button3.mp3');
     this.load.audio('ironMineCollect', './../../sounds/sfx_coin_double4.mp3');
     this.load.audio('ironMineDeplete', './../../sounds/sfx_sounds_impact11.mp3');
-    this.load.audio('place-structure', './../../sounds/sfx_wpn_punch3.mp3');
+    this.load.audio('placeStructure', './../../sounds/sfx_wpn_punch3.mp3');
     this.load.audio('craft', './../../sounds/sfx_coin_cluster3.mp3');
     this.load.json('menuJSON', './../../js/menu/menu.json');
     this.load.json('itemsJSON', './../../js/items.json');
@@ -66,8 +67,8 @@ export default class Main extends Phaser.Scene {
 
     this.MessageManager = new MessageManager(this);
 
-    this.BuildManager = new Build(this);
-    
+    this.Build = new Build(this);
+
     this.Menu = new Menu(this);
     this.keys.C.on('down', () => this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
@@ -83,11 +84,10 @@ export default class Main extends Phaser.Scene {
       this.PlayerActions.collectIronMine();
     }
 
-    // set this.BuildManager.prePlaceStructure to the x and y of the mouse
-    if (this.BuildManager.prePlaceStructure) {
+    if (this.Build.prePlaceStructure) {
       const pointer = this.input.activePointer;
-      this.BuildManager.prePlaceStructure.x = pointer.worldX;
-      this.BuildManager.prePlaceStructure.y = pointer.worldY;
+      this.Build.prePlaceStructure.x = pointer.worldX;
+      this.Build.prePlaceStructure.y = pointer.worldY;
     }
   }
 }

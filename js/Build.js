@@ -1,4 +1,4 @@
-export default class BuildManager {
+export default class Build {
   constructor(scene) {
     this.scene = scene;
     this.prePlaceStructure = null;
@@ -33,7 +33,7 @@ export default class BuildManager {
   place(key) {
     const structure = this.scene.physics.add.staticSprite(this.pointer.worldX, this.pointer.worldY, key)
       .setSize(64, 64);
-    this.scene.sound.play('place-structure');
+    this.scene.sound.play('placeStructure');
     this.scene.physics.add.collider(this.scene.player, structure);
     this.pointer = null;
   }
