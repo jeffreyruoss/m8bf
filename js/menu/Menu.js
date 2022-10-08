@@ -2,6 +2,7 @@
 import InventoryPanel from './panels/InventoryPanel.js';
 import CraftPanel from './panels/CraftPanel.js';
 import BuildPanel from './panels/BuildPanel.js';
+import TechPanel from "./panels/TechPanel.js";
 
 export default class Menu {
   constructor(scene) {
