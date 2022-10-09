@@ -76,6 +76,7 @@ export default class Main extends Phaser.Scene {
 
     this.Build = new Build(this);
     this.Build.placeHandler();
+    this.Build.cancelHandler();
 
     this.Menu = new Menu(this);
     this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );

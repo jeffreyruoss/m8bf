@@ -22,6 +22,15 @@ export default class Build {
     });
   }
 
+  cancelHandler() {
+    this.scene.input.keyboard.on('keydown-ESC', () => {
+      if (this.prePlaceStructure) {
+        this.destroyPrePlace();
+        this.scene.Menu.enabled = true;
+      }
+    });
+  }
+
   build(key) {
     this.scene.Menu.enabled = false;
     this.pointer = this.scene.input.activePointer;
@@ -33,12 +42,6 @@ export default class Build {
     this.prePlaceStructure = this.scene.physics.add.image(this.pointer.worldX, this.pointer.worldY, this.key)
       .setAlpha(0.7).setTint(0xa1ff4b).setOrigin(0);
     this.scene.InfoBar.createInfoBar(['Press ESC to cancel', 'Hold SHIFT to snap to grid']);
-
-    this.scene.input.keyboard.on('keydown-ESC', () => {
-      this.destroyPrePlace();
-      this.scene.Menu.enabled = true;
-      this.scene.input.keyboard.off('keydown-ESC');
-    });
   }
 
   destroyPrePlace() {
