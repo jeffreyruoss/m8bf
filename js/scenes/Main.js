@@ -75,12 +75,10 @@ export default class Main extends Phaser.Scene {
     this.MessageManager = new MessageManager(this);
 
     this.Build = new Build(this);
+    this.Build.placeHandler();
 
     this.Menu = new Menu(this);
-    // this.keys.C.on('down', () => this.Menu.toggleMenu(this.Menu.currentPanel) );
-    this.keys.C.on('down', () => {
-      if (this.Menu.enabled) this.Menu.toggleMenu(this.Menu.currentPanel);
-    });
+    this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
 
     // this.Menu.createMenu(); // do auto-open menu on start for testing
