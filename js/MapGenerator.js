@@ -47,26 +47,38 @@ export default class MapGenerator {
       for (let j = 0; j < this.scene.sceneHeight * 4; j += height) {
         if (Math.random() < frequency) {
           // Don't spawn the object if there is an object at the same x and y
-          if (this.isObjectAtXY(i, j)) continue;
+          // if (this.isObjectAtXY(i, j)) continue;
 
-          // Don't spawn the object on the player
+          // Don't spawn the object near the player
           if (i < playerX + 50 && i > playerX - 50) {
             if (j < playerY + 50 && j > playerY - 50) {
               continue;
             }
           }
 
+          // Randomize the object's x and y coordinates by plus or minus width/height
+          const x = i + Math.floor(Math.random() * width) - width / 2;
+          const y = j + Math.floor(Math.random() * height) - height / 2;
+
+
           // Invisible rectangle for collisions and for the player to act on
-          const object = this.scene.physics.add.staticSprite(i, j, type)
+          const object = this.scene.physics.add.staticSprite(x, y, type)
             .setOrigin(0, 0)
             .setAlpha(0)
             .setSize(64, 32)
             .setOffset(32, 64);
 
+          // Don't spawn where there is already an object
+          const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
+          if (overlap) {
+            object.destroy();
+            continue;
+          }
+
           // Images of the top and bottom half of the object (for visual depth)
           object.images = [
-            this.scene.add.image(i, j, type).setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
-            this.scene.add.image(i, j, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
+            this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
+            this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
           ];
 
           object.on('destroy', () => object.images.forEach(image => image.destroy()));
