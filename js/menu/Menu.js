@@ -7,6 +7,7 @@ import TechPanel from "./panels/TechPanel.js";
 export default class Menu {
   constructor(scene) {
     this.scene = scene;
+    this.enabled = true;
     this.open = false;
     this.box = null;
     this.currentPanelName = 'build';

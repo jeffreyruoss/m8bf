@@ -7,6 +7,7 @@ export default class Build {
   }
 
   build(key) {
+    this.scene.Menu.enabled = false;
     this.pointer = this.scene.input.activePointer;
     this.prePlace(key);
     this.scene.time.delayedCall(100, () => {
@@ -71,9 +72,11 @@ export default class Build {
     this.scene.physics.add.collider(this.scene.player, structure);
     this.pointer = null;
     this.scene.player.inventory[key] -= 1;
+    this.scene.Menu.enabled = true;
   }
 
   cancel() {
     this.destroyPrePlace();
+    this.scene.Menu.enabled = true;
   }
 }
