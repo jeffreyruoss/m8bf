@@ -40,7 +40,7 @@ export default class Build {
 
   prePlace() {
     this.prePlaceStructure = this.scene.physics.add.image(this.pointer.worldX, this.pointer.worldY, this.key)
-      .setAlpha(0.7).setTint(0xa1ff4b).setOrigin(0);
+      .setAlpha(0.7).setTint(0xa1ff4b).setOrigin(0).setDepth(4);
     this.scene.InfoBar.createInfoBar(['Press ESC to cancel', 'Hold SHIFT to snap to grid']);
   }
 
