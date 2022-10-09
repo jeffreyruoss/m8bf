@@ -62,7 +62,7 @@ export default class Main extends Phaser.Scene {
 
     this.InfoBar = new InfoBar(this);
 
-    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,ESC, SHIFT");
+    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,ESC,SHIFT");
 
     this.Mouse = new Mouse(this);
 
@@ -96,8 +96,8 @@ export default class Main extends Phaser.Scene {
         this.Build.prePlaceStructure.x = this.pointer.worldX;
         this.Build.prePlaceStructure.y = this.pointer.worldY;
       } else {
-        this.Build.prePlaceStructure.x = Math.round(this.pointer.worldX / 64) * 64;
-        this.Build.prePlaceStructure.y = Math.round(this.pointer.worldY / 64) * 64;
+        this.Build.prePlaceStructure.x = Math.floor(this.pointer.worldX / 64) * 64;
+        this.Build.prePlaceStructure.y = Math.floor(this.pointer.worldY / 64) * 64;
       }
     }
   }

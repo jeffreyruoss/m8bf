@@ -17,6 +17,11 @@ export default class MapGenerator {
     return this.allObjectsXY;
   }
 
+  isObjectAtXY(x, y) {
+    const object = this.allObjectsXY.find(object => object.x === x && object.y === y);
+    return !!object;
+  }
+
   generateGrass() {
     this.scene.add.tileSprite(0, 0, this.scene.sceneWidth * 4, this.scene.sceneHeight * 4, 'grass').setOrigin(0);
   }
@@ -44,10 +49,7 @@ export default class MapGenerator {
       for (let j = 0; j < this.scene.sceneHeight * 4; j += height) {
         if (Math.random() < frequency) {
           // Don't spawn the object if there is an object at the same x and y
-          obj = allObjectsXY.find(object => object.x === i && object.y === j);
-          if (obj) {
-            continue;
-          }
+          if (this.isObjectAtXY(i, j)) continue;
 
           // Don't spawn the object on the player
           if (i < playerX + 50 && i > playerX - 50) {

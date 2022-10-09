@@ -12,8 +12,15 @@ export default class Build {
     this.scene.time.delayedCall(100, () => {
       this.scene.input.on('pointerdown', (pointer) => {
         if (this.prePlaceStructure) {
-          this.destroyPrePlace();
-          this.place(key);
+          const x = this.prePlaceStructure.x;
+          const y = this.prePlaceStructure.y;
+          this.scene.MapGenerator.getAllObjectsXY();
+          if (this.scene.MapGenerator.isObjectAtXY(x, y)) {
+            this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'There is already a structure here.', { fontFamily: this.scene.font, color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
+          } else {
+            this.place(key);
+            this.destroyPrePlace();
+          }
         }
       });
     });
@@ -21,8 +28,8 @@ export default class Build {
 
   prePlace(key) {
     this.prePlaceStructure = this.scene.physics.add.image(this.pointer.worldX, this.pointer.worldY, key)
-      .setSize(32, 40).setAlpha(0.7).setTint(0xa1ff4b).setOrigin(1);
-
+      .setAlpha(0.7).setTint(0xa1ff4b).setOrigin(0);
+    console.log(this.prePlaceStructure);
     this.scene.InfoBar.createInfoBar(['Press ESC to cancel', 'Hold SHIFT to ignore grid']);
 
     this.scene.input.keyboard.on('keydown-ESC', () => {
@@ -40,8 +47,9 @@ export default class Build {
   }
 
   place(key) {
-    const structure = this.scene.physics.add.staticSprite(Math.round(this.pointer.worldX / 64) * 64, Math.round(this.pointer.worldY / 64) * 64, key)
-      .setSize(64, 64).setOrigin(1);
+    const structure = this.scene.physics.add.staticSprite(this.prePlaceStructure.x, this.prePlaceStructure.y, key)
+      .setOrigin(0).setOffset(32, 32);
+    this.scene.allObjects.add(structure);
     this.scene.sound.play('placeStructure');
     this.scene.physics.add.collider(this.scene.player, structure);
     this.pointer = null;
