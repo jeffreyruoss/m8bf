@@ -45,8 +45,7 @@ export default class CraftPanel {
             this.scene.Craft.craftItem(item, items[item]);
             Menu.updateMenu();
         } else {
-          const messageStyle = { fontSize: "18px", fontFamily: this.scene.font, align: "center", color: "#AE3737", backgroundColor: "#ffffff", padding: 12 };
-          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have the appropriate ingredients", messageStyle);
+          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have the appropriate ingredients", 'negative');
           this.scene.sound.play('error');
         }
       });

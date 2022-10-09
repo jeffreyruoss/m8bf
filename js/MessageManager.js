@@ -6,8 +6,23 @@ export default class MessageManager {
     this.messages = [];
   }
 
-  createMessage(x, y, text, style) {
+  /**
+   * @param {string} text
+   * @param x
+   * @param y
+   * @param text
+   * @param type - 'info', 'positive' or 'negative'
+   */
+  createMessage(x, y, text, type) {
+    const style = { fontFamily: this.scene.font, fontSize: '20px', backgroundColor: 'rgba(203,219,252,0.8)', padding: 5 };
     const message = new Message(this.scene, text, x, y, style);
+    if (type === 'positive') {
+      message.message.setColor('#37946e');
+    } else if (type === 'negative') {
+      message.message.setColor('#AE3737');
+    } else if (type === 'info') {
+      message.message.setColor('#2B6180');
+    }
     this.floatUpMessage(message);
     this.floatUpPreviousMessage(x, y);
     this.messages.push(message);

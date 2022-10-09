@@ -37,8 +37,7 @@ export default class BuildPanel {
             this.scene.Build.build(item);
           }
         } else {
-          const messageStyle = { fontSize: "18px", fontFamily: this.scene.font, align: "center", color: "#AE3737", backgroundColor: "#ffffff", padding: 12 };
-          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have this item in your inventory", messageStyle);
+          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have this item in your inventory", 'negative');
           this.scene.sound.play('error');
         }
       });
