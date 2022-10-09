@@ -47,6 +47,7 @@ export default class CraftPanel {
         } else {
           const messageStyle = { fontSize: "18px", fontFamily: this.scene.font, align: "center", color: "#AE3737", backgroundColor: "#ffffff", padding: 12 };
           this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have the appropriate ingredients", messageStyle);
+          this.scene.sound.play('error');
         }
       });
       if (!isEnoughResources) {

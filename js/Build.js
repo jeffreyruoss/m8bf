@@ -12,7 +12,8 @@ export default class Build {
         if (this.scene.allObjects.getChildren().length > 0) {
           const overlap = this.scene.physics.overlap(this.prePlaceStructure, this.scene.allObjects);
           if (overlap) {
-            this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Too close to another thing', { fontFamily: this.scene.font, color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
+            this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Too close to another thing', { fontFamily: this.scene.font, color: '#AE3737', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
+            this.scene.sound.play('error');
           } else {
             this.place(this.key);
             this.destroyPrePlace();

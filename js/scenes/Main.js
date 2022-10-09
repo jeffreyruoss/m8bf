@@ -29,6 +29,7 @@ export default class Main extends Phaser.Scene {
     this.load.audio('ironMineDeplete', './../../sounds/sfx_sounds_impact11.mp3');
     this.load.audio('placeStructure', './../../sounds/sfx_wpn_punch3.mp3');
     this.load.audio('craft', './../../sounds/sfx_coin_cluster3.mp3');
+    this.load.audio('error', './../../sounds/sfx_sounds_error4.mp3');
     this.load.json('menuJSON', './../../js/menu/menu.json');
     this.load.json('itemsJSON', './../../js/items.json');
   }
