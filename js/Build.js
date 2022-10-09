@@ -3,7 +3,6 @@ export default class Build {
     this.scene = scene;
     this.prePlaceStructure = null;
     this.pointer = null;
-    this.infoBoxItems = [];
   }
 
   build(key) {
