@@ -31,7 +31,7 @@ export default class Build {
   prePlace(key) {
     this.prePlaceStructure = this.scene.physics.add.image(this.pointer.worldX, this.pointer.worldY, key)
       .setAlpha(0.7).setTint(0xa1ff4b).setOrigin(0);
-    this.scene.InfoBar.createInfoBar(['Press ESC to cancel', 'Hold SHIFT to ignore grid']);
+    this.scene.InfoBar.createInfoBar(['Press ESC to cancel', 'Hold SHIFT to snap to grid']);
 
     this.scene.input.keyboard.on('keydown-ESC', () => {
       this.destroyPrePlace();

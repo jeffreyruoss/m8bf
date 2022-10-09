@@ -16,8 +16,8 @@ export default class Player {
       .setSize(32, 21)
       .setOffset(19, 31);
     this.scene.player.inventory = {
-      wood: 0,
-      stone: 0,
+      wood: 10,
+      stone: 10,
       iron: 0,
       gold: 0,
       water: 0,
@@ -28,12 +28,13 @@ export default class Player {
       ironAxe: 0,
       stonePickaxe: 0,
       ironPickaxe: 0,
+      workshop: 10,
       hut: 0
     }
     this.scene.player.attributes = {
-      movementSpeed: 300,
-      treeCollectionSpeed: 750,
-      mineCollectionSpeed: 750
+      movementSpeed: 700, // 300
+      treeCollectionSpeed: 300, // 750
+      mineCollectionSpeed: 300 // 760
     }
     this.scene.allObjects.add(this.scene.player);
   }
