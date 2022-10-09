@@ -4,24 +4,6 @@ export default class MapGenerator {
     this.allObjectsXY = [];
   }
 
-  /**
-   * Get all objects' x and y coordinates
-   * Used to check if there is an object at the same x and y (faster than iterating through the actual objects)
-   * @returns {Array} Array of objects with x and y coordinates
-   * @memberof MapGenerator
-   */
-  getAllObjectsXY() {
-    this.scene.allObjects.getChildren().forEach(object => {
-      this.allObjectsXY.push({ x: object.x, y: object.y });
-    });
-    return this.allObjectsXY;
-  }
-
-  isObjectAtXY(x, y) {
-    const object = this.allObjectsXY.find(object => object.x === x && object.y === y);
-    return !!object;
-  }
-
   generateGrass() {
     this.scene.add.tileSprite(0, 0, this.scene.sceneWidth * 4, this.scene.sceneHeight * 4, 'grass').setOrigin(0);
   }
@@ -38,17 +20,12 @@ export default class MapGenerator {
 
     this.scene[group] = this.scene.physics.add.staticGroup();
 
-    this.getAllObjectsXY();
-
     const playerX = this.scene.player.x;
     const playerY = this.scene.player.y;
 
     for (let i = 0; i < this.scene.sceneWidth * 4; i += width) {
       for (let j = 0; j < this.scene.sceneHeight * 4; j += height) {
         if (Math.random() < frequency) {
-          // Don't spawn the object if there is an object at the same x and y
-          // if (this.isObjectAtXY(i, j)) continue;
-
           // Don't spawn the object near the player
           if (i < playerX + 50 && i > playerX - 50) {
             if (j < playerY + 50 && j > playerY - 50) {
@@ -59,7 +36,6 @@ export default class MapGenerator {
           // Randomize the object's x and y coordinates by plus or minus width/height
           const x = i + Math.floor(Math.random() * width) - width / 2;
           const y = j + Math.floor(Math.random() * height) - height / 2;
-
 
           // Invisible rectangle for collisions and for the player to act on
           const object = this.scene.physics.add.staticSprite(x, y, type)
@@ -72,7 +48,7 @@ export default class MapGenerator {
           const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
           if (overlap) {
             object.destroy();
-            continue;
+              continue;
           }
 
           // Images of the top and bottom half of the object (for visual depth)
@@ -80,7 +56,6 @@ export default class MapGenerator {
             this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
             this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
           ];
-
           object.on('destroy', () => object.images.forEach(image => image.destroy()));
 
           if (type === 'tree') {
@@ -89,6 +64,7 @@ export default class MapGenerator {
             object.picks = 0;
             object.iron = 3;
           }
+
           this.scene[group].add(object);
           this.scene.allObjects.add(object);
         }
