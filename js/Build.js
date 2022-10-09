@@ -14,12 +14,14 @@ export default class Build {
         if (this.prePlaceStructure) {
           const x = this.prePlaceStructure.x;
           const y = this.prePlaceStructure.y;
-          this.scene.MapGenerator.getAllObjectsXY();
-          if (this.scene.MapGenerator.isObjectAtXY(x, y)) {
-            this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'There is already a structure here.', { fontFamily: this.scene.font, color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
-          } else {
-            this.place(key);
-            this.destroyPrePlace();
+          if (this.scene.allObjects.getChildren().length > 0) {
+            const overlap = this.scene.physics.overlap(this.prePlaceStructure, this.scene.allObjects);
+            if (overlap) {
+              this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'There is already a structure here.', { fontFamily: this.scene.font, color: '#37946e', fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 });
+            } else {
+              this.place(key);
+              this.destroyPrePlace();
+            }
           }
         }
       });
