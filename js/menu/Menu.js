@@ -39,7 +39,10 @@ export default class Menu {
     const panelName = this.currentPanelName.charAt(0).toUpperCase() + this.currentPanelName.slice(1);
     this.currentPanel = new (eval(panelName + 'Panel'))(this.scene);
     this.currentPanel[`create${panelName}Panel`](this);
-    this.scene.menuItems.children.each(item => item.setScrollFactor(0).setOrigin(0));
+    this.scene.menuItems.children.each(item => {
+      item.setDepth(item.type === 'Text' ? 5 : 4);
+      item.setScrollFactor(0).setOrigin(0);
+    });
   }
 
   createMenuRectangle() {

@@ -12,7 +12,9 @@ export default class Player {
     this.scene.anims.createFromAseprite('player');
     this.scene.player = this.scene.physics
       .add.sprite(this.scene.playerStartX, this.scene.playerStartY, "player")
-      .setSize(32, 40);
+      .setDepth(2)
+      .setSize(32, 21)
+      .setOffset(19, 31);
     this.scene.player.inventory = {
       wood: 0,
       stone: 0,

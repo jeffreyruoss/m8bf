@@ -32,7 +32,6 @@ export default class CraftPanel {
       const buttonStyle = { fontSize: "20px", fontFamily: this.scene.font, align: "center" };
       const buttonText = this.scene.add.text(x + padding, y + padding, 'Craft', buttonStyle);
       const buttonRectangle = this.scene.add.rectangle(x + padding, y + padding, buttonText.width + padding * 2 , rectangle.height - padding * 2, 0x3F3F74);
-      buttonText.depth = 1
       buttonText.x = buttonRectangle.x - buttonText.width / 2 + buttonRectangle.width / 2;
       buttonText.y = buttonRectangle.y - buttonText.height / 2 + buttonRectangle.height / 2;
       this.scene.menuItems.add(buttonText);
@@ -47,7 +46,7 @@ export default class CraftPanel {
             Menu.updateMenu();
         } else {
           const messageStyle = { fontSize: "18px", fontFamily: this.scene.font, align: "center", color: "#AE3737", backgroundColor: "#ffffff", padding: 12 };
-          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have the appropriate ingredients.", messageStyle);
+          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have the appropriate ingredients", messageStyle);
         }
       });
       if (!isEnoughResources) {

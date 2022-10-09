@@ -55,9 +55,22 @@ export default class MapGenerator {
               continue;
             }
           }
+
+          // Invisible rectangle for collisions and for the player to act on
           const object = this.scene.physics.add.staticSprite(i, j, type)
             .setOrigin(0, 0)
-            .setOffset(width / 2, height / 2);
+            .setAlpha(0)
+            .setSize(64, 32)
+            .setOffset(32, 64);
+
+          // Images of the top and bottom half of the object (for visual depth)
+          object.images = [
+            this.scene.add.image(i, j, type).setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
+            this.scene.add.image(i, j, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
+          ];
+
+          object.on('destroy', () => object.images.forEach(image => image.destroy()));
+
           if (type === 'tree') {
             object.chops = 0;
           } else if (type === 'iron-mine') {
