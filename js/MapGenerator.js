@@ -38,12 +38,10 @@ export default class MapGenerator {
 
     this.scene[group] = this.scene.physics.add.staticGroup();
 
-    const allObjectsXY = this.getAllObjectsXY();
+    this.getAllObjectsXY();
 
     const playerX = this.scene.player.x;
     const playerY = this.scene.player.y;
-
-    let obj;
 
     for (let i = 0; i < this.scene.sceneWidth * 4; i += width) {
       for (let j = 0; j < this.scene.sceneHeight * 4; j += height) {

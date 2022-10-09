@@ -11,11 +11,8 @@ export default class Craft {
         playerInventory[resource] -= recipe[resource];
       }
       playerInventory[itemName] += 1;
-      console.log(`You crafted ${itemName}!`);
       this.scene.sound.play("craft");
       this.scene.Menu.updateMenu();
-    } else {
-      console.log("not enough resources");
     }
   }
 
