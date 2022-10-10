@@ -75,9 +75,9 @@ export default class Build {
     this.scene.allObjects.add(structure);
     this.scene.sound.play('placeStructure');
     this.scene.physics.add.collider(this.scene.player, structure);
+    this.scene.player.inventory[this.key] -= 1;
     this.key = null;
     this.pointer = null;
-    this.scene.player.inventory[this.key] -= 1;
     this.scene.Menu.enabled = true;
   }
 }
