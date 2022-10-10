@@ -3,10 +3,12 @@ import Main from "./scenes/Main.js";
 
 const config = {
   type: Phaser.WEBGL,
-  width: window.innerWidth * window.devicePixelRatio, // fit to screen
-  height: window.innerHeight * window.devicePixelRatio, // fit to screen
+  width: window.innerWidth * window.devicePixelRatio, // Fit to screen
+  height: window.innerHeight * window.devicePixelRatio, // Fit to screen
   // width: 256 * 4, // NES * 4
   // height: 240 * 4, // NES * 4
+  // maxWidth: 256 * 4, // NES * 4
+  // maxHeight: 240 * 4, // NES * 4
   pixelArt: true,
   // scene: [Intro, Main],
   scene: [Main, Intro],
