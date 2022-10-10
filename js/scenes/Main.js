@@ -14,7 +14,7 @@ export default class Main extends Phaser.Scene {
   constructor() {
     super('Main');
     this.font = 'earls-revenge';
-    this.worldSizeMultiplier = 16;
+    this.sceneSizeMultiplier = 2;
   }
 
   preload() {
@@ -46,8 +46,8 @@ export default class Main extends Phaser.Scene {
     this.allObjects = this.add.group();
     this.cameras.main.fadeIn(1000);
 
-    this.sceneWidth = this.sys.game.config.width * this.worldSizeMultiplier;
-    this.sceneHeight = this.sys.game.config.height * this.worldSizeMultiplier;
+    this.sceneWidth = this.sys.game.config.width * this.sceneSizeMultiplier;
+    this.sceneHeight = this.sys.game.config.height * this.sceneSizeMultiplier;
 
     this.MapGenerator = new MapGenerator(this);
 
