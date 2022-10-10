@@ -1,11 +1,10 @@
 export default class MapGenerator {
   constructor(scene) {
     this.scene = scene;
-    this.allObjectsXY = [];
   }
 
   generateGrass() {
-    this.scene.add.tileSprite(0, 0, this.scene.sceneWidth * 4, this.scene.sceneHeight * 4, 'grass').setOrigin(0);
+    this.scene.add.tileSprite(0, 0, this.scene.sceneWidth, this.scene.sceneHeight, 'grass').setOrigin(0);
   }
 
   /**
@@ -23,8 +22,8 @@ export default class MapGenerator {
     const playerX = this.scene.player.x;
     const playerY = this.scene.player.y;
 
-    for (let i = 0; i < this.scene.sceneWidth * 4; i += width) {
-      for (let j = 0; j < this.scene.sceneHeight * 4; j += height) {
+    for (let i = 0; i < this.scene.sceneWidth; i += width) {
+      for (let j = 0; j < this.scene.sceneHeight; j += height) {
         if (Math.random() < frequency) {
           // Don't spawn the object near the player
           if (i < playerX + 50 && i > playerX - 50) {

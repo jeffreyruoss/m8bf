@@ -14,6 +14,7 @@ export default class Main extends Phaser.Scene {
   constructor() {
     super('Main');
     this.font = 'earls-revenge';
+    this.worldSizeMultiplier = 16;
   }
 
   preload() {
@@ -45,8 +46,8 @@ export default class Main extends Phaser.Scene {
     this.allObjects = this.add.group();
     this.cameras.main.fadeIn(1000);
 
-    this.sceneWidth = this.sys.game.config.width;
-    this.sceneHeight = this.sys.game.config.height;
+    this.sceneWidth = this.sys.game.config.width * this.worldSizeMultiplier;
+    this.sceneHeight = this.sys.game.config.height * this.worldSizeMultiplier;
 
     this.MapGenerator = new MapGenerator(this);
 
@@ -54,8 +55,8 @@ export default class Main extends Phaser.Scene {
 
     new Player(this);
 
-    this.cameras.main.setBounds(0, 0, this.sceneWidth * 4, this.sceneHeight * 4);
-    this.physics.world.setBounds(0, 0, this.sceneWidth * 4, this.sceneHeight * 4);
+    this.cameras.main.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
+    this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
     this.player.setCollideWorldBounds('true');
     this.cameras.main.startFollow(this.player);
 
