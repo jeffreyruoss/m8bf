@@ -85,7 +85,7 @@ export default class Main extends Phaser.Scene {
     this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
 
-    this.FPS = new FPS(this);
+    this.FPS = new FPS(this, 'bottom-left');
 
     // this.Menu.createMenu(); // do auto-open menu on start for testing
   }
