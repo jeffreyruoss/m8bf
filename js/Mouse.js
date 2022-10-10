@@ -20,5 +20,6 @@ export default class Mouse {
         element.setFillStyle(0x3f3f74);
       }
     });
+    element.on('destroy', () => this.scene.input.setDefaultCursor('default'));
   }
 }
