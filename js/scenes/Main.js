@@ -8,6 +8,7 @@ import MessageManager from "./../MessageManager.js";
 import Build from "./../Build.js";
 import InfoBar from "./../InfoBar.js";
 import Mouse from "./../Mouse.js";
+import FPS from "./../FPS.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
@@ -83,6 +84,8 @@ export default class Main extends Phaser.Scene {
     this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
 
+    this.FPS = new FPS(this);
+
     // this.Menu.createMenu(); // do auto-open menu on start for testing
   }
 
@@ -103,5 +106,7 @@ export default class Main extends Phaser.Scene {
         this.Build.prePlaceStructure.y = this.pointer.worldY;
       }
     }
+
+    this.FPS.update();
   }
 }
