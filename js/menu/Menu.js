@@ -48,7 +48,7 @@ export default class Menu {
 
   createMenuRectangle() {
     this.scene.Menu.box = this.scene.add
-      .rectangle(30, 30, this.scene.sceneWidth - 60, this.scene.sceneHeight - 60, 0x222034);
+      .rectangle(30, 30, this.scene.cameras.main.width - 60, this.scene.cameras.main.height - 60, 0x222034);
     this.scene.menuItems.add(this.scene.Menu.box);
   }
 
