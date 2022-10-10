@@ -98,15 +98,7 @@ export default class Main extends Phaser.Scene {
       this.PlayerActions.collectIronMine();
     }
 
-    if (this.Build.prePlaceStructure) {
-      if (this.input.keyboard.checkDown(this.keys.SHIFT)) {
-        this.Build.prePlaceStructure.x = Math.floor(this.pointer.worldX / 64) * 64;
-        this.Build.prePlaceStructure.y = Math.floor(this.pointer.worldY / 64) * 64;
-      } else {
-        this.Build.prePlaceStructure.x = this.pointer.worldX;
-        this.Build.prePlaceStructure.y = this.pointer.worldY;
-      }
-    }
+    this.Build.update();
 
     this.FPS.update();
   }

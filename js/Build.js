@@ -80,4 +80,16 @@ export default class Build {
     this.pointer = null;
     this.scene.Menu.enabled = true;
   }
+
+  update() {
+    if (this.scene.Build.prePlaceStructure) {
+      if (this.scene.input.keyboard.checkDown(this.scene.keys.SHIFT)) {
+        this.scene.Build.prePlaceStructure.x = Math.floor(this.scene.pointer.worldX / 64) * 64;
+        this.scene.Build.prePlaceStructure.y = Math.floor(this.scene.pointer.worldY / 64) * 64;
+      } else {
+        this.scene.Build.prePlaceStructure.x = this.scene.pointer.worldX - this.scene.Build.prePlaceStructure.width / 2;
+        this.scene.Build.prePlaceStructure.y = this.scene.pointer.worldY - this.scene.Build.prePlaceStructure.height / 2;
+      }
+    }
+  }
 }
