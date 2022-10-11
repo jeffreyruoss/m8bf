@@ -36,7 +36,8 @@ export default class Menu {
 
   createMenu() {
     this.createMenuRectangle();
-    this.createNav();
+    this.mainNavItems();
+    this.systemNavItems();
     const panelName = this.currentPanelName.charAt(0).toUpperCase() + this.currentPanelName.slice(1);
     this.currentPanel = new (eval(panelName + 'Panel'))(this.scene);
     this.currentPanel[`create${panelName}Panel`](this);
@@ -52,15 +53,16 @@ export default class Menu {
     this.scene.menuItems.add(this.scene.Menu.box);
   }
 
-  createNav() {
+  mainNavItems() {
     const menuJSON = this.scene.menuJSON;
     let lastItemX = 0;
     let lastItemWidth = 0;
     for (let item in menuJSON) {
+      if (menuJSON[item].type === 'system') continue;
       lastItemX = lastItemX === 0 ? 30 : lastItemX += 2;
       let x = lastItemX + lastItemWidth;
       let y = 30;
-      let style = { fontSize: "19px", fontFamily: this.scene.font, fill: "#ffffff", padding: 15, textAlign: "center", backgroundColor: "#3f3f74"};
+      let style = { fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"};
       let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive();
       this.scene.Mouse.buttonHover(currentItem);
       currentItem.on("pointerdown", () => {
@@ -71,6 +73,32 @@ export default class Menu {
       lastItemX = currentItem.x;
       lastItemWidth = currentItem.width;
       this.navHeight = this.navHeight || currentItem.height;
+    }
+  }
+
+  systemNavItems() {
+    const menuJSON = this.scene.menuJSON;
+    let x = 0;
+    let y = this.padding;
+    let systemNavItems = [];
+    for (let item in menuJSON) {
+      if (menuJSON[item].type !== 'system') continue;
+      let style = { fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"};
+      let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive();
+      this.scene.Mouse.buttonHover(currentItem);
+      currentItem.on("pointerdown", () => {
+        this.currentPanelName = item;
+        this.updateMenu();
+      });
+      this.scene.menuItems.add(currentItem);
+      systemNavItems.push(currentItem);
+      systemNavItems.reverse();
+      x = this.box.x + this.box.width
+      systemNavItems.forEach((item, index) => {
+        x -= item.width;
+        item.setPosition(x, y);
+        x -= 2;
+      });
     }
   }
 }

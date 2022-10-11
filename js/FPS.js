@@ -10,7 +10,6 @@ export default class FPS {
    * @returns {*}
    */
   create(position) {
-    console.log(position);
     const fpsTextStyle = {
       fontFamily: this.scene.font,
       fontSize: 19,

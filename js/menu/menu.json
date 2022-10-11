@@ -10,5 +10,13 @@
   },
   "tech": {
     "name": "Tech"
+  },
+  "save": {
+    "name": "Save",
+    "type": "system"
+  },
+  "load": {
+    "name": "Load",
+    "type": "system"
   }
 }
