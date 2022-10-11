@@ -36,8 +36,7 @@ export default class Menu {
 
   createMenu() {
     this.createMenuRectangle();
-    this.mainNavItems();
-    this.systemNavItems();
+    this.nav();
     const panelName = this.currentPanelName.charAt(0).toUpperCase() + this.currentPanelName.slice(1);
     this.currentPanel = new (eval(panelName + 'Panel'))(this.scene);
     this.currentPanel[`create${panelName}Panel`](this);
@@ -53,16 +52,19 @@ export default class Menu {
     this.scene.menuItems.add(this.scene.Menu.box);
   }
 
-  mainNavItems() {
+  nav() {
     const menuJSON = this.scene.menuJSON;
-    let lastItemX = 0;
-    let lastItemWidth = 0;
+    const style = {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"}
+    let x = 0;
+    let y = this.padding;
+    this.mainNavItems(menuJSON, style, x, y);
+    this.systemNavItems(menuJSON, style, x, y);
+  }
+
+  mainNavItems(menuJSON, style, x, y) {
+    x += this.box.x;
     for (let item in menuJSON) {
       if (menuJSON[item].type === 'system') continue;
-      lastItemX = lastItemX === 0 ? 30 : lastItemX += 2;
-      let x = lastItemX + lastItemWidth;
-      let y = 30;
-      let style = { fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"};
       let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive();
       this.scene.Mouse.buttonHover(currentItem);
       currentItem.on("pointerdown", () => {
@@ -70,20 +72,16 @@ export default class Menu {
         this.updateMenu();
       });
       this.scene.menuItems.add(currentItem);
-      lastItemX = currentItem.x;
-      lastItemWidth = currentItem.width;
+      x += currentItem.width;
+      x += 2;
       this.navHeight = this.navHeight || currentItem.height;
     }
   }
 
-  systemNavItems() {
-    const menuJSON = this.scene.menuJSON;
-    let x = 0;
-    let y = this.padding;
+  systemNavItems(menuJSON, style, x, y) {
     let systemNavItems = [];
     for (let item in menuJSON) {
       if (menuJSON[item].type !== 'system') continue;
-      let style = { fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"};
       let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive();
       this.scene.Mouse.buttonHover(currentItem);
       currentItem.on("pointerdown", () => {
