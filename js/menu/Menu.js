@@ -57,46 +57,35 @@ export default class Menu {
     const style = {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"}
     let x = 0;
     let y = this.padding;
-    this.mainNavItems(menuJSON, style, x, y);
-    this.systemNavItems(menuJSON, style, x, y);
-  }
-
-  mainNavItems(menuJSON, style, x, y) {
     x += this.box.x;
-    for (let item in menuJSON) {
-      if (menuJSON[item].type === 'system') continue;
-      let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive();
-      this.scene.Mouse.buttonHover(currentItem);
-      currentItem.on("pointerdown", () => {
-        this.currentPanelName = item;
-        this.updateMenu();
-      });
-      this.scene.menuItems.add(currentItem);
-      x += currentItem.width;
-      x += 2;
-      this.navHeight = this.navHeight || currentItem.height;
-    }
-  }
-
-  systemNavItems(menuJSON, style, x, y) {
     let systemNavItems = [];
     for (let item in menuJSON) {
-      if (menuJSON[item].type !== 'system') continue;
-      let currentItem = this.scene.add.text(x, y, menuJSON[item].name, style).setInteractive();
-      this.scene.Mouse.buttonHover(currentItem);
-      currentItem.on("pointerdown", () => {
-        this.currentPanelName = item;
-        this.updateMenu();
-      });
-      this.scene.menuItems.add(currentItem);
-      systemNavItems.push(currentItem);
-      systemNavItems.reverse();
-      x = this.box.x + this.box.width
-      systemNavItems.forEach((item, index) => {
-        x -= item.width;
-        item.setPosition(x, y);
-        x -= 2;
-      });
+      const currentItem = this.navItem(item, menuJSON[item], style, x, y);
+      if (menuJSON[item].type !== 'system') {
+        x += currentItem.width;
+        x += 2;
+        this.navHeight = this.navHeight || currentItem.height;
+      } else if (menuJSON[item].type === 'system') {
+        systemNavItems.push(currentItem);
+      }
     }
+    systemNavItems.reverse();
+    x = this.box.x + this.box.width
+    systemNavItems.forEach((item, index) => {
+      x -= item.width;
+      item.setPosition(x, y);
+      x -= 2;
+    });
+  }
+
+  navItem(item, menuJSONitem, style, x, y) {
+    const currentItem = this.scene.add.text(x, y, menuJSONitem.name, style).setInteractive();
+    this.scene.Mouse.buttonHover(currentItem);
+    currentItem.on("pointerdown", () => {
+      this.currentPanelName = item;
+      this.updateMenu();
+    });
+    this.scene.menuItems.add(currentItem);
+    return currentItem;
   }
 }
