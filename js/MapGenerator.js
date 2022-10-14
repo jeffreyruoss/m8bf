@@ -22,54 +22,69 @@ export default class MapGenerator {
     const playerX = this.scene.player.x;
     const playerY = this.scene.player.y;
 
-    for (let i = 0; i < this.scene.sceneWidth; i += width) {
-      for (let j = 0; j < this.scene.sceneHeight; j += height) {
-        if (Math.random() < frequency) {
-          // Don't spawn the object near the player
-          if (i < playerX + 50 && i > playerX - 50) {
-            if (j < playerY + 50 && j > playerY - 50) {
-              continue;
+    // Generate objects from the saved game data
+    if (this.scene.data.loadGame && this.scene.savedGameData) {
+      this.scene.savedGameData.structures.forEach(structure => {
+        if (structure.name === type) {
+          this.generateObject(type, group, structure.x, structure.y, width, height);
+        }
+      });
+    } else {
+      // Generate objects randomly
+      for (let i = 0; i < this.scene.sceneWidth; i += width) {
+        for (let j = 0; j < this.scene.sceneHeight; j += height) {
+          if (Math.random() < frequency) {
+            // Don't spawn the object near the player
+            if (i < playerX + 50 && i > playerX - 50) {
+              if (j < playerY + 50 && j > playerY - 50) {
+                continue;
+              }
             }
+
+            // Randomize the object's x and y coordinates by plus or minus width/height
+            const x = i + Math.floor(Math.random() * width) - width / 2;
+            const y = j + Math.floor(Math.random() * height) - height / 2;
+
+            this.generateObject(type, group, x, y, width, height);
           }
-
-          // Randomize the object's x and y coordinates by plus or minus width/height
-          const x = i + Math.floor(Math.random() * width) - width / 2;
-          const y = j + Math.floor(Math.random() * height) - height / 2;
-
-          // Invisible rectangle for collisions and for the player to act on
-          const object = this.scene.physics.add.staticSprite(x, y, type)
-            .setOrigin(0, 0)
-            .setAlpha(0)
-            .setSize(64, 32)
-            .setOffset(32, 64);
-          object.name = type;
-
-          // Don't spawn where there is already an object
-          const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
-          if (overlap) {
-            object.destroy();
-              continue;
-          }
-
-          // Images of the top and bottom half of the object (for visual depth)
-          object.images = [
-            this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
-            this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
-          ];
-          object.on('destroy', () => object.images.forEach(image => image.destroy()));
-
-          if (type === 'tree') {
-            object.chops = 0;
-          } else if (type === 'iron-mine') {
-            object.picks = 0;
-            object.iron = 3;
-          }
-
-          this.scene[group].add(object);
-          this.scene.allObjects.add(object);
         }
       }
     }
+
     this.scene.physics.add.collider(this.scene.player, this.scene[group]);
+  }
+
+  generateObject(type, group, x, y, width, height) {
+    // Invisible rectangle for collisions and for the player to act on
+    const object = this.scene.physics.add.staticSprite(x, y, type)
+      .setOrigin(0, 0)
+      .setAlpha(0)
+      .setSize(64, 32)
+      .setOffset(32, 64);
+    object.name = type;
+
+    // Don't spawn where there is already an object
+    const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
+    if (overlap) {
+      object.destroy();
+      return;
+    }
+
+    // Images of the top and bottom half of the object (for visual depth)
+    object.images = [
+      this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
+      this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
+    ];
+    object.on('destroy', () => object.images.forEach(image => image.destroy()));
+
+    if (type === 'tree') {
+      object.chops = 0;
+    } else if (type === 'iron-mine') {
+      object.picks = 0;
+      object.iron = 3;
+    }
+
+    this.scene[group].add(object);
+    this.scene.allObjects.add(object);
   }
 }
