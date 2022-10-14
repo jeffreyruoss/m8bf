@@ -36,7 +36,10 @@ export default class Main extends Phaser.Scene {
     this.load.json('itemsJSON', './../../js/items.json');
   }
 
-  create() {
+  create(data) {
+    this.data = data;
+    this.savedGameData = data.loadGame ? JSON.parse(localStorage.getItem('m8bf')) : null;
+
     this.time.advancedTiming = true;
     this.pointer = this.input.activePointer;
 
@@ -87,7 +90,8 @@ export default class Main extends Phaser.Scene {
 
     this.FPS = new FPS(this, 'bottom-left');
 
-    // this.Menu.createMenu(); // do auto-open menu on start for testing
+    // TESTING
+    // this.Menu.createMenu(); // do auto-open menu
   }
 
   update() {

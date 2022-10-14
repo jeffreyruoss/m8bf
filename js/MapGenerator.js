@@ -42,6 +42,7 @@ export default class MapGenerator {
             .setAlpha(0)
             .setSize(64, 32)
             .setOffset(32, 64);
+          object.name = type;
 
           // Don't spawn where there is already an object
           const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
