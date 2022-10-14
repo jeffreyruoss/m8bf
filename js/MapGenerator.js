@@ -11,9 +11,8 @@ export default class MapGenerator {
    * Generate objects of a type on the map (trees, iron-mines, etc.)
    * @param type {string} Type of the object (tree, iron-mine, etc.)
    * @param group {string} Name of the group (trees, ironMines, etc.)
-   * @param frequency {number} How often the object should be generated (0-1 range where 1 is 100%)
    */
-  generateObjects(type, group, frequency) {
+  generateObjects(type, group) {
     const width = this.scene.textures.get(type).getSourceImage().width;
     const height = this.scene.textures.get(type).getSourceImage().height;
 
@@ -31,6 +30,12 @@ export default class MapGenerator {
       });
     } else {
       // Generate objects randomly
+      let frequency;
+      if (type === 'tree') {
+        frequency = 0.07;
+      } else if (type === 'iron-mine') {
+        frequency = 0.005;
+      }
       for (let i = 0; i < this.scene.sceneWidth; i += width) {
         for (let j = 0; j < this.scene.sceneHeight; j += height) {
           if (Math.random() < frequency) {

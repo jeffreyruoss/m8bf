@@ -63,8 +63,8 @@ export default class Main extends Phaser.Scene {
     this.player.setCollideWorldBounds('true');
     this.cameras.main.startFollow(this.player);
 
-    this.MapGenerator.generateObjects('iron-mine', 'ironMines', 0.005); // 0.005
-    this.MapGenerator.generateObjects('tree', 'trees', 0.07); // 0.07
+    this.MapGenerator.generateObjects('iron-mine', 'ironMines', );
+    this.MapGenerator.generateObjects('tree', 'trees', );
 
     this.InfoBar = new InfoBar(this);
 
@@ -89,9 +89,9 @@ export default class Main extends Phaser.Scene {
     this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
 
-    // this.FPS = new FPS(this, 'bottom-left');
 
     // TESTING
+    // this.FPS = new FPS(this, 'bottom-left');
     // this.Menu.createMenu(); // do auto-open menu
   }
 

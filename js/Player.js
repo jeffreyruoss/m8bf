@@ -26,27 +26,28 @@ export default class Player {
       this.scene.player.attributes = this.scene.savedGameData.player.attributes;
       this.scene.player.inventory = this.scene.savedGameData.player.inventory;
     } else {
-    this.scene.player.inventory = {
-      wood: 10,
-      stone: 10,
-      iron: 0,
-      gold: 0,
-      water: 0,
-      berries: 0,
-      soybeans: 0,
-      mana: 0,
-      stoneAxe: 0,
-      ironAxe: 0,
-      stonePickaxe: 0,
-      ironPickaxe: 0,
-      workshop: 10,
-      hut: 0
+      this.scene.player.inventory = {
+        wood: 10,
+        stone: 10,
+        iron: 0,
+        gold: 0,
+        water: 0,
+        berries: 0,
+        soybeans: 0,
+        mana: 0,
+        stoneAxe: 0,
+        ironAxe: 0,
+        stonePickaxe: 0,
+        ironPickaxe: 0,
+        workshop: 10,
+        hut: 0
+      }
+      this.scene.player.attributes = {
+        movementSpeed: 700, // 300
+        treeCollectionSpeed: 300, // 750
+        mineCollectionSpeed: 300 // 760
+      }
+      this.scene.allObjects.add(this.scene.player);
     }
-    this.scene.player.attributes = {
-      movementSpeed: 700, // 300
-      treeCollectionSpeed: 300, // 750
-      mineCollectionSpeed: 300 // 760
-    }
-    this.scene.allObjects.add(this.scene.player);
   }
 }
