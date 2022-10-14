@@ -60,4 +60,40 @@ export default class PlayerActions {
       }
     });
   }
+
+  inspect() {
+    this.scene.keys.I.on('down', () => {
+      const playerBounds = this.scene.player.getBounds();
+      const inspectBounds = new Phaser.Geom.Rectangle(playerBounds.x, playerBounds.y, playerBounds.width, playerBounds.height);
+      if (this.scene.player.direction === 'up') {
+        inspectBounds.y -= 32;
+      }
+      if (this.scene.player.direction === 'down') {
+        inspectBounds.y += 32;
+      }
+      if (this.scene.player.direction === 'left') {
+        inspectBounds.x -= 32;
+      }
+      if (this.scene.player.direction === 'right') {
+        inspectBounds.x += 32;
+      }
+      this.scene.trees.children.iterate((tree) => {
+        if (tree) {
+          const treeBounds = tree.getBounds();
+          if (Phaser.Geom.Intersects.RectangleToRectangle(inspectBounds, treeBounds)) {
+            console.log('This structure\'s objData', tree.objData);
+          }
+        }
+      } );
+      this.scene.ironMines.children.iterate((ironMine) => {
+        if (ironMine) {
+          const ironMineBounds = ironMine.getBounds();
+          if (Phaser.Geom.Intersects.RectangleToRectangle(inspectBounds, ironMineBounds)) {
+            console.log('This structure\'s objData', ironMine.objData);
+          }
+        }
+      });
+    });
+
+  }
 }

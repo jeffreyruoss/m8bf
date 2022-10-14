@@ -68,13 +68,14 @@ export default class Main extends Phaser.Scene {
 
     this.InfoBar = new InfoBar(this);
 
-    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,ESC,SHIFT");
+    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,I,ESC,SHIFT");
 
     this.Mouse = new Mouse(this);
 
     this.PlayerMovement = new PlayerMovement(this);
 
     this.PlayerActions = new PlayerActions(this);
+    this.PlayerActions.inspect();
 
     this.Craft = new Craft(this);
 
