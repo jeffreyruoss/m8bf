@@ -4,6 +4,7 @@ import CraftPanel from './panels/CraftPanel.js';
 import BuildPanel from './panels/BuildPanel.js';
 import TechPanel from "./panels/TechPanel.js";
 import SavePanel from "./panels/SavePanel.js";
+import LoadPanel from "./panels/LoadPanel.js";
 
 export default class Menu {
   constructor(scene) {
