@@ -11,8 +11,8 @@ export default class PlayerActions {
         const playerBounds = this.scene.player.getBounds();
         const treeBounds = tree.getBounds();
         if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, treeBounds)) {
-          tree.chops += 1;
-          if (tree.chops >= 5) {
+          tree.objData.chops += 1;
+          if (tree.objData.chops >= 5) {
             tree.destroy();
             this.scene.player.inventory.wood += 1;
             this.scene.sound.play('treeFall');
@@ -37,15 +37,15 @@ export default class PlayerActions {
         const playerBounds = this.scene.player.getBounds();
         const ironMineBounds = ironMine.getBounds();
         if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, ironMineBounds)) {
-          ironMine.picks += 1;
-          if (ironMine.picks >= 5) {
+          ironMine.objData.picks += 1;
+          if (ironMine.objData.picks >= 5) {
             this.scene.player.inventory.iron += 1;
             this.scene.sound.play('ironMineCollect');
             const style = { color: '#37946e', fontFamily: this.scene.font, fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
             this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, '+1 Iron', 'positive');
-            ironMine.picks = 0;
-            ironMine.iron -= 1;
-            if (ironMine.iron <= 0) {
+            ironMine.objData.picks = 0;
+            ironMine.objData.iron -= 1;
+            if (ironMine.objData.iron <= 0) {
               ironMine.destroy();
               this.scene.sound.play('ironMineDeplete');
               this.scene.time.delayedCall(300, () => {

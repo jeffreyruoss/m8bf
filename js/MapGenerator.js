@@ -26,7 +26,7 @@ export default class MapGenerator {
     if (this.scene.data.loadGame && this.scene.savedGameData) {
       this.scene.savedGameData.structures.forEach(structure => {
         if (structure.name === type) {
-          this.generateObject(type, group, structure.x, structure.y, width, height);
+          this.generateObject(type, group, structure.x, structure.y, width, height, structure.objData);
         }
       });
     } else {
@@ -45,7 +45,16 @@ export default class MapGenerator {
             const x = i + Math.floor(Math.random() * width) - width / 2;
             const y = j + Math.floor(Math.random() * height) - height / 2;
 
-            this.generateObject(type, group, x, y, width, height);
+            let objData = {}
+
+            if (type === 'tree') {
+              objData.chops = 0;
+            } else if (type === 'iron-mine') {
+              objData.picks = 0;
+              objData.iron = 3;
+            }
+
+            this.generateObject(type, group, x, y, width, height, objData);
           }
         }
       }
@@ -54,7 +63,7 @@ export default class MapGenerator {
     this.scene.physics.add.collider(this.scene.player, this.scene[group]);
   }
 
-  generateObject(type, group, x, y, width, height) {
+  generateObject(type, group, x, y, width, height, objData) {
     // Invisible rectangle for collisions and for the player to act on
     const object = this.scene.physics.add.staticSprite(x, y, type)
       .setOrigin(0, 0)
@@ -62,6 +71,7 @@ export default class MapGenerator {
       .setSize(64, 32)
       .setOffset(32, 64);
     object.name = type;
+    object.objData = objData;
 
     // Don't spawn where there is already an object
     const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
@@ -76,13 +86,6 @@ export default class MapGenerator {
       this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
     ];
     object.on('destroy', () => object.images.forEach(image => image.destroy()));
-
-    if (type === 'tree') {
-      object.chops = 0;
-    } else if (type === 'iron-mine') {
-      object.picks = 0;
-      object.iron = 3;
-    }
 
     this.scene[group].add(object);
     this.scene.allObjects.add(object);

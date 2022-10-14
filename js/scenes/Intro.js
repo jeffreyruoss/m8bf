@@ -30,7 +30,7 @@ export default class Intro extends Phaser.Scene {
         });
       });
 
-    this.add.text(centerX, centerY + 80, 'Load from last save',
+    this.add.text(centerX, centerY + 120, 'Load from last save',
       { fontFamily: 'vcrosdmono', fontSize: '30px', fill: '#0f0' })
       .setOrigin(0.5)
       .setInteractive()
@@ -40,6 +40,22 @@ export default class Intro extends Phaser.Scene {
           this.scene.start('Main', { loadGame: true });
         });
       });
+
+    // get the last save date and add it to the screen
+    const lastSave = localStorage.getItem('m8bf');
+    if (lastSave) {
+      const lastSaveDate = JSON.parse(lastSave).time;
+      this.add.text(centerX, centerY + 160, lastSaveDate,
+        { fontFamily: 'vcrosdmono', fontSize: '22px', fill: '#0f0' })
+        .setOrigin(0.5)
+        .setInteractive()
+        .on('pointerdown', () => {
+          this.cameras.main.fadeOut(1000);
+          this.time.delayedCall(1000, () => {
+            this.scene.start('Main', { loadGame: true });
+          });
+        });
+    }
   }
 
   update() {

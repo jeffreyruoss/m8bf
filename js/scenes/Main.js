@@ -14,7 +14,7 @@ export default class Main extends Phaser.Scene {
   constructor() {
     super('Main');
     this.font = 'earls-revenge';
-    this.sceneSizeMultiplier = 2;
+    this.sceneSizeMultiplier = 4;
   }
 
   preload() {
@@ -88,7 +88,7 @@ export default class Main extends Phaser.Scene {
     this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
 
-    this.FPS = new FPS(this, 'bottom-left');
+    // this.FPS = new FPS(this, 'bottom-left');
 
     // TESTING
     // this.Menu.createMenu(); // do auto-open menu
@@ -104,6 +104,6 @@ export default class Main extends Phaser.Scene {
 
     this.Build.update();
 
-    this.FPS.update();
+    // this.FPS.update();
   }
 }

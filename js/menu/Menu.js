@@ -11,7 +11,7 @@ export default class Menu {
     this.enabled = true;
     this.open = false;
     this.box = null;
-    this.currentPanelName = 'build';
+    this.currentPanelName = 'inventory';
     this.currentPanel = null;
     this.padding = 30;
     this.navHeight = null;

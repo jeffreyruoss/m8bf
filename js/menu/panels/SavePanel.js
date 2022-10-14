@@ -21,7 +21,10 @@ export default class SavePanel {
   }
 
   saveGame() {
+    const date = new Date();
+    const dateString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate() + ' ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     let saveObject = {
+      time: dateString,
       player: {
         x: this.scene.player.x,
         y: this.scene.player.y,
@@ -38,12 +41,12 @@ export default class SavePanel {
           name: child.name,
           x: child.x,
           y: child.y,
-          data: {
-          }
+          objData: child.objData
         });
       }
     });
 
     localStorage.setItem('m8bf', JSON.stringify(saveObject));
+    console.log('Game Saved', dateString);
   }
 }
