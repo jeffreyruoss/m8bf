@@ -41,7 +41,7 @@ export default class Menu {
     this.nav();
     const panelName = this.currentPanelName.charAt(0).toUpperCase() + this.currentPanelName.slice(1);
     this.currentPanel = new (eval(panelName + 'Panel'))(this.scene);
-    this.currentPanel[`create${panelName}Panel`](this);
+    this.currentPanel.createPanel(this);
     this.scene.menuItems.children.each(item => {
       item.setDepth(item.type === 'Text' ? 5 : 4);
       item.setScrollFactor(0).setOrigin(0);

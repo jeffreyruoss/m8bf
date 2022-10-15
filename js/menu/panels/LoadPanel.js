@@ -3,8 +3,7 @@ export default class LoadPanel {
     this.scene = scene;
   }
 
-  // This method is called dynamically from Menu.js
-  createLoadPanel(Menu) {
+  createPanel(Menu) {
     let x = Menu.box.x + Menu.padding;
     let y = Menu.box.y + Menu.padding + Menu.navHeight;
     let style = { fontSize: "19px", fontFamily: this.scene.font, fill: "#ffffff", align: "center", textTransform: "uppercase" };

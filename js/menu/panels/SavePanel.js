@@ -3,8 +3,7 @@ export default class SavePanel {
     this.scene = scene;
   }
 
-  // This method is called dynamically from Menu.js
-  createSavePanel(Menu) {
+  createPanel(Menu) {
     const playerInventory = this.scene.player.inventory;
     let x = Menu.box.x + Menu.padding;
     let y = Menu.box.y + Menu.padding + Menu.navHeight;

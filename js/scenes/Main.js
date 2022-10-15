@@ -47,7 +47,6 @@ export default class Main extends Phaser.Scene {
     this.itemsJSON = this.cache.json.get('itemsJSON');
 
     this.allObjects = this.add.group();
-    this.cameras.main.fadeIn(1000);
 
     this.sceneWidth = this.sys.game.config.width * this.sceneSizeMultiplier;
     this.sceneHeight = this.sys.game.config.height * this.sceneSizeMultiplier;
@@ -62,9 +61,6 @@ export default class Main extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
     this.player.setCollideWorldBounds('true');
     this.cameras.main.startFollow(this.player);
-
-    this.MapGenerator.generateObjects('iron-mine', 'ironMines', );
-    this.MapGenerator.generateObjects('tree', 'trees', );
 
     this.InfoBar = new InfoBar(this);
 
@@ -88,6 +84,13 @@ export default class Main extends Phaser.Scene {
     this.Menu = new Menu(this);
     this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
+
+    this.cameras.main.fadeIn(500);
+
+    this.MapGenerator.generateObjects('iron-mine', 'ironMines', );
+    this.MapGenerator.generateObjects('tree', 'trees', );
+
+
 
 
     // TESTING

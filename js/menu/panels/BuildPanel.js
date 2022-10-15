@@ -3,8 +3,7 @@ export default class BuildPanel {
     this.scene = scene;
   }
 
-  // This method is called dynamically from Menu.js
-  createBuildPanel(Menu) {
+  createPanel(Menu) {
     let x = Menu.box.x + Menu.padding;
     let y = Menu.box.y + Menu.padding + Menu.navHeight;
     const padding = 12;

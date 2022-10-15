@@ -3,8 +3,7 @@ export default class CraftPanel {
     this.scene = scene;
   }
 
-  // This method is called dynamically from Menu.js
-  createCraftPanel(Menu) {
+  createPanel(Menu) {
     let x = Menu.box.x + Menu.padding;
     let y = Menu.box.y + Menu.padding + Menu.navHeight;
     let spacing = 5;
