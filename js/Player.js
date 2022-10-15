@@ -44,9 +44,12 @@ export default class Player {
         hut: 0
       }
       this.scene.player.attributes = {
-        movementSpeed: 700, // 300
-        treeCollectionSpeed: 300, // 750
-        mineCollectionSpeed: 300 // 760
+        movementSpeed: 300, // 300
+        collectionSpeed: {
+          tree: 300,
+          stone: 300,
+          ironMine: 300
+        }
       }
       this.scene.allObjects.add(this.scene.player);
     }

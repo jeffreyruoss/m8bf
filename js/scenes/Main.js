@@ -94,7 +94,6 @@ export default class Main extends Phaser.Scene {
     this.cameras.main.fadeIn(500);
 
     this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits', );
-    // this.MapGenerator.generateObjects('ironMine', 'ironMines', );
     this.MapGenerator.generateObjects('stone', 'stones', );
     this.MapGenerator.generateObjects('tree', 'trees', );
 
@@ -110,9 +109,10 @@ export default class Main extends Phaser.Scene {
     this.PlayerMovement.playerMove();
 
     if (this.input.keyboard.checkDown(this.keys.SPACE)) {
-      this.PlayerActions.collectTree();
+      // this.PlayerActions.collectTree();
       // this.PlayerActions.collectIronMine();
-      this.PlayerActions.collectStone();
+      // this.PlayerActions.collectStone();
+      this.PlayerActions.collect();
     }
 
     this.Build.update();

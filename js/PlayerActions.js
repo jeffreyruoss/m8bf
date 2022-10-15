@@ -1,62 +1,59 @@
 export default class PlayerActions {
   constructor(scene) {
     this.scene = scene;
+    this.collectTime = 0;
     this.treeCollectTime = 0;
     this.stoneCollectTime = 0;
     this.ironMineCollectTime = 0;
   }
 
-  collectTree() {
-    this.scene.trees.children.iterate((tree) => {
-      if (tree && this.scene.time.now > this.treeCollectTime) {
+  collect() {
+    this.scene.allObjects.children.iterate((object) => {
+      if (object && object.name === 'player') return;
+      if (object && this.scene.time.now > this.collectTime) {
         const playerBounds = this.scene.player.getBounds();
-        const treeBounds = tree.getBounds();
-        if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, treeBounds)) {
-          tree.data.set('chops', tree.data.get('chops') + 1);
-          if (tree.data.get('chops') >= 5) {
-            tree.destroy();
-            this.scene.player.inventory.wood += 1;
-            this.scene.sound.play('treeFall');
-            const style = { fontFamily: this.scene.font, color: '#37946e', fontSize: '20px', backgroundColor: 'rgba(203,219,252,0.8)', padding: 5 };
-            this.scene.MessageManager.createMessage(tree.x, tree.y, '+1 Wood', 'positive');
-          } else {
-            this.scene.sound.play('treeChop');
-          }
-          let collectionSpeed = this.scene.player.attributes.treeCollectionSpeed
-          if (this.scene.player.inventory.stoneAxe > 0) {
-            collectionSpeed -= this.scene.itemsJSON.stoneAxe.effects.addTreeCollectionSpeed;
-          }
-          this.treeCollectTime = this.scene.time.now + collectionSpeed;
-        }
-      }
-    });
-  }
+        const objectBounds = object.getBounds();
+        if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, objectBounds)) {
+          let collectionSpeed = this.scene.player.attributes.collectionSpeed[object.name];
 
-  collectStone() {
-    this.scene.stones.children.iterate((stone) => {
-      if (stone && this.scene.time.now > this.stoneCollectTime) {
-        const playerBounds = this.scene.player.getBounds();
-        const stoneBounds = stone.getBounds();
-        if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, stoneBounds)) {
-          stone.data.set('picks', stone.data.get('picks') + 1);
-          if (stone.data.get('picks') >= 5) {
-            this.scene.player.inventory.stone += 1;
-            this.scene.sound.play('ironMineCollect');
-            const style = { color: '#37946e', fontFamily: this.scene.font, fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
-            this.scene.MessageManager.createMessage(stone.x, stone.y, '+1 Stone', 'positive');
-            stone.data.set('picks', 0);
-            stone.data.set('stone', stone.data.get('stone') - 1);
-            if (stone.data.get('stone') <= 0) {
-              stone.destroy();
-              this.scene.sound.play('ironMineDeplete');
-              this.scene.time.delayedCall(300, () => {
-                this.scene.MessageManager.createMessage(stone.x, stone.y, 'Stone deposit is depleted', 'negative');
-              });
+          // Tree
+          if (object.name === 'tree') {
+            object.data.set('chops', object.data.get('chops') + 1);
+            if (object.data.get('chops') >= 5) {
+              object.destroy();
+              this.scene.player.inventory.wood += 1;
+              this.scene.sound.play('treeFall');
+              this.scene.MessageManager.createMessage(object.x, object.y, '+1 Wood', 'positive');
+            } else {
+              this.scene.sound.play('treeChop');
             }
-          } else {
-            this.scene.sound.play('ironMinePick');
+            if (this.scene.player.inventory.stoneAxe > 0) {
+              collectionSpeed -= this.scene.itemsJSON.stoneAxe.effects.addTreeCollectionSpeed;
+            }
           }
-          this.stoneCollectTime = this.scene.time.now + this.scene.player.attributes.mineCollectionSpeed;
+
+          // Stone
+          if (object.name === 'stone') {
+            object.data.set('picks', object.data.get('picks') + 1);
+            if (object.data.get('picks') >= 5) {
+              this.scene.player.inventory.stone += 1;
+              this.scene.sound.play('ironMineCollect');
+              this.scene.MessageManager.createMessage(object.x, object.y, '+1 Stone', 'positive');
+              object.data.set('picks', 0);
+              object.data.set('stone', object.data.get('stone') - 1);
+              if (object.data.get('stone') <= 0) {
+                object.destroy();
+                this.scene.sound.play('ironMineDeplete');
+                this.scene.time.delayedCall(300, () => {
+                  this.scene.MessageManager.createMessage(object.x, object.y, 'Stone deposit is depleted', 'negative');
+                });
+              }
+            } else {
+              this.scene.sound.play('ironMinePick');
+            }
+          }
+
+          this.collectTime = this.scene.time.now + collectionSpeed;
         }
       }
     });
