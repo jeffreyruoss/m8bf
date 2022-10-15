@@ -40,7 +40,7 @@ export default class SavePanel {
           name: child.name,
           x: child.x,
           y: child.y,
-          objData: child.data.list
+          data: child.data.list
         });
       }
     });

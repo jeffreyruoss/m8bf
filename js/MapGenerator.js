@@ -25,7 +25,7 @@ export default class MapGenerator {
     if (this.scene.data.loadGame && this.scene.savedGameData) {
       this.scene.savedGameData.structures.forEach(structure => {
         if (structure.name === type) {
-          this.generateObject(type, group, structure.x, structure.y, width, height, structure.objData);
+          this.generateObject(type, group, structure.x, structure.y, width, height, structure.data);
         }
       });
     } else {
@@ -55,7 +55,7 @@ export default class MapGenerator {
     this.scene.physics.add.collider(this.scene.player, this.scene[group]);
   }
 
-  generateObject(type, group, x, y, width, height, objData) {
+  generateObject(type, group, x, y, width, height, data) {
     // Invisible rectangle for collisions and for the player to act on
     const object = this.scene.physics.add.staticSprite(x, y, type)
       .setOrigin(0, 0)
@@ -64,7 +64,7 @@ export default class MapGenerator {
       .setOffset(32, 64);
     object.name = type;
     object.setDataEnabled();
-    Object.entries(objData).forEach(([key, value]) => {
+    Object.entries(data).forEach(([key, value]) => {
       object.data.set(key, value);
     });
 
