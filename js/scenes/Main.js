@@ -23,7 +23,7 @@ export default class Main extends Phaser.Scene {
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
     this.load.image('ironOreDeposit', './../../img/iron-ore-deposit.png');
-    this.load.image('iron-mine', './../../img/iron-mine.png');
+    this.load.image('ironMine', './../../img/iron-mine.png');
     this.load.image('stone', './../../img/stone.png');
     this.load.image('chest', './../../img/chest.png');
     this.load.image('workshop', './../../img/workshop.png');
@@ -94,7 +94,7 @@ export default class Main extends Phaser.Scene {
     this.cameras.main.fadeIn(500);
 
     this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits', );
-    // this.MapGenerator.generateObjects('iron-mine', 'ironMines', );
+    // this.MapGenerator.generateObjects('ironMine', 'ironMines', );
     this.MapGenerator.generateObjects('stone', 'stones', );
     this.MapGenerator.generateObjects('tree', 'trees', );
 
