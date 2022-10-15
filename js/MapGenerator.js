@@ -35,6 +35,8 @@ export default class MapGenerator {
         frequency = 0.07;
       } else if (type === 'iron-mine') {
         frequency = 0.005;
+      } else if (type === 'stone') {
+        frequency = 0.005;
       }
       for (let i = 0; i < this.scene.sceneWidth; i += width) {
         for (let j = 0; j < this.scene.sceneHeight; j += height) {
@@ -57,6 +59,9 @@ export default class MapGenerator {
             } else if (type === 'iron-mine') {
               objData.picks = 0;
               objData.iron = 3;
+            } else if (type === 'stone') {
+              objData.picks = 0;
+              objData.stone = 3;
             }
 
             this.generateObject(type, group, x, y, width, height, objData);

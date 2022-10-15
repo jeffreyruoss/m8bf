@@ -14,7 +14,7 @@ export default class Main extends Phaser.Scene {
   constructor() {
     super('Main');
     this.font = 'earls-revenge';
-    this.sceneSizeMultiplier = 4;
+    this.sceneSizeMultiplier = 8;
   }
 
   preload() {
@@ -23,6 +23,7 @@ export default class Main extends Phaser.Scene {
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
     this.load.image('iron-mine', './../../img/iron-mine.png');
+    this.load.image('stone', './../../img/stone.png');
     this.load.image('workshop', './../../img/workshop.png');
     this.load.image('advancedWorkshop', './../../img/advanced-workshop.png');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');
@@ -89,6 +90,7 @@ export default class Main extends Phaser.Scene {
     this.cameras.main.fadeIn(500);
 
     this.MapGenerator.generateObjects('iron-mine', 'ironMines', );
+    this.MapGenerator.generateObjects('stone', 'stones', );
     this.MapGenerator.generateObjects('tree', 'trees', );
 
 
@@ -105,6 +107,7 @@ export default class Main extends Phaser.Scene {
     if (this.input.keyboard.checkDown(this.keys.SPACE)) {
       this.PlayerActions.collectTree();
       this.PlayerActions.collectIronMine();
+      this.PlayerActions.collectStone();
     }
 
     this.Build.update();

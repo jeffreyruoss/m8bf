@@ -2,6 +2,7 @@ export default class PlayerActions {
   constructor(scene) {
     this.scene = scene;
     this.treeCollectTime = 0;
+    this.stoneCollectTime = 0;
     this.ironMineCollectTime = 0;
   }
 
@@ -56,6 +57,36 @@ export default class PlayerActions {
             this.scene.sound.play('ironMinePick');
           }
           this.ironMineCollectTime = this.scene.time.now + this.scene.player.attributes.treeCollectionSpeed;
+        }
+      }
+    });
+  }
+
+  collectStone() {
+    this.scene.stones.children.iterate((stone) => {
+      if (stone && this.scene.time.now > this.stoneCollectTime) {
+        const playerBounds = this.scene.player.getBounds();
+        const stoneBounds = stone.getBounds();
+        if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, stoneBounds)) {
+          stone.objData.picks += 1;
+          if (stone.objData.picks >= 5) {
+            this.scene.player.inventory.stone += 1;
+            this.scene.sound.play('ironMineCollect');
+            const style = { color: '#37946e', fontFamily: this.scene.font, fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
+            this.scene.MessageManager.createMessage(stone.x, stone.y, '+1 Stone', 'positive');
+            stone.objData.picks = 0;
+            stone.objData.stone -= 1;
+            if (stone.objData.stone <= 0) {
+              stone.destroy();
+              this.scene.sound.play('ironMineDeplete');
+              this.scene.time.delayedCall(300, () => {
+                this.scene.MessageManager.createMessage(stone.x, stone.y, 'Stone deposit is depleted', 'negative');
+              });
+            }
+          } else {
+            this.scene.sound.play('ironMinePick');
+          }
+          this.stoneCollectTime = this.scene.time.now + this.scene.player.attributes.mineCollectionSpeed;
         }
       }
     });
