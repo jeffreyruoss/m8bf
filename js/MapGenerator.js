@@ -46,7 +46,7 @@ export default class MapGenerator {
             const x = i + Math.floor(Math.random() * width) - width / 2;
             const y = j + Math.floor(Math.random() * height) - height / 2;
 
-            this.generateObject(type, group, x, y, width, height, objJSON.objData);
+            this.generateObject(type, group, x, y, width, height, objJSON.data);
           }
         }
       }
