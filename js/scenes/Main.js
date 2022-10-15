@@ -18,6 +18,7 @@ export default class Main extends Phaser.Scene {
   }
 
   preload() {
+    this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'Generating world...', { fontFamily: this.font, fontSize: 32 }).setOrigin(0.5);
     this.load.aseprite('player', './../../img/player.png', './../../img/player.json');
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
