@@ -116,14 +116,14 @@ export default class PlayerActions {
           }
         }
       } );
-      this.scene.ironMines.children.iterate((ironMine) => {
-        if (ironMine) {
-          const ironMineBounds = ironMine.getBounds();
-          if (Phaser.Geom.Intersects.RectangleToRectangle(inspectBounds, ironMineBounds)) {
-            console.log('This structure\'s objData', ironMine.objData);
-          }
-        }
-      });
+      // this.scene.ironMines.children.iterate((ironMine) => {
+      //   if (ironMine) {
+      //     const ironMineBounds = ironMine.getBounds();
+      //     if (Phaser.Geom.Intersects.RectangleToRectangle(inspectBounds, ironMineBounds)) {
+      //       console.log('This structure\'s objData', ironMine.objData);
+      //     }
+      //   }
+      // });
     });
 
   }

@@ -14,7 +14,7 @@ export default class Main extends Phaser.Scene {
   constructor() {
     super('Main');
     this.font = 'earls-revenge';
-    this.sceneSizeMultiplier = 8;
+    this.sceneSizeMultiplier = 4;
   }
 
   preload() {
@@ -22,7 +22,7 @@ export default class Main extends Phaser.Scene {
     this.load.aseprite('player', './../../img/player.png', './../../img/player.json');
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
-    this.load.image('iron-ore-deposit', './../../img/iron-ore-deposit.png');
+    this.load.image('ironOreDeposit', './../../img/iron-ore-deposit.png');
     this.load.image('iron-mine', './../../img/iron-mine.png');
     this.load.image('stone', './../../img/stone.png');
     this.load.image('chest', './../../img/chest.png');
@@ -38,6 +38,7 @@ export default class Main extends Phaser.Scene {
     this.load.audio('error', './../../sounds/sfx_sounds_error4.mp3');
     this.load.json('menuJSON', './../../js/menu/menu.json');
     this.load.json('itemsJSON', './../../js/items.json');
+    this.load.json('mapObjectsJSON', './../../js/map-objects.json');
   }
 
   create(data) {
@@ -49,6 +50,7 @@ export default class Main extends Phaser.Scene {
 
     this.menuJSON = this.cache.json.get('menuJSON');
     this.itemsJSON = this.cache.json.get('itemsJSON');
+    this.mapObjectsJSON = this.cache.json.get('mapObjectsJSON');
 
     this.allObjects = this.add.group();
 
@@ -91,8 +93,8 @@ export default class Main extends Phaser.Scene {
 
     this.cameras.main.fadeIn(500);
 
-    this.MapGenerator.generateObjects('iron-ore-deposit', 'ironOreDeposits', );
-    this.MapGenerator.generateObjects('iron-mine', 'ironMines', );
+    this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits', );
+    // this.MapGenerator.generateObjects('iron-mine', 'ironMines', );
     this.MapGenerator.generateObjects('stone', 'stones', );
     this.MapGenerator.generateObjects('tree', 'trees', );
 
@@ -109,7 +111,7 @@ export default class Main extends Phaser.Scene {
 
     if (this.input.keyboard.checkDown(this.keys.SPACE)) {
       this.PlayerActions.collectTree();
-      this.PlayerActions.collectIronMine();
+      // this.PlayerActions.collectIronMine();
       this.PlayerActions.collectStone();
     }
 

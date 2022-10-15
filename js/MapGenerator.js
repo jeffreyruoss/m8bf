@@ -21,7 +21,7 @@ export default class MapGenerator {
     const playerX = this.scene.player.x;
     const playerY = this.scene.player.y;
 
-    // Generate objects from the saved game data
+    // Load game: Generate objects from the saved game data
     if (this.scene.data.loadGame && this.scene.savedGameData) {
       this.scene.savedGameData.structures.forEach(structure => {
         if (structure.name === type) {
@@ -29,20 +29,12 @@ export default class MapGenerator {
         }
       });
     } else {
-      // Generate objects randomly
-      let frequency;
-      if (type === 'tree') {
-        frequency = 0.07;
-      } else if (type === 'iron-mine') {
-        frequency = 0.005;
-      } else if (type === 'stone') {
-        frequency = 0.005;
-      } else if (type === 'iron-ore-deposit') {
-        frequency = 0.005;
-      }
+      // New game: Generate objects randomly
+      const objJSON = this.scene.mapObjectsJSON[type];
+
       for (let i = 0; i < this.scene.sceneWidth; i += width) {
         for (let j = 0; j < this.scene.sceneHeight; j += height) {
-          if (Math.random() < frequency) {
+          if (Math.random() < objJSON.frequency) {
             // Don't spawn the object near the player
             if (i < playerX + 50 && i > playerX - 50) {
               if (j < playerY + 50 && j > playerY - 50) {

@@ -1,0 +1,23 @@
+{
+  "tree": {
+    "frequency": 0.07,
+    "name": "Tree",
+    "groupName": "trees",
+    "chops": 0
+  },
+  "stone": {
+    "frequency": 0.01,
+    "name": "Stone",
+    "groupName": "stones",
+    "picks": 0,
+    "stone": 20
+  },
+  "ironOreDeposit": {
+    "frequency": 0.005,
+    "name": "Iron",
+    "groupName": "irons",
+    "picks": 0,
+    "iron": 20,
+    "flat": true
+  }
+}
