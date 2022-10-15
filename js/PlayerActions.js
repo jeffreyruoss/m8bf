@@ -12,8 +12,8 @@ export default class PlayerActions {
         const playerBounds = this.scene.player.getBounds();
         const treeBounds = tree.getBounds();
         if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, treeBounds)) {
-          tree.objData.chops += 1;
-          if (tree.objData.chops >= 5) {
+          tree.data.set('chops', tree.data.get('chops') + 1);
+          if (tree.data.get('chops') >= 5) {
             tree.destroy();
             this.scene.player.inventory.wood += 1;
             this.scene.sound.play('treeFall');
@@ -32,51 +32,21 @@ export default class PlayerActions {
     });
   }
 
-  collectIronMine() {
-    this.scene.ironMines.children.iterate((ironMine) => {
-      if (ironMine && this.scene.time.now > this.ironMineCollectTime) {
-        const playerBounds = this.scene.player.getBounds();
-        const ironMineBounds = ironMine.getBounds();
-        if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, ironMineBounds)) {
-          ironMine.objData.picks += 1;
-          if (ironMine.objData.picks >= 5) {
-            this.scene.player.inventory.iron += 1;
-            this.scene.sound.play('ironMineCollect');
-            const style = { color: '#37946e', fontFamily: this.scene.font, fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
-            this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, '+1 Iron', 'positive');
-            ironMine.objData.picks = 0;
-            ironMine.objData.iron -= 1;
-            if (ironMine.objData.iron <= 0) {
-              ironMine.destroy();
-              this.scene.sound.play('ironMineDeplete');
-              this.scene.time.delayedCall(300, () => {
-                this.scene.MessageManager.createMessage(ironMine.x, ironMine.y, 'Iron deposit is depleted', 'negative');
-              });
-            }
-          } else {
-            this.scene.sound.play('ironMinePick');
-          }
-          this.ironMineCollectTime = this.scene.time.now + this.scene.player.attributes.treeCollectionSpeed;
-        }
-      }
-    });
-  }
-
   collectStone() {
     this.scene.stones.children.iterate((stone) => {
       if (stone && this.scene.time.now > this.stoneCollectTime) {
         const playerBounds = this.scene.player.getBounds();
         const stoneBounds = stone.getBounds();
         if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, stoneBounds)) {
-          stone.objData.picks += 1;
-          if (stone.objData.picks >= 5) {
+          stone.data.set('picks', stone.data.get('picks') + 1);
+          if (stone.data.get('picks') >= 5) {
             this.scene.player.inventory.stone += 1;
             this.scene.sound.play('ironMineCollect');
             const style = { color: '#37946e', fontFamily: this.scene.font, fontSize: '18px', backgroundColor: 'rgba(255,255,255,0.7)', padding: 5 };
             this.scene.MessageManager.createMessage(stone.x, stone.y, '+1 Stone', 'positive');
-            stone.objData.picks = 0;
-            stone.objData.stone -= 1;
-            if (stone.objData.stone <= 0) {
+            stone.data.set('picks', 0);
+            stone.data.set('stone', stone.data.get('stone') - 1);
+            if (stone.data.get('stone') <= 0) {
               stone.destroy();
               this.scene.sound.play('ironMineDeplete');
               this.scene.time.delayedCall(300, () => {
@@ -97,33 +67,28 @@ export default class PlayerActions {
       const playerBounds = this.scene.player.getBounds();
       const inspectBounds = new Phaser.Geom.Rectangle(playerBounds.x, playerBounds.y, playerBounds.width, playerBounds.height);
       if (this.scene.player.direction === 'up') {
-        inspectBounds.y -= 32;
+        inspectBounds.y -= 16;
       }
       if (this.scene.player.direction === 'down') {
-        inspectBounds.y += 32;
+        inspectBounds.y += 16;
       }
       if (this.scene.player.direction === 'left') {
-        inspectBounds.x -= 32;
+        inspectBounds.x -= 16;
       }
       if (this.scene.player.direction === 'right') {
-        inspectBounds.x += 32;
+        inspectBounds.x += 16;
       }
-      this.scene.trees.children.iterate((tree) => {
-        if (tree) {
-          const treeBounds = tree.getBounds();
-          if (Phaser.Geom.Intersects.RectangleToRectangle(inspectBounds, treeBounds)) {
-            console.log('This structure\'s objData', tree.objData);
-          }
+      this.scene.allObjects.children.iterate((object) => {
+        if (object.name === 'player') return;
+        const objectBounds = object.getBounds();
+        if (Phaser.Geom.Intersects.RectangleToRectangle(inspectBounds, objectBounds)) {
+          console.log('---------------------');
+          console.log('this object\'s name:', object.name);
+          console.log('This object\'s data: ', object.data.list);
+          console.log('This object\'s full object: ', object);
+          console.log('---------------------');
         }
-      } );
-      // this.scene.ironMines.children.iterate((ironMine) => {
-      //   if (ironMine) {
-      //     const ironMineBounds = ironMine.getBounds();
-      //     if (Phaser.Geom.Intersects.RectangleToRectangle(inspectBounds, ironMineBounds)) {
-      //       console.log('This structure\'s objData', ironMine.objData);
-      //     }
-      //   }
-      // });
+      });
     });
 
   }

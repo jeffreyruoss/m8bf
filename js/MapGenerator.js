@@ -46,22 +46,7 @@ export default class MapGenerator {
             const x = i + Math.floor(Math.random() * width) - width / 2;
             const y = j + Math.floor(Math.random() * height) - height / 2;
 
-            let objData = {}
-
-            if (type === 'tree') {
-              objData.chops = 0;
-            } else if (type === 'iron-mine') {
-              objData.picks = 0;
-              objData.iron = 3;
-            } else if (type === 'stone') {
-              objData.picks = 0;
-              objData.stone = 20;
-            } else if (type === 'iron-ore-deposit') {
-              objData.picks = 0;
-              objData.iron = 20;
-            }
-
-            this.generateObject(type, group, x, y, width, height, objData);
+            this.generateObject(type, group, x, y, width, height, objJSON.objData);
           }
         }
       }
@@ -78,7 +63,10 @@ export default class MapGenerator {
       .setSize(64, 32)
       .setOffset(32, 64);
     object.name = type;
-    object.objData = objData;
+    object.setDataEnabled();
+    Object.entries(objData).forEach(([key, value]) => {
+      object.data.set(key, value);
+    });
 
     // Don't spawn where there is already an object
     const overlap = this.scene.physics.overlap(object, this.scene.allObjects);

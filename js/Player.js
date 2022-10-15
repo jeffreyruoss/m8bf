@@ -29,7 +29,7 @@ export default class Player {
       this.scene.player.inventory = {
         wood: 10,
         stone: 10,
-        iron: 0,
+        ironOre: 0,
         gold: 0,
         water: 0,
         berries: 0,
