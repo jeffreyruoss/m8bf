@@ -43,6 +43,14 @@
       "addOreCollectionSpeed": 600
     }
   },
+  "chest": {
+    "name": "Chest",
+    "description": "A chest to store items.",
+    "recipe": {
+      "wood": 10
+    },
+    "buildable": true
+  },
   "hut": {
     "name": "Hut",
     "description": "A place to live.",

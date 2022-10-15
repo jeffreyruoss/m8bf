@@ -61,7 +61,7 @@ export default class MapGenerator {
               objData.iron = 3;
             } else if (type === 'stone') {
               objData.picks = 0;
-              objData.stone = 3;
+              objData.stone = 20;
             }
 
             this.generateObject(type, group, x, y, width, height, objData);

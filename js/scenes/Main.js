@@ -24,6 +24,7 @@ export default class Main extends Phaser.Scene {
     this.load.image('tree', './../../img/tree.png');
     this.load.image('iron-mine', './../../img/iron-mine.png');
     this.load.image('stone', './../../img/stone.png');
+    this.load.image('chest', './../../img/chest.png');
     this.load.image('workshop', './../../img/workshop.png');
     this.load.image('advancedWorkshop', './../../img/advanced-workshop.png');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');

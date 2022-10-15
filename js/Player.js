@@ -39,6 +39,7 @@ export default class Player {
         ironAxe: 0,
         stonePickaxe: 0,
         ironPickaxe: 0,
+        chest: 0,
         workshop: 10,
         hut: 0
       }
