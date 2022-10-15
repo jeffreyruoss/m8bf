@@ -21,6 +21,7 @@
     "name": "Iron Ore Deposit",
     "groupName": "ironOreDeposits",
     "flat": true,
+    "traversable": true,
     "data": {
       "picks": 0,
       "ironOre": 3

@@ -46,25 +46,23 @@ export default class MapGenerator {
             const x = i + Math.floor(Math.random() * width) - width / 2;
             const y = j + Math.floor(Math.random() * height) - height / 2;
 
-            this.generateObject(type, group, x, y, width, height, objJSON.data);
+            this.generateObject(type, group, x, y, width, height, objJSON);
           }
         }
       }
     }
-
-    this.scene.physics.add.collider(this.scene.player, this.scene[group]);
   }
 
-  generateObject(type, group, x, y, width, height, data) {
+  generateObject(type, group, x, y, width, height, objectJSON) {
     // Invisible rectangle for collisions and for the player to act on
     const object = this.scene.physics.add.staticSprite(x, y, type)
       .setOrigin(0, 0)
-      .setAlpha(0)
+      .setAlpha(1)
       .setSize(64, 32)
       .setOffset(32, 64);
     object.name = type;
     object.setDataEnabled();
-    Object.entries(data).forEach(([key, value]) => {
+    Object.entries(objectJSON.data).forEach(([key, value]) => {
       object.data.set(key, value);
     });
 
@@ -75,12 +73,19 @@ export default class MapGenerator {
       return;
     }
 
-    // Images of the top and bottom half of the object (for visual depth)
-    object.images = [
-      this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
-      this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
-    ];
-    object.on('destroy', () => object.images.forEach(image => image.destroy()));
+    if (!objectJSON.flat) {
+      // Images of the top and bottom half of the object (for visual depth)
+      object.setAlpha(0);
+      object.images = [
+        this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
+        this.scene.add.image(x, y, type).setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
+      ];
+      object.on('destroy', () => object.images.forEach(image => image.destroy()));
+    }
+
+    if (!objectJSON.traversable) {
+      this.scene.physics.add.collider(this.scene.player, object);
+    }
 
     this.scene[group].add(object);
     this.scene.allObjects.add(object);
