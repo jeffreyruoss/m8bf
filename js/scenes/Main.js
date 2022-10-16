@@ -20,6 +20,7 @@ export default class Main extends Phaser.Scene {
   preload() {
     this.add.text(this.sys.game.config.width / 2, this.sys.game.config.height / 2, 'Generating world...', { fontFamily: this.font, fontSize: 32 }).setOrigin(0.5);
     this.load.aseprite('player', './../../img/player.png', './../../img/player.json');
+    this.load.aseprite('automaton', './../../img/automaton-wood.png', './../../img/automaton.json');
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
     this.load.image('ironOreDeposit', './../../img/iron-ore-deposit.png');
@@ -97,6 +98,10 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('stone', 'stones', );
     this.MapGenerator.generateObjects('tree', 'trees', );
 
+    this.anims.createFromAseprite('automaton');
+    this.automaton = this.physics.add.sprite(200, 200, "automaton");
+    this.automaton.name = "automaton";
+    this.automaton.play({ key: "Idle down - automaton", repeat: -1 });
 
 
 
