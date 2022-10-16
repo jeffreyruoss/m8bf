@@ -8,6 +8,8 @@ import MessageManager from "./../MessageManager.js";
 import Build from "./../Build.js";
 import InfoBar from "./../InfoBar.js";
 import Mouse from "./../Mouse.js";
+import Automaton from "./../Automaton.js";
+import AutomatonMovement from "./../AutomatonMovement.js";
 import FPS from "./../FPS.js";
 
 export default class Main extends Phaser.Scene {
@@ -98,12 +100,8 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('stone', 'stones', );
     this.MapGenerator.generateObjects('tree', 'trees', );
 
-    this.anims.createFromAseprite('automaton');
-    this.automaton = this.physics.add.sprite(200, 200, "automaton");
-    this.automaton.name = "automaton";
-    this.automaton.play({ key: "Idle down - automaton", repeat: -1 });
-
-
+    new Automaton(this);
+    this.AutomatonMovement = new AutomatonMovement(this)
 
     // TESTING
     // this.FPS = new FPS(this, 'bottom-left');
@@ -112,6 +110,7 @@ export default class Main extends Phaser.Scene {
 
   update() {
     this.PlayerMovement.playerMove();
+    this.AutomatonMovement.automatonMove();
 
     if (this.input.keyboard.checkDown(this.keys.SPACE)) {
       // this.PlayerActions.collectTree();
