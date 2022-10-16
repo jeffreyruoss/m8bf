@@ -38,9 +38,11 @@
     },
     "flat": true,
     "traversable": true,
+    "requires": "mine",
     "data": {
       "harvestTicks": 0,
-      "ironOre": 3
+      "ironOre": 3,
+      "mine": 0
     }
   }
 }

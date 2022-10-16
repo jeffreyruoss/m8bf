@@ -15,6 +15,16 @@ export default class PlayerActions {
 
           const objectJSON = this.scene.mapObjectsJSON[object.name];
 
+          // Requirement rules
+          if (objectJSON.requires !== undefined && objectJSON.requires === "mine") {
+            if (object.data.get('mine') <= 0) {
+              const message = 'Build a mine to extract ore';
+              this.scene.MessageManager.createMessage(object.x, object.y, message, 'info');
+              this.collectTime = this.scene.time.now + collectionSpeed;
+              return;
+            }
+          }
+
           let harvestTickSound, collectSound, depletedSound;
 
           if (objectJSON.harvestType === 'tree') {
