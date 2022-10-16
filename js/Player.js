@@ -48,7 +48,7 @@ export default class Player {
         collectionSpeed: {
           tree: 300,
           stone: 300,
-          ironMine: 300
+          ironOreDeposit: 300
         }
       }
       this.scene.allObjects.add(this.scene.player);

@@ -2,9 +2,6 @@ export default class PlayerActions {
   constructor(scene) {
     this.scene = scene;
     this.collectTime = 0;
-    this.treeCollectTime = 0;
-    this.stoneCollectTime = 0;
-    this.ironMineCollectTime = 0;
   }
 
   collect() {
@@ -16,41 +13,43 @@ export default class PlayerActions {
         if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, objectBounds)) {
           let collectionSpeed = this.scene.player.attributes.collectionSpeed[object.name];
 
-          // Tree
-          if (object.name === 'tree') {
-            object.data.set('chops', object.data.get('chops') + 1);
-            if (object.data.get('chops') >= 5) {
-              object.destroy();
-              this.scene.player.inventory.wood += 1;
-              this.scene.sound.play('treeFall');
-              this.scene.MessageManager.createMessage(object.x, object.y, '+1 Wood', 'positive');
-            } else {
-              this.scene.sound.play('treeChop');
-            }
-            if (this.scene.player.inventory.stoneAxe > 0) {
-              collectionSpeed -= this.scene.itemsJSON.stoneAxe.effects.addTreeCollectionSpeed;
-            }
+          const objectJSON = this.scene.mapObjectsJSON[object.name];
+
+          let harvestTickSound, collectSound, depletedSound;
+
+          if (objectJSON.harvestType === 'tree') {
+            harvestTickSound = 'treeChop';
+            depletedSound = 'treeFall';
+          } else if (objectJSON.harvestType === 'mine') {
+            harvestTickSound = 'ironMinePick';
+            collectSound = 'ironMineCollect';
+            depletedSound = 'ironMineDeplete';
+          } else {
+            return;
           }
 
-          // Stone
-          if (object.name === 'stone') {
-            object.data.set('picks', object.data.get('picks') + 1);
-            if (object.data.get('picks') >= 5) {
-              this.scene.player.inventory.stone += 1;
-              this.scene.sound.play('ironMineCollect');
-              this.scene.MessageManager.createMessage(object.x, object.y, '+1 Stone', 'positive');
-              object.data.set('picks', 0);
-              object.data.set('stone', object.data.get('stone') - 1);
-              if (object.data.get('stone') <= 0) {
-                object.destroy();
-                this.scene.sound.play('ironMineDeplete');
+          object.data.set('harvestTicks', object.data.get('harvestTicks') + 1);
+          if (object.data.get('harvestTicks') >= 5) {
+            let message;
+            object.data.set(objectJSON.resource.key, object.data.get(objectJSON.resource.key) - 1);
+            this.scene.player.inventory[objectJSON.resource.key] += 1;
+            message = `+1 ${objectJSON.resource.name}`;
+            this.scene.MessageManager.createMessage(object.x, object.y, message, 'positive');
+            object.data.set('harvestTicks', 0);
+            if (object.data.get(objectJSON.resource.key) <= 0) {
+              object.destroy();
+              this.scene.sound.play(depletedSound);
+              if (objectJSON.harvestType === 'mine') {
                 this.scene.time.delayedCall(300, () => {
-                  this.scene.MessageManager.createMessage(object.x, object.y, 'Stone deposit is depleted', 'negative');
+                  message = `${objectJSON.resource.name} is depleted`;
+                  this.scene.MessageManager.createMessage(object.x, object.y, message, 'negative');
                 });
               }
             } else {
-              this.scene.sound.play('ironMinePick');
+              this.scene.sound.play(collectSound);
             }
+          } else {
+            this.scene.sound.play(harvestTickSound);
           }
 
           this.collectTime = this.scene.time.now + collectionSpeed;
