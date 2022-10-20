@@ -1,59 +1,29 @@
 export default class AutomatonMovement {
   constructor(scene) {
     this.scene = scene;
-    this.automaton = this.scene.automaton;
-    this.automaton.direction = 'down';
+    this.source = null;
+    this.target = null;
+    this.automatonIsMoving = false;
   }
 
-  automatonMove() {
-    this.automaton.setVelocity(0);
+  setup() {
+    this.scene.input.on('pointerdown', (pointer) => {
+      const pointerX = pointer.worldX;
+      const pointerY = pointer.worldY;
 
-    if (this.scene.keys.A.isDown && this.scene.keys.W.isDown) {
-      this.automaton.setVelocityX(-this.automaton.attributes.movementSpeed);
-      this.automaton.setVelocityY(-this.automaton.attributes.movementSpeed);
-      this.automaton.direction = 'left';
-      this.automaton.anims.play('Walk left - automaton', true);
-    } else if (this.scene.keys.A.isDown && this.scene.keys.S.isDown) {
-      this.automaton.setVelocityX(-this.automaton.attributes.movementSpeed);
-      this.automaton.setVelocityY(this.automaton.attributes.movementSpeed);
-      this.automaton.anims.play('Walk left - automaton', true);
-      this.automaton.direction = 'left';
-    } else if (this.scene.keys.D.isDown && this.scene.keys.W.isDown) {
-      this.automaton.setVelocityX(this.automaton.attributes.movementSpeed);
-      this.automaton.setVelocityY(-this.automaton.attributes.movementSpeed);
-      this.automaton.anims.play('Walk right - automaton', true);
-      this.automaton.direction = 'right';
-    } else if (this.scene.keys.D.isDown && this.scene.keys.S.isDown) {
-      this.automaton.setVelocityX(this.automaton.attributes.movementSpeed);
-      this.automaton.setVelocityY(this.automaton.attributes.movementSpeed);
-      this.automaton.anims.play('Walk right - automaton', true);
-      this.automaton.direction = 'right';
-    } else if (this.scene.keys.A.isDown) {
-      this.automaton.setVelocityX(-this.automaton.attributes.movementSpeed);
-      this.automaton.play('Walk left - automaton', true);
-      this.automaton.direction = 'left';
-    } else if (this.scene.keys.D.isDown) {
-      this.automaton.setVelocityX(this.automaton.attributes.movementSpeed);
-      this.automaton.play('Walk right - automaton', true);
-      this.automaton.direction = 'right';
-    } else if (this.scene.keys.W.isDown) {
-      this.automaton.setVelocityY(-this.automaton.attributes.movementSpeed);
-      this.automaton.play('Walk up - automaton', true);
-      this.automaton.direction = 'up';
-    } else if (this.scene.keys.S.isDown) {
-      this.automaton.setVelocityY(this.automaton.attributes.movementSpeed);
-      this.automaton.play('Walk down - automaton', true);
-      this.automaton.direction = 'down';
-    } else {
-      if (this.automaton.direction === 'left') {
-        this.automaton.play('Idle left - automaton', true);
-      } else if (this.automaton.direction === 'right') {
-        this.automaton.play('Idle right - automaton', true);
-      } else if (this.automaton.direction === 'up') {
-        this.automaton.play('Idle up - automaton', true);
-      } else if (this.automaton.direction === 'down') {
-        this.automaton.play('Idle down - automaton', true);
-      }
-    }
+      // TODO this will be dynamic later
+      this.source = this.scene.automaton1.sprite;
+
+      this.scene.allObjects.children.iterate((object) => {
+        const objectBounds = object.getBounds();
+        if (pointerX > objectBounds.x && pointerX < objectBounds.x + objectBounds.width && pointerY > objectBounds.y && pointerY < objectBounds.y + objectBounds.height) {
+          this.target = object;
+          const x = objectBounds.x + objectBounds.width / 2;
+          const y = objectBounds.y + objectBounds.height / 2;
+          this.automatonIsMoving = true;
+          this.scene.physics.moveTo(this.source, x, y, 300);
+        }
+      });
+    });
   }
 }

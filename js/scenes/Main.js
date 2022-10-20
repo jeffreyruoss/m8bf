@@ -100,24 +100,27 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('stone', 'stones', );
     this.MapGenerator.generateObjects('tree', 'trees', );
 
-    new Automaton(this);
-    this.AutomatonMovement = new AutomatonMovement(this)
+
+
+    // temp automaton for testing
+    this.automaton1 = new Automaton(this);
+
+    // Automaton Movement init
+    this.AutomatonMovement = new AutomatonMovement(this);
+    this.AutomatonMovement.setup();
+
+
 
     // TESTING
     // this.FPS = new FPS(this, 'bottom-left');
     // this.Menu.createMenu(); // do auto-open menu
+
   }
 
   update() {
     this.PlayerMovement.playerMove();
-    this.AutomatonMovement.automatonMove();
 
-    if (this.input.keyboard.checkDown(this.keys.SPACE)) {
-      // this.PlayerActions.collectTree();
-      // this.PlayerActions.collectIronMine();
-      // this.PlayerActions.collectStone();
-      this.PlayerActions.collect();
-    }
+    if (this.input.keyboard.checkDown(this.keys.SPACE)) this.PlayerActions.collect();
 
     this.Build.update();
 
