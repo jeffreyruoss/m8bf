@@ -25,46 +25,25 @@ export default class AutomatonMovement {
   }
 
   setWalkAnimation(source, targetX, targetY) {
-    let up = false;
-    let down = false;
-    let left = false;
-    let right = false;
-    if (source.x > targetX) {
-      left = true;
-      right = false;
-    } else if (source.x < targetX) {
-      left = false;
-      right = true;
-    }
-    if (source.y > targetY) {
-      up = true;
-      down = false;
-    } else if (source.y < targetY) {
-      down = true;
-      up = false;
-    }
-    if (up && left) {
-      source.play({ key: 'Walk left - automaton', repeat: -1 });
-    }
-    if (up && right) {
+    const angle = Phaser.Math.Angle.Between(source.x, source.y, targetX, targetY);
+    const degrees = Phaser.Math.RadToDeg(angle);
+    const angleDegrees = degrees < 0 ? 360 + degrees : degrees;
+    if (angleDegrees >= 0 && angleDegrees < 45) {
       source.play({ key: 'Walk right - automaton', repeat: -1 });
-    }
-    if (down && left) {
+    } else if (angleDegrees >= 45 && angleDegrees < 135) {
+      source.play({ key: 'Walk down - automaton', repeat: -1 });
+    } else if (angleDegrees >= 135 && angleDegrees < 225) {
       source.play({ key: 'Walk left - automaton', repeat: -1 });
-    }
-    if (down && right) {
-      source.play({ key: 'Walk right - automaton', repeat: -1 });
-    }
-    if (up && !left && !right) {
+    } else if (angleDegrees >= 225 && angleDegrees < 315) {
       source.play({ key: 'Walk up - automaton', repeat: -1 });
-    }
-    if (down && !left && !right) {
+    } else if (angleDegrees >= 315 && angleDegrees <= 360) {
+      source.play({ key: 'Walk right - automaton', repeat: -1 });
+    } else {
       source.play({ key: 'Walk down - automaton', repeat: -1 });
     }
-
   }
 
-  setIdleAnimation(source, up, down, left, right) {
+  setIdleAnimation() {
 
   }
 }

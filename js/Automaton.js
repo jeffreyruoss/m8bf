@@ -19,6 +19,8 @@ export default class Automaton {
     this.scene.physics.add.collider(this.sprite, this.scene.allObjects, () => {
       this.sprite.body.stop();
       this.sprite.automatonIsMoving = false;
+
+      // TODO this.scene.automaton1.setIdleAnimation();
     });
 
     this.attributes = {
