@@ -8,42 +8,40 @@ export default class AutomatonMovement {
       const pointerX = pointer.worldX;
       const pointerY = pointer.worldY;
 
-      // TODO this will be dynamic later
-      const source = this.scene.automaton1.sprite;
-
       this.scene.allObjects.children.iterate((object) => {
         const objectBounds = object.getBounds();
         if (pointerX > objectBounds.x && pointerX < objectBounds.x + objectBounds.width && pointerY > objectBounds.y && pointerY < objectBounds.y + objectBounds.height) {
           const x = objectBounds.x + objectBounds.width / 2;
           const y = objectBounds.y + objectBounds.height / 2;
-          source.automatonIsMoving = true;
-          this.setWalkAnimation(source, x, y);
-          this.scene.physics.moveTo(source, x, y, 300);
+          automaton.automatonIsMoving = true;
+          this.setWalkAnimation(automaton, x, y);
+          this.scene.physics.moveTo(automaton.sprite, x, y, 300);
         }
       });
     });
   }
 
-  setWalkAnimation(source, targetX, targetY) {
-    const angle = Phaser.Math.Angle.Between(source.x, source.y, targetX, targetY);
+  setWalkAnimation(automaton, targetX, targetY) {
+    const angle = Phaser.Math.Angle.Between(automaton.sprite.x, automaton.sprite.y, targetX, targetY);
     const degrees = Phaser.Math.RadToDeg(angle);
     const angleDegrees = degrees < 0 ? 360 + degrees : degrees;
     if (angleDegrees >= 0 && angleDegrees < 45) {
-      source.play({ key: 'Walk right - automaton', repeat: -1 });
+      automaton.direction = 'right';
     } else if (angleDegrees >= 45 && angleDegrees < 135) {
-      source.play({ key: 'Walk down - automaton', repeat: -1 });
+      automaton.direction = 'down';
     } else if (angleDegrees >= 135 && angleDegrees < 225) {
-      source.play({ key: 'Walk left - automaton', repeat: -1 });
+      automaton.direction = 'left';
     } else if (angleDegrees >= 225 && angleDegrees < 315) {
-      source.play({ key: 'Walk up - automaton', repeat: -1 });
+      automaton.direction = 'up';
     } else if (angleDegrees >= 315 && angleDegrees <= 360) {
-      source.play({ key: 'Walk right - automaton', repeat: -1 });
+      automaton.direction = 'right';
     } else {
-      source.play({ key: 'Walk down - automaton', repeat: -1 });
+      automaton.direction = 'down';
     }
+    automaton.sprite.play({ key: `Walk ${automaton.direction} - automaton`, repeat: -1 });
   }
 
-  setIdleAnimation() {
-
+  setIdleAnimation(automaton) {
+    automaton.sprite.play({ key: `Idle ${automaton.direction} - automaton`, repeat: -1 });
   }
 }
