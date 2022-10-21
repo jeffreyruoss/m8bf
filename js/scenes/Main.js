@@ -102,12 +102,10 @@ export default class Main extends Phaser.Scene {
 
 
 
-    // temp automaton for testing
-    this.automaton1 = new Automaton(this);
 
-    // Automaton Movement init
+    this.automaton1 = new Automaton(this);
     this.AutomatonMovement = new AutomatonMovement(this);
-    this.AutomatonMovement.setup();
+    this.AutomatonMovement.clickToMove(this.automaton1);
 
 
 

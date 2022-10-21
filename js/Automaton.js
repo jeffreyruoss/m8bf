@@ -1,6 +1,7 @@
 export default class Automaton {
   constructor(scene) {
     this.scene = scene;
+    this.direction = "down";
     this.createAutomaton();
   }
 
@@ -17,6 +18,7 @@ export default class Automaton {
 
     this.scene.physics.add.collider(this.sprite, this.scene.allObjects, () => {
       this.sprite.body.stop();
+      this.sprite.automatonIsMoving = false;
     });
 
     this.attributes = {
