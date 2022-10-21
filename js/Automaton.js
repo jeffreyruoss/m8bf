@@ -9,8 +9,8 @@ export default class Automaton {
     this.sprite = this.scene.physics
       .add.sprite(500, 500, "automaton")
       .setDepth(2)
-      .setSize(32, 21)
-      .setOffset(19, 31);
+      .setSize(35, 24)
+      .setOffset(17, 31);
     this.name = "automaton";
     this.sprite.play({ key: "Idle down - automaton", repeat: -1 });
     this.scene.allObjects.add(this.sprite);
