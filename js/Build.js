@@ -9,12 +9,7 @@ export default class Build {
   placeHandler() {
     this.scene.input.on('pointerdown', (pointer) => {
       if (this.prePlaceStructure) {
-        let obstruction = false;
-        this.scene.allObjects.children.iterate((object) => {
-          if (Phaser.Geom.Intersects.RectangleToRectangle(this.prePlaceStructure.getBounds(), object.getBounds())) {
-            obstruction = object;
-          }
-        });
+        const obstruction = this.checkForObstruction();
         if (this.key === 'ironMine' && obstruction.name !== 'ironOreDeposit') {
           this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Must be placed on iron ore deposit', 'negative');
           this.scene.sound.play('error');
@@ -39,6 +34,16 @@ export default class Build {
         this.scene.Menu.enabled = true;
       }
     });
+  }
+
+  checkForObstruction() {
+    let obstruction = false;
+    this.scene.allObjects.children.iterate((object) => {
+      if (Phaser.Geom.Intersects.RectangleToRectangle(this.prePlaceStructure.getBounds(), object.getBounds())) {
+        obstruction = object;
+      }
+    });
+    return obstruction;
   }
 
   build(key) {
