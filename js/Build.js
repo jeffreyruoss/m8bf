@@ -9,15 +9,24 @@ export default class Build {
   placeHandler() {
     this.scene.input.on('pointerdown', (pointer) => {
       if (this.prePlaceStructure) {
-        if (this.scene.allObjects.getChildren().length > 0) {
-          const overlap = this.scene.physics.overlap(this.prePlaceStructure, this.scene.allObjects);
-          if (overlap) {
-            this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Too close to another thing', 'negative');
-            this.scene.sound.play('error');
-          } else {
-            this.place(this.key);
-            this.destroyPrePlace();
+        let obstruction = false;
+        this.scene.allObjects.children.iterate((object) => {
+          if (Phaser.Geom.Intersects.RectangleToRectangle(this.prePlaceStructure.getBounds(), object.getBounds())) {
+            obstruction = object;
           }
+        });
+        if (this.key === 'ironMine' && obstruction.name !== 'ironOreDeposit') {
+          this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Must be placed on iron ore deposit', 'negative');
+          this.scene.sound.play('error');
+        } else if (this.key === 'ironMine' && obstruction.name === 'ironOreDeposit') {
+          this.place();
+          this.destroyPrePlace();
+        } else if (!obstruction) {
+          this.place();
+          this.destroyPrePlace();
+        } else {
+          this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Too close to another thing', 'negative');
+          this.scene.sound.play('error');
         }
       }
     });
