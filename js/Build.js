@@ -7,7 +7,7 @@ export default class Build {
   }
 
   placeHandler() {
-    this.scene.input.on('pointerdown', (pointer) => {
+    this.scene.input.on('pointerdown', () => {
       if (this.prePlaceStructure) {
         this.placeConditions();
       }
