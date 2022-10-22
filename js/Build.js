@@ -9,20 +9,7 @@ export default class Build {
   placeHandler() {
     this.scene.input.on('pointerdown', (pointer) => {
       if (this.prePlaceStructure) {
-        const obstruction = this.checkForObstruction();
-        if (this.key === 'ironMine' && obstruction.name !== 'ironOreDeposit') {
-          this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Must be placed on iron ore deposit', 'negative');
-          this.scene.sound.play('error');
-        } else if (this.key === 'ironMine' && obstruction.name === 'ironOreDeposit') {
-          this.place();
-          this.destroyPrePlace();
-        } else if (!obstruction) {
-          this.place();
-          this.destroyPrePlace();
-        } else {
-          this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Too close to another thing', 'negative');
-          this.scene.sound.play('error');
-        }
+        this.placeConditions();
       }
     });
   }
@@ -34,6 +21,23 @@ export default class Build {
         this.scene.Menu.enabled = true;
       }
     });
+  }
+
+  placeConditions() {
+    const obstruction = this.checkForObstruction();
+    if (this.key === 'ironMine' && obstruction.name !== 'ironOreDeposit') {
+      this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Must be placed on iron ore deposit', 'negative');
+      this.scene.sound.play('error');
+    } else if (this.key === 'ironMine' && obstruction.name === 'ironOreDeposit') {
+      this.place();
+      this.destroyPrePlace();
+    } else if (!obstruction) {
+      this.place();
+      this.destroyPrePlace();
+    } else {
+      this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Too close to another thing', 'negative');
+      this.scene.sound.play('error');
+    }
   }
 
   checkForObstruction() {
