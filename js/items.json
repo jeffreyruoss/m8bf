@@ -77,5 +77,14 @@
       "iron": 5
     },
     "buildable": true
+  },
+  "ironMine" : {
+    "name": "Mine",
+    "description": "A place to mine for ores.",
+    "recipe": {
+      "wood": 5,
+      "stone": 15
+    },
+    "buildable": true
   }
 }

@@ -29,6 +29,7 @@ export default class Build {
       this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Must be placed on iron ore deposit', 'negative');
       this.scene.sound.play('error');
     } else if (this.key === 'ironMine' && obstruction.name === 'ironOreDeposit') {
+      obstruction.data.set('mine', 1);
       this.place();
       this.destroyPrePlace();
     } else if (!obstruction) {

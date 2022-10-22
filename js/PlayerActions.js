@@ -14,6 +14,7 @@ export default class PlayerActions {
           let collectionSpeed = this.scene.player.attributes.collectionSpeed[object.name];
 
           const objectJSON = this.scene.mapObjectsJSON[object.name];
+          if (objectJSON === undefined) return;
 
           // Requirement rules
           if (objectJSON.requires !== undefined && objectJSON.requires === "mine") {
