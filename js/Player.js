@@ -1,6 +1,7 @@
 export default class Player {
   constructor(scene) {
     this.scene = scene;
+    this.playerEnabled = false;
     this.createPlayer();
   }
 
@@ -13,13 +14,16 @@ export default class Player {
     } else {
       x = this.scene.sceneWidth / 2;
       y = this.scene.sceneHeight / 2;
+      // x = 100;
+      // y = 100;
     }
     this.scene.anims.createFromAseprite('player');
     this.scene.player = this.scene.physics
       .add.sprite(x, y, "player")
       .setDepth(2)
       .setSize(32, 21)
-      .setOffset(19, 31);
+      .setOffset(19, 31)
+      .setAlpha(0);
     this.scene.player.name = "player";
 
     if (this.scene.data.loadGame && this.scene.savedGameData) {

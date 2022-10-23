@@ -26,8 +26,8 @@ export default class Intro extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
-        this.cameras.main.fadeOut(500);
-        this.time.delayedCall(500, () => {
+        this.cameras.main.fadeOut(2000);
+        this.time.delayedCall(2000, () => {
           this.scene.start('Main');
         });
       });
@@ -37,8 +37,8 @@ export default class Intro extends Phaser.Scene {
       .setOrigin(0.5)
       .setInteractive()
       .on('pointerdown', () => {
-        this.cameras.main.fadeOut(500);
-        this.time.delayedCall(500, () => {
+        this.cameras.main.fadeOut(2000);
+        this.time.delayedCall(2000, () => {
           this.scene.start('Main', { loadGame: true });
         });
       });

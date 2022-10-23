@@ -1,4 +1,5 @@
 import Player from './../Player.js';
+import PlayerFadeIn from "./../PlayerFadeIn.js";
 import PlayerMovement from "./../PlayerMovement.js";
 import PlayerActions from "./../PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
@@ -17,6 +18,9 @@ export default class Main extends Phaser.Scene {
     super('Main');
     this.font = 'earls-revenge';
     this.sceneSizeMultiplier = 4;
+
+    // for debugging
+    document.scene = this;
   }
 
   preload() {
@@ -96,13 +100,19 @@ export default class Main extends Phaser.Scene {
     this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
 
-    this.cameras.main.fadeIn(500);
+    this.cameras.main.fadeIn(2000);
 
     this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits', );
     this.MapGenerator.generateObjects('stone', 'stones', );
     this.MapGenerator.generateObjects('tree', 'trees', );
 
-
+    if (data.loadGame) {
+      this.player.setAlpha(1);
+      this.player.enabled = true;
+    } else {
+      this.PlayerFadeIn = new PlayerFadeIn(this);
+      this.PlayerFadeIn.fadeIn();
+    }
 
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });
     // this.time.delayedCall(7000, () => this.music.play(), [], this);
@@ -111,18 +121,16 @@ export default class Main extends Phaser.Scene {
     this.AutomatonMovement = new AutomatonMovement(this);
     this.AutomatonMovement.clickToMove(this.automaton1);
 
-
-
     // TESTING
     // this.FPS = new FPS(this, 'bottom-left');
     // this.Menu.createMenu(); // do auto-open menu
-
   }
 
   update() {
-    this.PlayerMovement.playerMove();
-
-    if (this.input.keyboard.checkDown(this.keys.SPACE)) this.PlayerActions.collect();
+    if (this.player.enabled) {
+      this.PlayerMovement.playerMove();
+      if (this.input.keyboard.checkDown(this.keys.SPACE)) this.PlayerActions.collect();
+    }
 
     this.Build.update();
 
