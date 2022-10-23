@@ -31,6 +31,8 @@ export default class Main extends Phaser.Scene {
     this.load.image('chest', './../../img/chest.png');
     this.load.image('workshop', './../../img/workshop.png');
     this.load.image('advancedWorkshop', './../../img/advanced-workshop.png');
+    // this.load.audio('music', './../../sounds/painful-memories-compressed.mp3');
+    this.load.audio('portal', './../../sounds/sfx_movement_portal1.mp3');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');
     this.load.audio('treeFall', './../../sounds/sfx_sounds_impact11.mp3');
     this.load.audio('ironMinePick', './../../sounds/sfx_sounds_button3.mp3');
@@ -102,6 +104,8 @@ export default class Main extends Phaser.Scene {
 
 
 
+    // this.music = this.sound.add('music', { loop: true, volume: 0.5 });
+    // this.time.delayedCall(7000, () => this.music.play(), [], this);
 
     this.automaton1 = new Automaton(this);
     this.AutomatonMovement = new AutomatonMovement(this);
