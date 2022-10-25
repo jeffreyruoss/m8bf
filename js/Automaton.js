@@ -8,9 +8,9 @@ export default class Automaton {
   createAutomaton() {
     this.scene.anims.createFromAseprite('automaton');
     this.sprite = this.scene.physics
-      .add.sprite(500, 500, "automaton")
+      .add.sprite(this.scene.sceneWidth / 2 + 100, this.scene.sceneHeight / 2 + 100, "automaton")
       .setDepth(2)
-      .setSize(35, 24)
+      .setSize(35, 25)
       .setOffset(17, 31);
     this.name = "automaton";
     this.sprite.play({ key: "Idle down - automaton", repeat: -1 });
