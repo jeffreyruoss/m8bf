@@ -36,11 +36,12 @@ export default class SavePanel {
 
     this.scene.allObjects.children.iterate((child) => {
       if (child.name !== 'player') {
+        let data = child.data ? child.data.list : null;
         saveObject.structures.push({
           name: child.name,
           x: child.x,
           y: child.y,
-          data: child.data.list
+          data: data
         });
       }
     });
