@@ -62,18 +62,21 @@ export default class MapGenerator {
       .setOffset(32, 64);
     object.name = type;
     object.setDataEnabled();
-    Object.entries(objectJSON.data).forEach(([key, value]) => {
+    let data = objectJSON.data ? objectJSON.data : objectJSON;
+    Object.entries(data).forEach(([key, value]) => {
       object.data.set(key, value);
     });
 
-    // Don't spawn where there is already an object
-    const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
-    if (overlap) {
-      object.destroy();
-      return;
+    // Don't spawn where there is already an object except for a mine
+    if (type !== 'ironMine') {
+      const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
+      if (overlap) {
+        object.destroy();
+        return;
+      }
     }
 
-    if (!objectJSON.flat) {
+    if (!this.scene.mapObjectsJSON[type].flat) {
       // Images of the top and bottom half of the object (for visual depth)
       object.setAlpha(0);
       object.images = [
@@ -83,10 +86,13 @@ export default class MapGenerator {
       object.on('destroy', () => object.images.forEach(image => image.destroy()));
     }
 
-    if (!objectJSON.traversable) {
+    if (!this.scene.mapObjectsJSON[type].traversable) {
       this.scene.physics.add.collider(this.scene.player, object);
     }
 
+    if (!this.scene[group]) {
+      this.scene[group] = this.scene.physics.add.staticGroup();
+    }
     this.scene[group].add(object);
     this.scene.allObjects.add(object);
   }

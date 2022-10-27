@@ -44,5 +44,20 @@
       "ironOre": 3,
       "mine": 0
     }
+  },
+  "workshop": {
+    "name": "Workshop",
+    "groupName": "workshops",
+    "data": {}
+  },
+  "ironMine": {
+    "name": "Iron Mine",
+    "groupName": "ironMines",
+    "data": {}
+  },
+  "chest": {
+    "name": "Chest",
+    "groupName": "chests",
+    "data": {}
   }
 }

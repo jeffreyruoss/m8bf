@@ -73,27 +73,12 @@ export default class Build {
   }
 
   place() {
-    // Invisible rectangle for collisions and for the player to act on
-    const structure = this.scene.physics.add.staticSprite(this.prePlaceStructure.x, this.prePlaceStructure.y, this.key)
-      .setOrigin(0, 0)
-      .setAlpha(0)
-      .setSize(64, 32)
-      .setOffset(32, 64);
-
-    // Images of the top and bottom half of the object (for visual depth)
     const width = this.scene.textures.get(this.key).getSourceImage().width;
     const height = this.scene.textures.get(this.key).getSourceImage().height;
-    structure.images = [
-      this.scene.add.image(this.prePlaceStructure.x, this.prePlaceStructure.y, this.key)
-        .setOrigin(0, 0).setDepth(3).setCrop(0, 0, width, height / 2),
-      this.scene.add.image(this.prePlaceStructure.x, this.prePlaceStructure.y, this.key)
-        .setOrigin(0, 0).setDepth(1).setCrop(0, height / 2, width, height / 2)
-    ];
-    structure.on('destroy', () => structure.images.forEach(image => image.destroy()));
+    const objJSON = this.scene.mapObjectsJSON[this.key];
+    this.scene.MapGenerator.generateObject(this.key, objJSON.groupName, this.prePlaceStructure.x, this.prePlaceStructure.y, width, height, objJSON);
 
-    this.scene.allObjects.add(structure);
     this.scene.sound.play('placeStructure');
-    this.scene.physics.add.collider(this.scene.player, structure);
     this.scene.player.inventory[this.key] -= 1;
     this.key = null;
     this.pointer = null;

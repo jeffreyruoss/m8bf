@@ -102,9 +102,12 @@ export default class Main extends Phaser.Scene {
 
     this.cameras.main.fadeIn(2000);
 
-    this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits', );
-    this.MapGenerator.generateObjects('stone', 'stones', );
-    this.MapGenerator.generateObjects('tree', 'trees', );
+    this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits');
+    this.MapGenerator.generateObjects('stone', 'stones');
+    this.MapGenerator.generateObjects('tree', 'trees');
+    this.MapGenerator.generateObjects('workshop', 'workshops');
+    this.MapGenerator.generateObjects('ironMine', 'ironMines');
+    this.MapGenerator.generateObjects('chest', 'chests');
 
     if (data.loadGame) {
       this.player.setAlpha(1);
