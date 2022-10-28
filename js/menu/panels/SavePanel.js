@@ -4,7 +4,6 @@ export default class SavePanel {
   }
 
   createPanel(Menu) {
-    const playerInventory = this.scene.player.inventory;
     let x = Menu.box.x + Menu.padding;
     let y = Menu.box.y + Menu.padding + Menu.navHeight;
     const button = this.scene.add.text(x, y, 'Save Game', { fontSize: "32px", fontFamily: this.scene.font, align: "center", backgroundColor: '#27253b', padding: 12 });
