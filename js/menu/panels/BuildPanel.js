@@ -36,7 +36,9 @@ export default class BuildPanel {
             this.scene.Build.build(item);
           }
         } else {
-          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have this item in your inventory", 'negative');
+          const pointerX = this.scene.input.activePointer.worldX;
+          const pointerY = this.scene.input.activePointer.worldY;
+          this.scene.MessageManager.createMessage(pointerX, pointerY, "You don't have this item in your inventory", 'negative');
           this.scene.sound.play('error');
         }
       });

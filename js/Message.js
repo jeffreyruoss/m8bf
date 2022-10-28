@@ -14,7 +14,7 @@ export default class Message {
     return {
       fontFamily: this.scene.font,
       fontSize: '20px',
-      backgroundColor: 'rgba(203,219,252,0.8)',
+      backgroundColor: 'rgba(203,219,252,0.9)',
       padding: 5
     };
   }

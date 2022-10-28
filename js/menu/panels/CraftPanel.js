@@ -40,11 +40,14 @@ export default class CraftPanel {
         this.scene.Mouse.buttonHover(buttonRectangle);
       }
       buttonRectangle.on("pointerdown", () => {
+        const pointerX = this.scene.input.activePointer.worldX;
+        const pointerY = this.scene.input.activePointer.worldY;
         if (isEnoughResources) {
+            this.scene.MessageManager.createMessage(pointerX, pointerY, `A ${items[item].name} has been added to your Inventory.`, 'positive');
             this.scene.Craft.craftItem(item, items[item]);
             Menu.updateMenu();
         } else {
-          this.scene.MessageManager.createMessage(buttonText.x, buttonText.y, "You don't have the appropriate ingredients", 'negative');
+          this.scene.MessageManager.createMessage(pointerX, pointerY, "You don't have the appropriate ingredients", 'negative');
           this.scene.sound.play('error');
         }
       });
