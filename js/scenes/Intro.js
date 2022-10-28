@@ -7,13 +7,11 @@ export default class Intro extends Phaser.Scene {
   }
 
   preload() {
-    // this.load.audio('music-intro', './../../sounds/painful-memories-stinger-3-compressed.mp3');
     this.load.audio('start', './../../sounds/sfx_coin_cluster5.mp3');
   }
 
   create() {
     this.cameras.main.fadeIn(1000);
-    // this.sound.add('music-intro').play();
 
     const centerX = this.cameras.main.worldView.x + this.cameras.main.width / 2;
     const centerY = this.cameras.main.worldView.y + this.cameras.main.height / 2;
