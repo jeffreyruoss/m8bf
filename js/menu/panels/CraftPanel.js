@@ -56,11 +56,11 @@ export default class CraftPanel {
         buttonText.alpha = 0.2;
       }
 
-      const itemPlaceholder = this.scene.add.rectangle(buttonRectangle.x + buttonRectangle.width + padding, y + padding, 64, 64, 0x9AACB6);
-      this.scene.menuItems.add(itemPlaceholder);
+      const itemImage = this.scene.add.image(buttonRectangle.x + buttonRectangle.width + padding, y + padding, item);
+      this.scene.menuItems.add(itemImage);
 
       const itemTitle = this.scene.add
-        .text(itemPlaceholder.x + itemPlaceholder.width + padding, y + padding , name, {fontSize: "21px", fontFamily: this.scene.font})
+        .text(itemImage.x + itemImage.width + padding, y + padding , name, {fontSize: "21px", fontFamily: this.scene.font})
       this.scene.menuItems.add(itemTitle);
 
       const itemIngredients = this.scene.add
