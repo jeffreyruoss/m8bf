@@ -9,9 +9,10 @@ export default class Npc extends Phaser.Physics.Arcade.Sprite {
     scene.add.existing(this);
     this.body.setSize(35, 25);
     this.body.setOffset(17, 28);
-    this.scene.allObjects.add(this);
-    this.scene.physics.add.collider(this, scene.allObjects);
+    scene.allObjects.add(this);
+    scene.physics.add.collider(this, scene.allObjects);
     this.body.immovable = true;
     new Boundary(this.scene, x, y, 40, 65, 0, -10);
+    scene.npcs.add(this);
   }
 }

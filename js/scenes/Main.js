@@ -111,6 +111,9 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('ironMine', 'ironMines');
     this.MapGenerator.generateObjects('chest', 'chests');
 
+    this.anims.createFromAseprite('npc');
+    this.npcs = this.add.group();
+
     if (data.loadGame) {
       this.player.setAlpha(1);
       this.player.enabled = true;
@@ -119,11 +122,7 @@ export default class Main extends Phaser.Scene {
       this.PlayerFadeIn.fadeIn();
       this.anims.createFromAseprite('npc');
 
-      const centerX = this.sceneWidth / 2;
-      const centerY = this.sceneHeight / 2;
-      this.Npc1 = new Npc(this, centerX -100, centerY -100);
-      this.npcs = this.add.group();
-      this.npcs.add(this.Npc1);
+      this.Npc1 = new Npc(this, this.sceneWidth / 2 -100, this.sceneHeight / 2 -100);
     }
 
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });
