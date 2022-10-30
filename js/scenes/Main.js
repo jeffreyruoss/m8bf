@@ -12,7 +12,6 @@ import Mouse from "./../Mouse.js";
 import Automaton from "./../Automaton.js";
 import AutomatonMovement from "./../AutomatonMovement.js";
 import Npc from "./../Npc.js";
-import Boundary from "./../Boundary.js";
 import FPS from "./../FPS.js";
 
 export default class Main extends Phaser.Scene {
@@ -125,7 +124,6 @@ export default class Main extends Phaser.Scene {
       this.Npc1 = new Npc(this, centerX -100, centerY -100);
       this.npcs = this.add.group();
       this.npcs.add(this.Npc1);
-      new Boundary(this, centerX -100, centerY -100, 40, 65, 0, -10);
     }
 
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });

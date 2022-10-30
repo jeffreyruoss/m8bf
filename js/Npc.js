@@ -1,3 +1,5 @@
+import Boundary from "./Boundary.js";
+
 export default class Npc extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'npc');
@@ -10,5 +12,6 @@ export default class Npc extends Phaser.Physics.Arcade.Sprite {
     this.scene.allObjects.add(this);
     this.scene.physics.add.collider(this, scene.allObjects);
     this.body.immovable = true;
+    new Boundary(this.scene, x, y, 40, 65, 0, -10);
   }
 }
