@@ -15,7 +15,7 @@ export default class AutomatonMovement {
           const y = objectBounds.y + objectBounds.height / 2;
           automaton.automatonIsMoving = true;
           this.setWalkAnimation(automaton, x, y);
-          this.scene.physics.moveTo(automaton.sprite, x, y, 300);
+          this.scene.physics.moveTo(automaton, x, y, 300);
           this.scene.physics.moveTo(automaton.boundary, x, y, 300);
         }
       });
@@ -23,7 +23,7 @@ export default class AutomatonMovement {
   }
 
   setWalkAnimation(automaton, targetX, targetY) {
-    const angle = Phaser.Math.Angle.Between(automaton.sprite.x, automaton.sprite.y, targetX, targetY);
+    const angle = Phaser.Math.Angle.Between(automaton.x, automaton.y, targetX, targetY);
     const degrees = Phaser.Math.RadToDeg(angle);
     const angleDegrees = degrees < 0 ? 360 + degrees : degrees;
     if (angleDegrees >= 0 && angleDegrees < 45) {
@@ -39,10 +39,13 @@ export default class AutomatonMovement {
     } else {
       automaton.direction = 'down';
     }
-    automaton.sprite.play({ key: `Walk ${automaton.direction} - automaton`, repeat: -1 });
+    automaton.play({ key: `Walk ${automaton.direction} - automaton`, repeat: -1 });
   }
 
   setIdleAnimation(automaton) {
-    automaton.sprite.play({ key: `Idle ${automaton.direction} - automaton`, repeat: -1 });
+    if (automaton.automatonIsMoving) {
+      automaton.play({ key: `Idle ${automaton.direction} - automaton`, repeat: -1 });
+      automaton.automatonIsMoving = false;
+    }
   }
 }
