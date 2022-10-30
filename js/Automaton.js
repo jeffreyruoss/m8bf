@@ -13,6 +13,7 @@ export default class Automaton {
       .setSize(35, 25)
       .setOffset(17, 31);
     this.name = "automaton";
+    this.sprite.body.immovable = true;
     this.sprite.play({ key: "Idle down - automaton", repeat: -1 });
     this.scene.allObjects.add(this.sprite);
 
