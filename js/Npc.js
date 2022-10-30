@@ -10,13 +10,5 @@ export default class Npc extends Phaser.Physics.Arcade.Sprite {
     this.scene.allObjects.add(this);
     this.scene.physics.add.collider(this, scene.allObjects);
     this.body.immovable = true;
-
-    this.playerBoundary = scene.physics.add.sprite(x, y, 'playerBoundary');
-    this.playerBoundary.setDepth(2);
-    this.playerBoundary.setAlpha(0);
-    this.playerBoundary.body.setSize(40, 65);
-    this.playerBoundary.body.setOffset(0, -10);
-    this.playerBoundary.body.immovable = true;
-    this.scene.physics.add.collider(this.playerBoundary, this.scene.player);
   }
 }
