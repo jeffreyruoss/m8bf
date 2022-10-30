@@ -7,6 +7,7 @@ export default class Npc extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(2);
     scene.physics.add.existing(this);
     scene.add.existing(this);
+    this.name = "npc";
     this.body.setSize(35, 25);
     this.body.setOffset(17, 28);
     scene.allObjects.add(this);

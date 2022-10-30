@@ -72,7 +72,7 @@ export default class Main extends Phaser.Scene {
 
     this.MapGenerator.generateGrass();
 
-    new Player(this);
+    this.player = new Player(this, this.sceneWidth / 2, this.sceneHeight / 2);
 
     this.cameras.main.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
     this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
@@ -114,6 +114,12 @@ export default class Main extends Phaser.Scene {
     this.anims.createFromAseprite('npc');
     this.npcs = this.add.group();
 
+    this.anims.createFromAseprite('automaton');
+    this.automatons = this.add.group();
+    this.AutomatonMovement = new AutomatonMovement(this);
+
+    this.MapGenerator.generateNPCs('npc', 'npcs');
+
     if (data.loadGame) {
       this.player.setAlpha(1);
       this.player.enabled = true;
@@ -128,9 +134,6 @@ export default class Main extends Phaser.Scene {
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });
     // this.time.delayedCall(7000, () => this.music.play(), [], this);
 
-    this.automaton1 = new Automaton(this, this.sceneWidth / 2 + 100, this.sceneHeight / 2 + 100);
-    this.AutomatonMovement = new AutomatonMovement(this);
-    this.AutomatonMovement.clickToMove(this.automaton1);
 
     // TESTING
     // this.FPS = new FPS(this, 'bottom-left');

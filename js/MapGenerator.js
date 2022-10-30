@@ -1,3 +1,6 @@
+import Npc from './Npc.js';
+import Automaton from './Automaton.js';
+
 export default class MapGenerator {
   constructor(scene) {
     this.scene = scene;
@@ -95,5 +98,19 @@ export default class MapGenerator {
     }
     this.scene[group].add(object);
     this.scene.allObjects.add(object);
+  }
+
+  generateNPCs() {
+    if (this.scene.data.loadGame && this.scene.savedGameData) {
+      this.scene.savedGameData.npcs.forEach(npc => {
+        new Npc(this.scene, npc.x, npc.y, npc.data);
+      });
+      this.scene.savedGameData.automatons.forEach(automaton => {
+        new Automaton(this.scene, automaton.x, automaton.y, automaton.data);
+      });
+    } else {
+      new Npc(this.scene, this.scene.sceneWidth / 2 -100, this.scene.sceneHeight / 2 -100);
+      new Automaton(this.scene, this.scene.sceneWidth / 2 + 100, this.scene.sceneHeight / 2 + 100);
+    }
   }
 }

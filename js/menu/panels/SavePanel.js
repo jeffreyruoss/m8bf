@@ -30,17 +30,33 @@ export default class SavePanel {
         inventory: this.scene.player.inventory,
       },
       structures: [],
+      automatons: [],
+      npcs: [],
       tech: {}
     }
 
     this.scene.allObjects.children.iterate((child) => {
-      if (child.name !== 'player') {
+      if (child.name !== 'player' && child.name !== 'npc' && child.name !== 'automaton') {
         let data = child.data ? child.data.list : null;
         saveObject.structures.push({
           name: child.name,
           x: child.x,
           y: child.y,
           data: data
+        });
+      } else if (child.name === 'automaton') {
+        saveObject.automatons.push({
+          name: child.name,
+          x: child.x,
+          y: child.y,
+          attributes: child.attributes
+        });
+      } else if (child.name === 'npc') {
+        saveObject.npcs.push({
+          name: child.name,
+          x: child.x,
+          y: child.y,
+          attributes: child.attributes
         });
       }
     });

@@ -1,36 +1,35 @@
-export default class Player {
-  constructor(scene) {
+export default class Player extends Phaser.Physics.Arcade.Sprite {
+  constructor(scene, x, y) {
+    super(scene, x, y, 'player');
     this.scene = scene;
+    this.x = x;
+    this.y = y;
     this.playerEnabled = false;
     this.createPlayer();
   }
 
   createPlayer() {
-    let x;
-    let y;
     if (this.scene.data.loadGame && this.scene.savedGameData) {
-      x = this.scene.savedGameData.player.x;
-      y = this.scene.savedGameData.player.y;
+      this.x = this.scene.savedGameData.player.x;
+      this.y = this.scene.savedGameData.player.y;
     } else {
-      x = this.scene.sceneWidth / 2;
-      y = this.scene.sceneHeight / 2;
-      // x = 100;
-      // y = 100;
+      this.x = this.scene.sceneWidth / 2;
+      this.y = this.scene.sceneHeight / 2;
     }
     this.scene.anims.createFromAseprite('player');
-    this.scene.player = this.scene.physics
-      .add.sprite(x, y, "player")
-      .setDepth(2)
-      .setSize(32, 21)
-      .setOffset(19, 31)
-      .setAlpha(0);
-    this.scene.player.name = "player";
+    this.scene.physics.add.existing(this);
+    this.scene.add.existing(this);
+    this.setDepth(2);
+    this.setSize(32, 21);
+    this.setOffset(19, 31);
+    this.setAlpha(0);
+    this.name = "player";
 
     if (this.scene.data.loadGame && this.scene.savedGameData) {
-      this.scene.player.attributes = this.scene.savedGameData.player.attributes;
-      this.scene.player.inventory = this.scene.savedGameData.player.inventory;
+      this.attributes = this.scene.savedGameData.player.attributes;
+      this.inventory = this.scene.savedGameData.player.inventory;
     } else {
-      this.scene.player.inventory = {
+      this.inventory = {
         wood: 10,
         stone: 10,
         ironOre: 0,
@@ -45,9 +44,10 @@ export default class Player {
         ironPickaxe: 0,
         chest: 0,
         workshop: 10,
-        hut: 0
+        hut: 0,
+        ironMine: 0
       }
-      this.scene.player.attributes = {
+      this.attributes = {
         movementSpeed: 300, // 300
         collectionSpeed: {
           tree: 300,
@@ -55,7 +55,7 @@ export default class Player {
           ironOreDeposit: 300
         }
       }
-      this.scene.allObjects.add(this.scene.player);
+      this.scene.allObjects.add(this);
     }
   }
 }
