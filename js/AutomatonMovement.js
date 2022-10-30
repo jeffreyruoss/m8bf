@@ -16,6 +16,7 @@ export default class AutomatonMovement {
           automaton.automatonIsMoving = true;
           this.setWalkAnimation(automaton, x, y);
           this.scene.physics.moveTo(automaton.sprite, x, y, 300);
+          this.scene.physics.moveTo(automaton.boundary, x, y, 300);
         }
       });
     });

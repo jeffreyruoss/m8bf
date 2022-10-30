@@ -128,7 +128,7 @@ export default class Main extends Phaser.Scene {
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });
     // this.time.delayedCall(7000, () => this.music.play(), [], this);
 
-    this.automaton1 = new Automaton(this);
+    this.automaton1 = new Automaton(this, this.sceneWidth / 2 + 100, this.sceneHeight / 2 + 100);
     this.AutomatonMovement = new AutomatonMovement(this);
     this.AutomatonMovement.clickToMove(this.automaton1);
 

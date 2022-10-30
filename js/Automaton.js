@@ -1,14 +1,16 @@
+import Boundary from "./Boundary.js";
+
 export default class Automaton {
-  constructor(scene) {
+  constructor(scene, x, y) {
     this.scene = scene;
     this.direction = "down";
-    this.createAutomaton();
+    this.createAutomaton(x, y);
   }
 
-  createAutomaton() {
+  createAutomaton(x, y) {
     this.scene.anims.createFromAseprite('automaton');
     this.sprite = this.scene.physics
-      .add.sprite(this.scene.sceneWidth / 2 + 100, this.scene.sceneHeight / 2 + 100, "automaton")
+      .add.sprite(x, y, "automaton")
       .setDepth(2)
       .setSize(35, 25)
       .setOffset(17, 31);
@@ -19,9 +21,12 @@ export default class Automaton {
 
     this.scene.physics.add.collider(this.sprite, this.scene.allObjects, () => {
       this.sprite.body.stop();
+      this.boundary.body.stop();
       this.sprite.automatonIsMoving = false;
       this.scene.AutomatonMovement.setIdleAnimation(this);
     });
+
+    this.boundary = new Boundary(this.scene, x, y, 40, 65, 0, -10);
 
     this.attributes = {
       movementSpeed: 100, // 300
