@@ -2,6 +2,43 @@ export default class PlayerActions {
   constructor(scene) {
     this.scene = scene;
     this.collectTime = 0;
+    this.dialogueActive = false;
+    this.dialogueText = '';
+    this.dialogueStep = 0;
+    this.dialogueLength = 0;
+  }
+
+  dialogue() {
+    this.scene.allObjects.children.iterate((object) => {
+      if (object.name === 'player') return;
+      const playerBounds = this.scene.player.getBounds();
+      const objectBounds = object.getBounds();
+      if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, objectBounds)) {
+        if (object.name === 'npc') {
+          if (this.dialogueActive === false) {
+            this.dialogueActive = true;
+            this.dialogueLength = Object.keys(this.scene.dialogJSON["0"]).length;
+            this.scene.player.enabled = false;
+            const width = this.scene.cameras.main.width - 60;
+            const height = 100;
+            const x = this.scene.cameras.main.worldView.x + 30;
+            const y = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height - height - 30;
+            this.dialogBox = this.scene.add.rectangle(x, y, width, height, 0xffffff, 1);
+            this.dialogueText = this.scene.add.text(x + 10, y + 10, this.scene.dialogJSON["0"][this.dialogueStep], { font: '16px Courier', fill: '#000000' });
+            this.dialogBox.setOrigin(0);
+          } else if (this.dialogueStep + 1 < this.dialogueLength){
+            this.dialogueStep += 1;
+            this.dialogueText.setText(this.scene.dialogJSON["0"][this.dialogueStep]);
+          } else {
+            this.dialogueActive = false;
+            this.dialogueStep = 0;
+            this.scene.player.enabled = true;
+            this.dialogBox.destroy();
+            this.dialogueText.destroy();
+          }
+        }
+      }
+    });
   }
 
   collect() {

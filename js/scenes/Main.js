@@ -62,6 +62,7 @@ export default class Main extends Phaser.Scene {
     this.menuJSON = this.cache.json.get('menuJSON');
     this.itemsJSON = this.cache.json.get('itemsJSON');
     this.mapObjectsJSON = this.cache.json.get('mapObjectsJSON');
+    this.dialogJSON = this.cache.json.get('dialogJSON');
 
     this.allObjects = this.add.group();
 
@@ -130,6 +131,10 @@ export default class Main extends Phaser.Scene {
 
       this.Npc1 = new Npc(this, this.sceneWidth / 2 -100, this.sceneHeight / 2 -100);
     }
+
+    this.keys.SPACE.on('down', () => {
+      this.PlayerActions.dialogue();
+    });
 
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });
     // this.time.delayedCall(7000, () => this.music.play(), [], this);
