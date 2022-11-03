@@ -59,5 +59,16 @@
     "name": "Chest",
     "groupName": "chests",
     "data": {}
+  },
+  "wood": {
+    "flat": true,
+    "traversable": true,
+    "frequency": 0.005,
+    "min": 1,
+    "name": "Wood",
+    "groupName": "woods",
+    "pickUp": true,
+    "data": {}
+  },
   }
 }

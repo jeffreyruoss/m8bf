@@ -37,7 +37,11 @@ export default class Main extends Phaser.Scene {
     this.load.image('chest', './../../img/chest.png');
     this.load.image('workshop', './../../img/workshop.png');
     this.load.image('advancedWorkshop', './../../img/advanced-workshop.png');
-    // this.load.audio('music', './../../sounds/painful-memories-compressed.mp3');
+    this.load.image('stonePickaxe', './../../img/stone-pickaxe.png');
+    this.load.image('ironPickaxe', './../../img/iron-pickaxe.png');
+    this.load.image('wood', './../../img/wood.png');
+    this.load.image('stones', './../../img/stones.png');
+    this.load.audio('music', './../../sounds/painful-memories-compressed.mp3');
     this.load.audio('portal', './../../sounds/sfx_movement_portal1.mp3');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');
     this.load.audio('treeFall', './../../sounds/sfx_sounds_impact11.mp3');
@@ -111,6 +115,7 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('workshop', 'workshops');
     this.MapGenerator.generateObjects('ironMine', 'ironMines');
     this.MapGenerator.generateObjects('chest', 'chests');
+    this.MapGenerator.generateObjects('wood', 'pickups');
 
     this.anims.createFromAseprite('npc');
     this.npcs = this.add.group();
@@ -134,6 +139,7 @@ export default class Main extends Phaser.Scene {
 
     this.keys.SPACE.on('down', () => {
       this.PlayerActions.dialogue();
+      this.PlayerActions.pickUp();
     });
 
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });

@@ -106,6 +106,23 @@ export default class PlayerActions {
     });
   }
 
+  pickUp() {
+    this.scene.pickups.children.iterate((object) => {
+      if (object && object.name === 'player') return;
+      if (object) {
+        const playerBounds = this.scene.player.getBounds();
+        const objectBounds = object.getBounds();
+        if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, objectBounds)) {
+          this.scene.sound.play('pickUp');
+          this.scene.player.inventory[object.name] += 1;
+          const message = `+1 ${this.scene.mapObjectsJSON[object.name].name}`;
+          this.scene.MessageManager.createMessage(object.x, object.y, message, 'positive');
+          object.destroy();
+        }
+      }
+    });
+  }
+
   inspect() {
     this.scene.keys.I.on('down', () => {
       const playerBounds = this.scene.player.getBounds();
