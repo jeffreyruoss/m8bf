@@ -51,7 +51,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         movementSpeed: 300, // 300
         collectionSpeed: {
           tree: 300,
-          stone: 300,
+          stoneFormation: 300,
           ironOreDeposit: 300
         }
       }
