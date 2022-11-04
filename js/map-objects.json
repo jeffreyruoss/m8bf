@@ -66,9 +66,18 @@
     "frequency": 0.005,
     "min": 1,
     "name": "Wood",
-    "groupName": "woods",
+    "groupName": "wood",
     "pickUp": true,
     "data": {}
   },
+  "stone": {
+    "flat": true,
+    "traversable": true,
+    "frequency": 0.005,
+    "min": 1,
+    "name": "Stone",
+    "groupName": "stone",
+    "pickUp": true,
+    "data": {}
   }
 }
