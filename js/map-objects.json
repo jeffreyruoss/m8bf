@@ -13,10 +13,10 @@
       "wood": 1
     }
   },
-  "stone": {
+  "stoneFormation": {
     "frequency": 0.01,
-    "name": "Stone",
-    "groupName": "stones",
+    "name": "StoneFormation",
+    "groupName": "stoneFormations",
     "harvestType": "mine",
     "resource": {
       "name": "Stone",

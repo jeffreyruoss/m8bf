@@ -33,14 +33,13 @@ export default class Main extends Phaser.Scene {
     this.load.image('tree', './../../img/tree.png');
     this.load.image('ironOreDeposit', './../../img/iron-ore-deposit.png');
     this.load.image('ironMine', './../../img/iron-mine.png');
-    this.load.image('stone', './../../img/stone.png');
     this.load.image('chest', './../../img/chest.png');
     this.load.image('workshop', './../../img/workshop.png');
     this.load.image('advancedWorkshop', './../../img/advanced-workshop.png');
     this.load.image('stonePickaxe', './../../img/stone-pickaxe.png');
     this.load.image('ironPickaxe', './../../img/iron-pickaxe.png');
+    this.load.image('stoneFormation', './../../img/stone-formation.png');
     this.load.image('wood', './../../img/wood.png');
-    this.load.image('stones', './../../img/stones.png');
     this.load.audio('music', './../../sounds/painful-memories-compressed.mp3');
     this.load.audio('portal', './../../sounds/sfx_movement_portal1.mp3');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');
