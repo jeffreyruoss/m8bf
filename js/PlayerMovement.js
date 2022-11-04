@@ -45,15 +45,19 @@ export default class PlayerMovement {
       this.player.play('Walk down', true);
       this.player.direction = 'down';
     } else {
-      if (this.player.direction === 'left') {
-        this.player.play('Idle left', true);
-      } else if (this.player.direction === 'right') {
-        this.player.play('Idle right', true);
-      } else if (this.player.direction === 'up') {
-        this.player.play('Idle up', true);
-      } else if (this.player.direction === 'down') {
-        this.player.play('Idle down', true);
-      }
+      this.playerIdle();
+    }
+  }
+
+  playerIdle() {
+    if (this.player.direction === 'left') {
+      this.player.play('Idle left', true);
+    } else if (this.player.direction === 'right') {
+      this.player.play('Idle right', true);
+    } else if (this.player.direction === 'up') {
+      this.player.play('Idle up', true);
+    } else if (this.player.direction === 'down') {
+      this.player.play('Idle down', true);
     }
   }
 }
