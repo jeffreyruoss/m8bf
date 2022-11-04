@@ -37,6 +37,8 @@ export default class Main extends Phaser.Scene {
     this.load.image('chest', './../../img/chest.png');
     this.load.image('workshop', './../../img/workshop.png');
     this.load.image('advancedWorkshop', './../../img/advanced-workshop.png');
+    this.load.image('stoneAxe', './../../img/stone-axe.png');
+    this.load.image('ironAxe', './../../img/iron-axe.png');
     this.load.image('stonePickaxe', './../../img/stone-pickaxe.png');
     this.load.image('ironPickaxe', './../../img/iron-pickaxe.png');
     this.load.image('wood', './../../img/wood.png');
