@@ -53,6 +53,7 @@ export default class Main extends Phaser.Scene {
     this.load.json('menuJSON', './../../js/menu/menu.json');
     this.load.json('itemsJSON', './../../js/items.json');
     this.load.json('mapObjectsJSON', './../../js/map-objects.json');
+    this.load.json('dialogJSON', './../../js/dialog.json');
   }
 
   create(data) {
