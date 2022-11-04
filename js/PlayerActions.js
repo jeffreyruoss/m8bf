@@ -24,17 +24,19 @@ export default class PlayerActions {
             const x = this.scene.cameras.main.worldView.x + 30;
             const y = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height - height - 30;
             this.dialogBox = this.scene.add.rectangle(x, y, width, height, 0xffffff, 1);
-            this.dialogueText = this.scene.add.text(x + 10, y + 10, this.scene.dialogJSON["0"][this.dialogueStep], { font: '16px Courier', fill: '#000000' });
             this.dialogBox.setOrigin(0);
+            this.dialogBox.setDepth(5);
+            this.dialogText = this.scene.add.text(x + 10, y + 10, this.scene.dialogJSON["0"][this.dialogueStep], { fontFamily: this.scene.font, fontSize: 24 , fill: '#000000' });
+            this.dialogText.setDepth(5);
           } else if (this.dialogueStep + 1 < this.dialogueLength){
             this.dialogueStep += 1;
-            this.dialogueText.setText(this.scene.dialogJSON["0"][this.dialogueStep]);
+            this.dialogText.setText(this.scene.dialogJSON["0"][this.dialogueStep]);
           } else {
             this.dialogueActive = false;
             this.dialogueStep = 0;
             this.scene.player.enabled = true;
             this.dialogBox.destroy();
-            this.dialogueText.destroy();
+            this.dialogText.destroy();
           }
         }
       }
