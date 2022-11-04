@@ -11,14 +11,13 @@ import InfoBar from "./../InfoBar.js";
 import Mouse from "./../Mouse.js";
 import Automaton from "./../Automaton.js";
 import AutomatonMovement from "./../AutomatonMovement.js";
-import Npc from "./../Npc.js";
 import FPS from "./../FPS.js";
 
 export default class Main extends Phaser.Scene {
   constructor() {
     super('Main');
     this.font = 'earls-revenge';
-    this.sceneSizeMultiplier = 4;
+    this.sceneSizeMultiplier = 1.5;
 
     // for debugging
     document.scene = this;
@@ -42,8 +41,8 @@ export default class Main extends Phaser.Scene {
     this.load.image('stonePickaxe', './../../img/stone-pickaxe.png');
     this.load.image('ironPickaxe', './../../img/iron-pickaxe.png');
     this.load.image('wood', './../../img/wood.png');
-    this.load.audio('music', './../../sounds/painful-memories-compressed.mp3');
     this.load.image('stone', './../../img/stone.png');
+    // this.load.audio('music', './../../sounds/painful-memories-compressed.mp3');
     this.load.audio('portal', './../../sounds/sfx_movement_portal1.mp3');
     this.load.audio('treeChop', './../../sounds/sfx_sounds_impact6.mp3');
     this.load.audio('treeFall', './../../sounds/sfx_sounds_impact11.mp3');
@@ -86,7 +85,7 @@ export default class Main extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
     this.physics.world.setBounds(0, 0, this.sceneWidth, this.sceneHeight);
     this.player.setCollideWorldBounds('true');
-    this.cameras.main.startFollow(this.player);
+    this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
 
     this.InfoBar = new InfoBar(this);
 
@@ -135,11 +134,10 @@ export default class Main extends Phaser.Scene {
       this.player.setAlpha(1);
       this.player.enabled = true;
     } else {
-      this.PlayerFadeIn = new PlayerFadeIn(this);
-      this.PlayerFadeIn.fadeIn();
-      this.anims.createFromAseprite('npc');
-
-      this.Npc1 = new Npc(this, this.sceneWidth / 2 -100, this.sceneHeight / 2 -100);
+      // this.PlayerFadeIn = new PlayerFadeIn(this);
+      // this.PlayerFadeIn.fadeIn();
+      this.player.setAlpha(1); // for debugging (quicker start)
+      this.player.enabled = true; // for debugging (quicker start)
     }
 
     this.keys.SPACE.on('down', () => {
@@ -159,11 +157,21 @@ export default class Main extends Phaser.Scene {
   update() {
     if (this.player.enabled) {
       this.PlayerMovement.playerMove();
-      if (this.input.keyboard.checkDown(this.keys.SPACE)) this.PlayerActions.collect();
+      if (this.input.keyboard.checkDown(this.keys.SPACE)) {
+        this.PlayerActions.collect();
+      }
+    } else {
+      this.PlayerMovement.playerIdle();
     }
 
     this.Build.update();
 
+    // if (this.checkProximity(this.player, this.Npc1, 50)) {}
+
     // this.FPS.update();
   }
+
+  // checkProximity(object1, object2, distance) {
+  //   return Phaser.Math.Distance.Between(object1.x, object1.y, object2.x, object2.y) < distance;
+  // }
 }

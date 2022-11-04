@@ -117,13 +117,13 @@ export default class PlayerActions {
         if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, objectBounds)) {
           if (this.scene.mapObjectsJSON[object.name] !== undefined) {
             if (this.scene.mapObjectsJSON[object.name].pickUp) {
-          this.scene.sound.play('pickUp');
-          this.scene.player.inventory[object.name] += 1;
-          const message = `+1 ${this.scene.mapObjectsJSON[object.name].name}`;
-          this.scene.MessageManager.createMessage(object.x, object.y, message, 'positive');
-          object.destroy();
-        }
-      }
+              this.scene.sound.play('pickUp');
+              this.scene.player.inventory[object.name] += 1;
+              const message = `+1 ${this.scene.mapObjectsJSON[object.name].name}`;
+              this.scene.MessageManager.createMessage(object.x, object.y, message, 'positive');
+              object.destroy();
+            }
+          }
         }
       }
     });
