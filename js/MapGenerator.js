@@ -7,7 +7,16 @@ export default class MapGenerator {
   }
 
   generateGrass() {
-    this.scene.add.tileSprite(0, 0, this.scene.sceneWidth, this.scene.sceneHeight, 'grass').setOrigin(0);
+    const viewportWidth = this.scene.cameras.main.width * this.scene.sceneSizeMultiplier;
+    const viewportHeight = this.scene.cameras.main.height * this.scene.sceneSizeMultiplier;
+    this.scene.grass = this.scene.add.tileSprite(0, 0, viewportWidth, viewportHeight, 'grass').setOrigin(0);
+  }
+
+  scrollGrass() {
+    const cameraX = this.scene.cameras.main.scrollX;
+    const cameraY = this.scene.cameras.main.scrollY;
+    this.scene.grass.x = cameraX * -0.0001;
+    this.scene.grass.y = cameraY * -0.0001;
   }
 
   /**

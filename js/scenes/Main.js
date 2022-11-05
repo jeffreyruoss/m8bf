@@ -168,6 +168,8 @@ export default class Main extends Phaser.Scene {
   }
 
   update() {
+    this.MapGenerator.scrollGrass();
+
     if (this.player.enabled) {
       this.PlayerMovement.playerMove();
       if (this.input.keyboard.checkDown(this.keys.SPACE)) {
