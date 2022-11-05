@@ -18,9 +18,10 @@ export default class PlayerActions {
           const npcKey = object.data.get('npcKey');
           const dialogNumber = object.data.get('dialogNumber');
           const dialogStatus = object.data.get('dialogStatus');
+          const dialog = this.scene.dialogJSON[npcKey].dialog[dialogNumber][dialogStatus];
           if (this.dialogueActive === false) {
             this.dialogueActive = true;
-            this.dialogueLength = Object.keys(this.scene.dialogJSON[npcKey].dialog[dialogNumber][dialogStatus]).length;
+            this.dialogueLength = Object.keys(dialog).length;
             this.scene.player.enabled = false;
             const width = this.scene.cameras.main.width - 60;
             const height = 100;
@@ -29,11 +30,12 @@ export default class PlayerActions {
             this.dialogBox = this.scene.add.rectangle(x, y, width, height, 0xffffff, 1);
             this.dialogBox.setOrigin(0);
             this.dialogBox.setDepth(5);
-            this.dialogText = this.scene.add.text(x + 10, y + 10, this.scene.dialogJSON[npcKey].dialog[dialogNumber][dialogStatus][this.dialogueStep], { fontFamily: this.scene.font, fontSize: 24 , fill: '#000000' });
+            const style = { fontFamily: this.scene.font, fontSize: 24 , fill: '#000000' };
+            this.dialogText = this.scene.add.text(x + 10, y + 10, dialog[this.dialogueStep], style);
             this.dialogText.setDepth(5);
           } else if (this.dialogueStep + 1 < this.dialogueLength){
             this.dialogueStep += 1;
-            this.dialogText.setText(this.scene.dialogJSON[npcKey].dialog[dialogNumber][dialogStatus][this.dialogueStep]);
+            this.dialogText.setText(dialog[this.dialogueStep]);
           } else {
             this.dialogueActive = false;
             this.dialogueStep = 0;
