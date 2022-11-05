@@ -15,11 +15,12 @@ export default class PlayerActions {
       const objectBounds = object.getBounds();
       if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, objectBounds)) {
         if (object.name === 'npc') {
-          const npcName = 'markusTheGray'; // TODO make this dynamic - pull from this sprite's name (hard coding markus for now)
-          const dialogNumber = 0; // TODO make this dynamic - pull from this sprite's dialogNumber (hard coding dialog 0 for now)
+          const npcKey = object.data.get('npcKey');
+          const dialogNumber = object.data.get('dialogNumber');
+          const dialogStatus = object.data.get('dialogStatus');
           if (this.dialogueActive === false) {
             this.dialogueActive = true;
-            this.dialogueLength = Object.keys(this.scene.dialogJSON[npcName].dialog[dialogNumber].initial).length;
+            this.dialogueLength = Object.keys(this.scene.dialogJSON[npcKey].dialog[dialogNumber][dialogStatus]).length;
             this.scene.player.enabled = false;
             const width = this.scene.cameras.main.width - 60;
             const height = 100;
@@ -28,17 +29,20 @@ export default class PlayerActions {
             this.dialogBox = this.scene.add.rectangle(x, y, width, height, 0xffffff, 1);
             this.dialogBox.setOrigin(0);
             this.dialogBox.setDepth(5);
-            this.dialogText = this.scene.add.text(x + 10, y + 10, this.scene.dialogJSON[npcName].dialog[dialogNumber].initial[this.dialogueStep], { fontFamily: this.scene.font, fontSize: 24 , fill: '#000000' });
+            this.dialogText = this.scene.add.text(x + 10, y + 10, this.scene.dialogJSON[npcKey].dialog[dialogNumber][dialogStatus][this.dialogueStep], { fontFamily: this.scene.font, fontSize: 24 , fill: '#000000' });
             this.dialogText.setDepth(5);
           } else if (this.dialogueStep + 1 < this.dialogueLength){
             this.dialogueStep += 1;
-            this.dialogText.setText(this.scene.dialogJSON[npcName].dialog[dialogNumber].initial[this.dialogueStep]);
+            this.dialogText.setText(this.scene.dialogJSON[npcKey].dialog[dialogNumber][dialogStatus][this.dialogueStep]);
           } else {
             this.dialogueActive = false;
             this.dialogueStep = 0;
             this.scene.player.enabled = true;
             this.dialogBox.destroy();
             this.dialogText.destroy();
+            if (dialogStatus === 'initial') {
+              object.data.set('dialogStatus', 'return');
+            }
           }
         }
       }
