@@ -17,25 +17,31 @@ export default class Collect {
           if (objectJSON === undefined) return;
 
           // Map object requirement rules
-          if (objectJSON.objectRequires !== undefined && objectJSON.objectRequires === "mine") {
-            if (object.data.get('mine') <= 0) {
-              const message = 'Build a mine to extract ore';
-              this.scene.MessageManager.createMessage(object.x, object.y, message, 'info');
-              this.collectTime = this.scene.time.now + collectionSpeed;
-              return;
-            }
-          }
-
-          // Player requirement rules
-          if (objectJSON.playerRequires !== undefined) {
-            const requirements = objectJSON.playerRequires;
-            const playerInventory = this.scene.player.inventory;
+          if (objectJSON.objectRequires !== undefined) {
+            const requirements = objectJSON.objectRequires;
             for (const [key, value] of Object.entries(requirements)) {
-              if (playerInventory[key] < value.amount) {
+              if (object.data.get(key) < value.amount) {
                 this.scene.MessageManager.createMessage(object.x, object.y, value.message, 'info');
                 this.collectTime = this.scene.time.now + collectionSpeed;
                 return;
               }
+            }
+          }
+
+          // Player requirement rules for the OR logic (need to have one of the requirements)
+          if (objectJSON.playerRequires !== undefined) {
+            const requirements = objectJSON.playerRequires.items;
+            const playerInventory = this.scene.player.inventory;
+            let hasRequirement = false;
+            for (const [key, value] of Object.entries(requirements)) {
+              if (playerInventory[key] >= value.amount) {
+                hasRequirement = true;
+              }
+            }
+            if (!hasRequirement) {
+              this.scene.MessageManager.createMessage(object.x, object.y, objectJSON.playerRequires.message, 'info');
+              this.collectTime = this.scene.time.now + collectionSpeed;
+              return;
             }
           }
 
