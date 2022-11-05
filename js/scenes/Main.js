@@ -1,7 +1,7 @@
 import Player from './../Player.js';
 import PlayerFadeIn from "./../PlayerFadeIn.js";
 import PlayerMovement from "./../PlayerMovement.js";
-import PlayerActions from "./../PlayerActions.js";
+import PlayerActions from "./../playerActions/PlayerActions.js";
 import MapGenerator from "./../MapGenerator.js";
 import Menu from "./../menu/Menu.js";
 import Craft from "./../Craft.js";
@@ -154,7 +154,7 @@ export default class Main extends Phaser.Scene {
     }
 
     this.keys.SPACE.on('down', () => {
-      this.PlayerActions.dialogue();
+      this.PlayerActions.dialog();
       this.PlayerActions.pickUp();
     });
 
