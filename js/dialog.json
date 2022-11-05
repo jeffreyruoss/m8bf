@@ -1,8 +1,30 @@
 {
-  "0": {
-    "0": "Ah, another exile.",
-    "1": "Don't worry, your memories will return in time.",
-    "2": "In the meantime, I will be your guide.",
-    "3": "Start by gathering the materials you need to craft a stone axe."
+  "markusTheGray": {
+    "name": "Markus the Gray",
+    "dialog": {
+      "0": {
+        "initial": {
+          "0": "Ah, another exile.",
+          "1": "Do not fear, your memories will return in time.",
+          "2": "In the mean while, I will be your guide.",
+          "3": "Start by gathering wood and stone to craft a stone axe."
+        },
+        "return": {
+          "0": "Start by gathering wood and stone to craft a stone axe."
+        }
+      },
+      "1": {
+        "initial": {
+          "0": "This will be the next initial conversation 1.",
+          "1": "This will be the next initial conversation 2.",
+          "2": "This will be the next initial conversation 3."
+        },
+        "return": {
+          "0": "This will be the next return conversation 1.",
+          "1": "This will be the next return conversation 2.",
+          "2": "This will be the next return conversation 3."
+        }
+      }
+    }
   }
 }
