@@ -4,6 +4,7 @@ import InventoryPanel from './panels/InventoryPanel.js';
 import CraftPanel from './panels/CraftPanel.js';
 import BuildPanel from './panels/BuildPanel.js';
 import TechPanel from "./panels/TechPanel.js";
+import DialogLogPanel from "./panels/DialogLogPanel.js";
 import SavePanel from "./panels/SavePanel.js";
 import LoadPanel from "./panels/LoadPanel.js";
 

@@ -11,7 +11,7 @@ export default class InfoBar {
     let x = 15;
     const y = -50 + 15;
     items.forEach((item, index) => {
-      let style = { fontSize: "18px", fontFamily: this.scene.font };
+      let style = { fontSize: "19px", fontFamily: this.scene.font };
       const currentItem = this.scene.add.text(x, y, item, style).setOrigin(0).setScrollFactor(0).setDepth(4);
       x += currentItem.width + 50;
       this.texts.push(currentItem);
