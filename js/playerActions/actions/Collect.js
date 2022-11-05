@@ -17,7 +17,7 @@ export default class Collect {
           if (objectJSON === undefined) return;
 
           // Map object requirement rules
-          if (objectJSON.requires !== undefined && objectJSON.requires === "mine") {
+          if (objectJSON.objectRequires !== undefined && objectJSON.objectRequires === "mine") {
             if (object.data.get('mine') <= 0) {
               const message = 'Build a mine to extract ore';
               this.scene.MessageManager.createMessage(object.x, object.y, message, 'info');

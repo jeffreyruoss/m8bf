@@ -44,7 +44,7 @@
     },
     "flat": true,
     "traversable": true,
-    "requires": "mine",
+    "objectRequires": "mine",
     "data": {
       "harvestTicks": 0,
       "ironOre": 3,
