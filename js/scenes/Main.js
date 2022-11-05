@@ -166,12 +166,6 @@ export default class Main extends Phaser.Scene {
 
     this.Build.update();
 
-    // if (this.checkProximity(this.player, this.Npc1, 50)) {}
-
     // this.FPS.update();
   }
-
-  // checkProximity(object1, object2, distance) {
-  //   return Phaser.Math.Distance.Between(object1.x, object1.y, object2.x, object2.y) < distance;
-  // }
 }
