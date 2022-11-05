@@ -51,7 +51,7 @@ export default class Menu {
 
   createMenuRectangle() {
     this.scene.Menu.box = this.scene.add
-      .rectangle(30, 30, this.scene.cameras.main.width - 60, this.scene.cameras.main.height - 60, 0x222034);
+      .rectangle(30, 70, this.scene.cameras.main.width - 60, this.scene.cameras.main.height - 100, 0x222034);
     this.scene.menuItems.add(this.scene.Menu.box);
   }
 
@@ -59,7 +59,7 @@ export default class Menu {
     const menuJSON = this.scene.menuJSON;
     const style = {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"}
     let x = this.box.x;
-    let y = this.padding;
+    let y = 40 + this.padding;
     let mainNavItems = [];
     let systemNavItems = [];
     for (let item in menuJSON) {
