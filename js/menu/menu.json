@@ -1,4 +1,7 @@
 {
+  "info": {
+    "name": "Info"
+  },
   "inventory": {
     "name": "Inventory"
   },

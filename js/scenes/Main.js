@@ -138,6 +138,18 @@ export default class Main extends Phaser.Scene {
       // this.PlayerFadeIn.fadeIn();
       this.player.setAlpha(1); // for debugging (quicker start)
       this.player.enabled = true; // for debugging (quicker start)
+      this.time.delayedCall(8000, () => {
+        this.InfoBar.createInfoBar(['Use the "W", "A", "S", and "D" keys to move.', 'Use the "SPACE" key to interact with a person or object.']);
+      });
+      this.time.delayedCall(18000, () => {
+        this.InfoBar.destroyInfoBar();
+      });
+      this.time.delayedCall(19000, () => {
+        this.InfoBar.createInfoBar(['Press "C" to open the menu.', 'Press "ESC" to close the menu.']);
+      });
+      this.time.delayedCall(29000, () => {
+        this.InfoBar.destroyInfoBar();
+      });
     }
 
     this.keys.SPACE.on('down', () => {
