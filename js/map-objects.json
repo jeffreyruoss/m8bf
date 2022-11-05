@@ -8,6 +8,12 @@
       "name": "Wood",
       "key": "wood"
     },
+    "playerRequires": {
+      "stoneAxe": {
+        "amount": 1,
+        "message": "You need an axe to harvest trees."
+      }
+    },
     "data": {
       "harvestTicks": 0,
       "wood": 1

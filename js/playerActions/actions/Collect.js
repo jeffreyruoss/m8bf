@@ -16,13 +16,26 @@ export default class Collect {
           const objectJSON = this.scene.mapObjectsJSON[object.name];
           if (objectJSON === undefined) return;
 
-          // Requirement rules
+          // Map object requirement rules
           if (objectJSON.requires !== undefined && objectJSON.requires === "mine") {
             if (object.data.get('mine') <= 0) {
               const message = 'Build a mine to extract ore';
               this.scene.MessageManager.createMessage(object.x, object.y, message, 'info');
               this.collectTime = this.scene.time.now + collectionSpeed;
               return;
+            }
+          }
+
+          // Player requirement rules
+          if (objectJSON.playerRequires !== undefined) {
+            const requirements = objectJSON.playerRequires;
+            const playerInventory = this.scene.player.inventory;
+            for (const [key, value] of Object.entries(requirements)) {
+              if (playerInventory[key] < value.amount) {
+                this.scene.MessageManager.createMessage(object.x, object.y, value.message, 'info');
+                this.collectTime = this.scene.time.now + collectionSpeed;
+                return;
+              }
             }
           }
 
