@@ -1,3 +1,4 @@
+import StoryLogic from './../StoryLogic.js';
 import Player from './../Player.js';
 import PlayerFadeIn from "./../PlayerFadeIn.js";
 import PlayerMovement from "./../PlayerMovement.js";
@@ -71,6 +72,8 @@ export default class Main extends Phaser.Scene {
     this.itemsJSON = this.cache.json.get('itemsJSON');
     this.mapObjectsJSON = this.cache.json.get('mapObjectsJSON');
     this.dialogJSON = this.cache.json.get('dialogJSON');
+
+    this.StoryLogic = new StoryLogic(this);
 
     this.allObjects = this.add.group();
 

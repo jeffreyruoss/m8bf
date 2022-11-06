@@ -9,6 +9,7 @@ export default class Dialog {
   dialog() {
     const npc = this.checkForNpc();
     if (npc) {
+      this.scene.StoryLogic.npcsBeforeDialog(npc);
       const npcKey = npc.data.get('npcKey');
       const dialogNumber = npc.data.get('dialogNumber');
       const dialogStatus = npc.data.get('dialogStatus');
@@ -66,6 +67,7 @@ export default class Dialog {
     this.dialogBox.destroy();
     this.dialogText.destroy();
     if (dialogStatus === 'initial') {
+      this.scene.StoryLogic.npcsAfterDialog(npc);
       npc.data.set('dialogStatus', 'return');
     }
   }
