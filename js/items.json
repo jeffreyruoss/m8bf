@@ -95,5 +95,23 @@
       "stone": 15
     },
     "buildable": true
+  },
+  "furnace": {
+    "name": "Furnace",
+    "description": "A place to smelt ores.",
+    "recipe": {
+      "wood": 5,
+      "stone": 15
+    },
+    "buildable": true
+  },
+  "natureShrine": {
+    "name": "Nature Shrine",
+    "description": "Rapidly grows trees.",
+    "recipe": {
+      "wood": 5,
+      "stone": 15
+    },
+    "buildable": true
   }
 }

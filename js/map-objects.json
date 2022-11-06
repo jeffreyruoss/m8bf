@@ -94,6 +94,16 @@
     "groupName": "chests",
     "data": {}
   },
+  "furnace": {
+    "name": "Furnace",
+    "groupName": "furnaces",
+    "data": {}
+  },
+  "natureShrine": {
+    "name": "Nature Shrine",
+    "groupName": "natureShrines",
+    "data": {}
+  },
   "wood": {
     "flat": true,
     "traversable": true,
