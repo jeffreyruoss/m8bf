@@ -31,9 +31,12 @@ export default class Main extends Phaser.Scene {
     this.load.aseprite('npc', './../../img/npc.png', './../../img/npc.json');
     this.load.image('grass', './../../img/grass.png');
     this.load.image('tree', './../../img/tree.png');
+    this.load.image('juvenileTree', './../../img/juvenile-tree.png');
+    this.load.image('sapling', './../../img/sapling.png');
     this.load.image('ironOreDeposit', './../../img/iron-ore-deposit.png');
     this.load.image('ironMine', './../../img/iron-mine.png');
     this.load.image('stoneFormation', './../../img/stone-formation.png');
+    this.load.image('crystalDeposit', './../../img/crystal-deposit.png');
     this.load.image('chest', './../../img/chest.png');
     this.load.image('workbench', './../../img/workbench.png');
     this.load.image('workshop', './../../img/workshop.png');
@@ -121,6 +124,9 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits');
     this.MapGenerator.generateObjects('stoneFormation', 'stoneFormations');
     this.MapGenerator.generateObjects('tree', 'trees');
+    this.MapGenerator.generateObjects('sapling', 'saplings');
+    this.MapGenerator.generateObjects('juvenileTree', 'juvenileTrees');
+    this.MapGenerator.generateObjects('crystalDeposit', 'crystalDeposits');
     this.MapGenerator.generateObjects('workshop', 'workshops');
     this.MapGenerator.generateObjects('ironMine', 'ironMines');
     this.MapGenerator.generateObjects('chest', 'chests');

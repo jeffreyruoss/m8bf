@@ -38,7 +38,7 @@ export default class BuildPanel {
         } else {
           const pointerX = this.scene.input.activePointer.worldX;
           const pointerY = this.scene.input.activePointer.worldY;
-          this.scene.MessageManager.createMessage(pointerX, pointerY, "You don't have this item in your inventory", 'negative');
+          this.scene.MessageManager.createMessage(pointerX, pointerY, "You don't have this item in your inventory. Craft it from the craft menu", 'negative');
           this.scene.sound.play('error');
         }
       });
