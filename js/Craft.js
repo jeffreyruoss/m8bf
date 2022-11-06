@@ -27,4 +27,16 @@ export default class Craft {
     }
     return enoughResources;
   }
+
+  hasRequiredMapObject(itemObj) {
+    if (itemObj.requiredMapObject === undefined) return true;
+    let requiredMapObject = itemObj.requiredMapObject;
+    let hasRequiredMapObject = false;
+    this.scene.allObjects.children.iterate((mapObject) => {
+      if (mapObject.name === requiredMapObject) {
+        hasRequiredMapObject = true;
+      }
+    });
+    return hasRequiredMapObject;
+  }
 }

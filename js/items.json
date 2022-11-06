@@ -17,6 +17,7 @@
       "wood": 1,
       "stone": 1
     },
+    "requiredMapObject": "workbench",
     "effects": {
       "addOreCollectionSpeed": 300
     }
