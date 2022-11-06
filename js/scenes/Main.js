@@ -34,6 +34,7 @@ export default class Main extends Phaser.Scene {
     this.load.image('ironMine', './../../img/iron-mine.png');
     this.load.image('stoneFormation', './../../img/stone-formation.png');
     this.load.image('chest', './../../img/chest.png');
+    this.load.image('workbench', './../../img/workbench.png');
     this.load.image('workshop', './../../img/workshop.png');
     this.load.image('advancedWorkshop', './../../img/advanced-workshop.png');
     this.load.image('stoneAxe', './../../img/stone-axe.png');
@@ -120,6 +121,7 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('chest', 'chests');
     this.MapGenerator.generateObjects('stone', 'stone');
     this.MapGenerator.generateObjects('wood', 'wood');
+    this.MapGenerator.generateObjects('workbench', 'workbenches');
 
     this.anims.createFromAseprite('npc');
     this.npcs = this.add.group();

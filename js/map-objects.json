@@ -74,6 +74,11 @@
       "mine": 0
     }
   },
+  "workbench": {
+    "name": "Workbench",
+    "groupName": "workbenches",
+    "data": {}
+  },
   "workshop": {
     "name": "Workshop",
     "groupName": "workshops",

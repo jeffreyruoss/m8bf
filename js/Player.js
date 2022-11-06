@@ -44,6 +44,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         ironPickaxe: 0,
         chest: 0,
         workshop: 10,
+        workbench: 0,
         hut: 0,
         ironMine: 0
       }

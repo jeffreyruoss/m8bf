@@ -60,6 +60,14 @@
       "mud": 10
     }
   },
+  "workbench": {
+    "name": "Workbench",
+    "description": "A place to craft items.",
+    "recipe": {
+      "wood": 10
+    },
+    "buildable": true
+  },
   "workshop": {
     "name": "Workshop",
     "description": "A place to work on things.",
