@@ -44,7 +44,7 @@ export default class CraftPanel {
         const pointerX = this.scene.input.activePointer.worldX;
         const pointerY = this.scene.input.activePointer.worldY;
         if (!hasRequiredMapObject) {
-          this.scene.MessageManager.createMessage(pointerX, pointerY, "You don't have the appropriate map object", 'negative');
+          this.scene.MessageManager.createMessage(pointerX, pointerY, `You need to have a ${items[item].requiredMapObject} built to craft this item.`, 'negative');
         }
         else if (isEnoughResources) {
             this.scene.MessageManager.createMessage(pointerX, pointerY, `A ${items[item].name} has been added to your Inventory.`, 'positive');
