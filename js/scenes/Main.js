@@ -12,6 +12,7 @@ import InfoBar from "./../InfoBar.js";
 import Mouse from "./../Mouse.js";
 import Automaton from "./../Automaton.js";
 import AutomatonMovement from "./../AutomatonMovement.js";
+import TreeGrowth  from "./../TreeGrowth.js";
 import FPS from "./../FPS.js";
 
 export default class Main extends Phaser.Scene {
@@ -136,6 +137,8 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('furnace', 'furnaces');
     this.MapGenerator.generateObjects('natureShrine', 'natureShrines');
 
+    this.TreeGrowth = new TreeGrowth(this);
+
     this.anims.createFromAseprite('npc');
     this.npcs = this.add.group();
 
@@ -195,6 +198,8 @@ export default class Main extends Phaser.Scene {
     }
 
     this.Build.update();
+
+    this.TreeGrowth.update();
 
     // this.FPS.update();
   }
