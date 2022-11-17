@@ -28,8 +28,15 @@ export default class Build {
     if (this.key === 'ironMine' && obstruction.name !== 'ironOreDeposit') {
       this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Must be placed on iron ore deposit', 'negative');
       this.scene.sound.play('error');
+    } else if (this.key === 'crystalMine' && obstruction.name !== 'crystalDeposit') {
+      this.scene.MessageManager.createMessage(this.pointer.worldX, this.pointer.worldY, 'Must be placed on crystal deposit', 'negative');
+      this.scene.sound.play('error');
     } else if (this.key === 'ironMine' && obstruction.name === 'ironOreDeposit') {
       obstruction.data.set('mine', 1);
+      this.place();
+      this.destroyPrePlace();
+    } else if (this.key === 'crystalMine' && obstruction.name === 'crystalDeposit') {
+      obstruction.data.set('crystalMine', 1);
       this.place();
       this.destroyPrePlace();
     } else if (!obstruction) {

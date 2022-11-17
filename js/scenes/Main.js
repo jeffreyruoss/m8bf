@@ -36,6 +36,7 @@ export default class Main extends Phaser.Scene {
     this.load.image('sapling', './../../img/sapling.png');
     this.load.image('ironOreDeposit', './../../img/iron-ore-deposit.png');
     this.load.image('ironMine', './../../img/iron-mine.png');
+    this.load.image('crystalMine', './../../img/crystal-mine.png');
     this.load.image('stoneFormation', './../../img/stone-formation.png');
     this.load.image('crystalDeposit', './../../img/crystal-deposit.png');
     this.load.image('chest', './../../img/chest.png');
@@ -136,6 +137,7 @@ export default class Main extends Phaser.Scene {
     this.MapGenerator.generateObjects('workbench', 'workbenches');
     this.MapGenerator.generateObjects('furnace', 'furnaces');
     this.MapGenerator.generateObjects('natureShrine', 'natureShrines');
+    this.MapGenerator.generateObjects('crystalMine', 'crystalMines');
 
     this.TreeGrowth = new TreeGrowth(this);
 

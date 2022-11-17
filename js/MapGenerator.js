@@ -80,7 +80,7 @@ export default class MapGenerator {
     });
 
     // Don't spawn where there is already an object except for a mine
-    if (type !== 'ironMine') {
+    if (type !== 'ironMine' && type !== 'crystalMine') {
       const overlap = this.scene.physics.overlap(object, this.scene.allObjects);
       if (overlap) {
         object.destroy();

@@ -151,7 +151,7 @@
     "totalHarvestTicks": 5,
     "data": {
       "harvestTicks": 0,
-      "crystals": 3,
+      "crystal": 3,
       "crystalMine": 0
     }
   },
@@ -168,6 +168,11 @@
   "ironMine": {
     "name": "Iron Mine",
     "groupName": "ironMines",
+    "data": {}
+  },
+  "crystalMine": {
+    "name": "Crystal Mine",
+    "groupName": "crystalMines",
     "data": {}
   },
   "chest": {

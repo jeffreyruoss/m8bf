@@ -30,9 +30,11 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       this.inventory = this.scene.savedGameData.player.inventory;
     } else {
       this.inventory = {
-        wood: 0,
-        stone: 0,
-        ironOre: 0,
+        wood: 100,
+        stone: 100,
+        ironOre: 100,
+        iron: 100,
+        crystal: 0,
         gold: 0,
         water: 0,
         berries: 0,
@@ -40,15 +42,15 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         mana: 0,
         stoneAxe: 0,
         ironAxe: 0,
-        stonePickaxe: 0,
+        stonePickaxe: 1,
         ironPickaxe: 0,
         chest: 0,
-        workbench: 0,
+        workbench: 1,
         workshop: 0,
         furnace: 0,
         natureShrine: 0,
-        ironMine: 0,
-        crystalMine: 0
+        ironMine: 1,
+        crystalMine: 1
       }
       this.attributes = {
         movementSpeed: 300, // 300

@@ -92,8 +92,10 @@
     "description": "A place to mine for crystals.",
     "recipe": {
       "wood": 5,
-      "stone": 15
+      "stone": 15,
+      "iron": 5
     },
+    "requiredMapObject": "workshop",
     "buildable": true
   },
   "furnace": {
