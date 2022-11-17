@@ -24,7 +24,6 @@ export default class TreeGrowth {
         });
       }
       this.counter += 1;
-      console.log('counter (seconds)', this.counter);
       this.timer = this.scene.time.now + 1000;
     }
   }

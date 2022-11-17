@@ -117,7 +117,7 @@
   },
   "natureShrine": {
     "name": "Nature Shrine",
-    "description": "Rapidly grows trees.",
+    "description": "Trees start growing near it.",
     "recipe": {
       "wood": 5,
       "stone": 15
