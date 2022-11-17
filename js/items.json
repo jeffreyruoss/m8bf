@@ -52,15 +52,6 @@
     },
     "buildable": true
   },
-  "hut": {
-    "name": "Hut",
-    "description": "A place to live.",
-    "recipe": {
-      "grass": 10,
-      "wood": 5,
-      "mud": 10
-    }
-  },
   "workbench": {
     "name": "Workbench",
     "description": "A place to craft items.",
