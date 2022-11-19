@@ -5,6 +5,9 @@
   "inventory": {
     "name": "Inventory"
   },
+  "inventory2": {
+    "name": "Inventory 2"
+  },
   "craft": {
     "name": "Craft"
   },
