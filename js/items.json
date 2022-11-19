@@ -117,5 +117,25 @@
     },
     "requiredMapObject": "workbench",
     "buildable": true
+  },
+  "wood": {
+    "name": "Wood",
+    "description": "A resource harvested from trees."
+  },
+  "stone": {
+    "name": "Stone",
+    "description": "A resource harvested from stone formations."
+  },
+  "ironOre": {
+    "name": "Iron Ore",
+    "description": "A resource harvested from iron mines."
+  },
+  "iron": {
+    "name": "Iron",
+    "description": "A resource smelted from iron ore."
+  },
+  "crystal": {
+    "name": "Crystal",
+    "description": "A resource harvested from crystal mines."
   }
 }

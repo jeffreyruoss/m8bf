@@ -63,7 +63,7 @@ export default class InventoryPanel {
     this.infoColItems.children.each(item => item.destroy());
     const infoBoxX = this.Menu.box.x + this.Menu.box.width - this.infoColWidth;
     const infoBoxY = this.Menu.box.y + this.Menu.padding + this.Menu.navHeight;
-    const itemName = this.scene.add.text(infoBoxX + 10, infoBoxY + 10, item, { fontSize: "19px", fontFamily: this.scene.font }).setDepth(4);
+    const itemName = this.scene.add.text(infoBoxX + 10, infoBoxY + 10, this.scene.itemsJSON[item].name, { fontSize: "19px", fontFamily: this.scene.font }).setDepth(4);
     itemName.setOrigin(0);
     itemName.setScrollFactor(0);
     this.infoColItems.add(itemName);
