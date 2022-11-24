@@ -85,6 +85,7 @@
       "wood": 5,
       "stone": 15
     },
+    "requiredMapObject": "workshop",
     "placeable": true
   },
   "crystalMine" : {
