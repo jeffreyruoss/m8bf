@@ -6,15 +6,16 @@ export default class Collect {
 
   collect() {
     this.scene.allObjects.children.iterate((object) => {
-      if (object && object.name === 'player') return;
-      if (object && this.scene.time.now > this.collectTime) {
+      if (object === undefined) return;
+      const objectJSON = this.scene.mapObjectsJSON[object.name];
+      if (objectJSON === undefined) return;
+      if (objectJSON.harvestType === undefined) return;
+
+      if (this.scene.time.now > this.collectTime) {
         const playerBounds = this.scene.player.getBounds();
         const objectBounds = object.getBounds();
         if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, objectBounds)) {
           let collectionSpeed = this.scene.player.attributes.collectionSpeed[object.name];
-
-          const objectJSON = this.scene.mapObjectsJSON[object.name];
-          if (objectJSON === undefined) return;
 
           if (!this.mapObjectHasRequirements(object, objectJSON, collectionSpeed)) return;
 
