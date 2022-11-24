@@ -97,11 +97,11 @@ export default class InventoryPanel {
       this.scene.menuItems.add(itemText);
     }
     y += 30;
-    const craftText = this.scene.add.text(x, y, 'Craft')
-      .setStyle({ fontSize: "19px", backgroundColor: "#00775b" })
+    const craftButton = this.scene.add.text(x, y, 'Craft')
+      .setStyle({ fontSize: "19px", backgroundColor: "#3F3F74" })
       .setPadding(15, 12, 15, 12);
-    this.infoColItems.add(craftText);
-    this.scene.menuItems.add(craftText);
+    this.infoColItems.add(craftButton);
+    this.scene.menuItems.add(craftButton);
 
     const isEnoughResources = this.scene.Craft.isEnoughResources(this.scene.itemsJSON[item]);
     const hasRequiredMapObject = this.scene.Craft.hasRequiredMapObject(this.scene.itemsJSON[item]);
@@ -109,17 +109,18 @@ export default class InventoryPanel {
     if (isEnoughResources && hasRequiredMapObject) {
       const pointerX = this.scene.input.activePointer.worldX;
       const pointerY = this.scene.input.activePointer.worldY;
-      craftText.setInteractive()
+      craftButton.setInteractive()
         .on('pointerdown', () => {
           this.scene.MessageManager.createMessage(pointerX, pointerY, `A ${this.scene.itemsJSON[item].name} has been added to your Inventory.`, 'positive');
           this.scene.Craft.craftItem(item, this.scene.itemsJSON[item]);
           this.Menu.updateMenu();
           this.displayInfo(item);
         });
+      this.scene.Mouse.buttonHover(craftButton);
     }
 
     if (!isEnoughResources) {
-      craftText.setAlpha(0.3).setStyle({ backgroundColor: "#646083"});
+      craftButton.setAlpha(0.3).setStyle({ backgroundColor: "#646083"});
       y += 70;
       const notEnoughResources = this.scene.add.text(x, y, "You don't have the appropriate recipe items to craft this item.")
         .setStyle({fontSize: "18px"})
@@ -129,7 +130,7 @@ export default class InventoryPanel {
     }
 
     if (!hasRequiredMapObject) {
-      craftText.setAlpha(0.3).setStyle({ backgroundColor: "#646083"});
+      craftButton.setAlpha(0.3).setStyle({ backgroundColor: "#646083"});
       y += 70;
       const requiredMapObject = this.scene.itemsJSON[item].requiredMapObject;
       const noMapObject = this.scene.add.text(x, y, `You need to have a ${requiredMapObject} placed to craft this item.`)
@@ -146,7 +147,7 @@ export default class InventoryPanel {
     const lastItem = this.infoColItems.getChildren()[this.infoColItems.getChildren().length - 1];
     let y = lastItem.y + 85;
     const placeButton = this.scene.add.text(x, y, 'Place')
-      .setStyle({ fontSize: "19px", backgroundColor: "#00775b" })
+      .setStyle({ fontSize: "19px", backgroundColor: "#3F3F74" })
       .setPadding(15, 12, 15, 12);
     this.infoColItems.add(placeButton);
     this.scene.menuItems.add(placeButton);
@@ -159,6 +160,7 @@ export default class InventoryPanel {
           this.scene.Place.placeInit(item);
         }
       });
+      this.scene.Mouse.buttonHover(placeButton);
     } else {
       placeButton.setAlpha(0.3).setStyle({ backgroundColor: "#646083"});
       y += 50;
