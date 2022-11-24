@@ -102,7 +102,11 @@ export default class InventoryPanel {
       .setPadding(15, 12, 15, 12);
     this.infoColItems.add(craftText);
     this.scene.menuItems.add(craftText);
-    if (this.scene.Craft.isEnoughResources(this.scene.itemsJSON[item])) {
+
+    const isEnoughResources = this.scene.Craft.isEnoughResources(this.scene.itemsJSON[item]);
+    const hasRequiredMapObject = this.scene.Craft.hasRequiredMapObject(this.scene.itemsJSON[item]);
+
+    if (isEnoughResources && hasRequiredMapObject) {
       const pointerX = this.scene.input.activePointer.worldX;
       const pointerY = this.scene.input.activePointer.worldY;
       craftText.setInteractive()
@@ -112,14 +116,27 @@ export default class InventoryPanel {
           this.Menu.updateMenu();
           this.displayInfo(item);
         });
-    } else {
+    }
+
+    if (!isEnoughResources) {
       craftText.setAlpha(0.3).setStyle({ backgroundColor: "#646083"});
-      y += 50;
-      const notEnoughResources = this.scene.add.text(x, y, "You don't have the appropriate items to craft this item.")
+      y += 70;
+      const notEnoughResources = this.scene.add.text(x, y, "You don't have the appropriate recipe items to craft this item.")
         .setStyle({fontSize: "18px"})
         .setWordWrapWidth(this.infoColWidth - (this.infoColPadding * 2) - 30);
       this.infoColItems.add(notEnoughResources);
       this.scene.menuItems.add(notEnoughResources);
+    }
+
+    if (!hasRequiredMapObject) {
+      craftText.setAlpha(0.3).setStyle({ backgroundColor: "#646083"});
+      y += 70;
+      const requiredMapObject = this.scene.itemsJSON[item].requiredMapObject;
+      const noMapObject = this.scene.add.text(x, y, `You need to have a ${requiredMapObject} placed to craft this item.`)
+        .setStyle({fontSize: "18px"})
+        .setWordWrapWidth(this.infoColWidth - (this.infoColPadding * 2) - 30);
+      this.infoColItems.add(noMapObject);
+      this.scene.menuItems.add(noMapObject);
     }
   }
 
@@ -133,9 +150,7 @@ export default class InventoryPanel {
       .setPadding(15, 12, 15, 12);
     this.infoColItems.add(placeButton);
     this.scene.menuItems.add(placeButton);
-
     const inInventory = this.inInventory(item);
-
     if (inInventory) {
       placeButton.setInteractive();
       placeButton.on('pointerdown', () => {
@@ -147,7 +162,7 @@ export default class InventoryPanel {
     } else {
       placeButton.setAlpha(0.3).setStyle({ backgroundColor: "#646083"});
       y += 50;
-      const dontHave = this.scene.add.text(x, y, "You don't have this item in your Inventory. Craft it first")
+      const dontHave = this.scene.add.text(x, y, "You don't have this item in your Inventory. Craft it first.")
         .setStyle({fontSize: "18px"})
         .setWordWrapWidth(this.infoColWidth - (this.infoColPadding * 2) - 30);
       this.infoColItems.add(dontHave);
