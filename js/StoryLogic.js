@@ -52,7 +52,7 @@ export default class StoryLogic {
     }
 
     if (npcKey === 'markusTheGray' && npc.data.get('dialogNumber') === 3 && npc.data.get('dialogStatus') === 'initial') {
-      this.scene.InfoBar.createInfoBar(['Go to Build in the menu to place the workbench on the ground.']);
+      this.scene.InfoBar.createInfoBar(['Go to Workbench in your inventory and place the workbench on the ground.']);
       this.scene.time.delayedCall(10000, () => {
         this.scene.InfoBar.destroyInfoBar();
       });

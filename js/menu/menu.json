@@ -5,12 +5,6 @@
   "inventory": {
     "name": "Inventory"
   },
-  "craft": {
-    "name": "Craft"
-  },
-  "build": {
-    "name": "Build"
-  },
   "tech": {
     "name": "Tech"
   },

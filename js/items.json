@@ -50,7 +50,7 @@
     "recipe": {
       "wood": 10
     },
-    "buildable": true
+    "placeable": true
   },
   "workbench": {
     "name": "Workbench",
@@ -58,7 +58,7 @@
     "recipe": {
       "wood": 10
     },
-    "buildable": true
+    "placeable": true
   },
   "workshop": {
     "name": "Workshop",
@@ -67,7 +67,7 @@
       "wood": 10,
       "iron": 5
     },
-    "buildable": true
+    "placeable": true
   },
   "advancedWorkshop": {
     "name": "Advanced Workshop",
@@ -76,7 +76,7 @@
       "wood": 10,
       "iron": 5
     },
-    "buildable": true
+    "placeable": true
   },
   "ironMine" : {
     "name": "Iron Mine",
@@ -85,7 +85,7 @@
       "wood": 5,
       "stone": 15
     },
-    "buildable": true
+    "placeable": true
   },
   "crystalMine" : {
     "name": "Crystal Mine",
@@ -96,7 +96,7 @@
       "iron": 5
     },
     "requiredMapObject": "workshop",
-    "buildable": true
+    "placeable": true
   },
   "furnace": {
     "name": "Furnace",
@@ -106,7 +106,7 @@
       "stone": 15
     },
     "requiredMapObject": "workbench",
-    "buildable": true
+    "placeable": true
   },
   "natureShrine": {
     "name": "Nature Shrine",
@@ -116,7 +116,7 @@
       "stone": 15
     },
     "requiredMapObject": "workbench",
-    "buildable": true
+    "placeable": true
   },
   "wood": {
     "name": "Wood",

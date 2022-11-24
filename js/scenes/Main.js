@@ -7,7 +7,7 @@ import MapGenerator from "./../MapGenerator.js";
 import Menu from "./../menu/Menu.js";
 import Craft from "./../Craft.js";
 import MessageManager from "./../MessageManager.js";
-import Build from "./../Build.js";
+import Place from "./../Place.js";
 import InfoBar from "./../InfoBar.js";
 import Mouse from "./../Mouse.js";
 import Automaton from "./../Automaton.js";
@@ -113,15 +113,15 @@ export default class Main extends Phaser.Scene {
 
     this.MessageManager = new MessageManager(this);
 
-    this.Build = new Build(this);
-    this.Build.placeHandler();
-    this.Build.cancelHandler();
+    this.Place = new Place(this);
+    this.Place.placeHandler();
+    this.Place.cancelHandler();
 
     this.Menu = new Menu(this);
     this.keys.C.on('down', () => !this.Menu.enabled || this.Menu.toggleMenu(this.Menu.currentPanel) );
     this.keys.ESC.on('down', () => !this.Menu.open || this.Menu.toggleMenu(this.Menu.currentPanel) );
 
-    this.cameras.main.fadeIn(2000);
+    // this.cameras.main.fadeIn(2000);
 
     this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits');
     this.MapGenerator.generateObjects('stoneFormation', 'stoneFormations');
@@ -199,7 +199,7 @@ export default class Main extends Phaser.Scene {
       this.PlayerMovement.playerIdle();
     }
 
-    this.Build.update();
+    this.Place.update();
 
     this.TreeGrowth.update();
 

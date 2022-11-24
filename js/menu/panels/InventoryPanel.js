@@ -124,7 +124,7 @@ export default class InventoryPanel {
   }
 
   placeInfo(item) {
-    if (!this.scene.itemsJSON[item].buildable) return;
+    if (!this.scene.itemsJSON[item].placeable) return;
     const x = this.Menu.box.x + this.Menu.box.width - this.infoColWidth + this.infoColPadding;
     const lastItem = this.infoColItems.getChildren()[this.infoColItems.getChildren().length - 1];
     let y = lastItem.y + 85;
@@ -139,9 +139,9 @@ export default class InventoryPanel {
     if (inInventory) {
       placeButton.setInteractive();
       placeButton.on('pointerdown', () => {
-        if (this.scene.Build.prePlaceStructure === null) {
+        if (this.scene.Place.prePlaceStructure === null) {
           this.scene.Menu.toggleMenu(this.scene.Menu.currentPanel)
-          this.scene.Build.build(item);
+          this.scene.Place.placeInit(item);
         }
       });
     } else {

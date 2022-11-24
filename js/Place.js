@@ -1,4 +1,4 @@
-export default class Build {
+export default class Place {
   constructor(scene) {
     this.scene = scene;
     this.prePlaceStructure = null;
@@ -58,7 +58,7 @@ export default class Build {
     return obstruction;
   }
 
-  build(key) {
+  placeInit(key) {
     this.scene.Menu.enabled = false;
     this.pointer = this.scene.input.activePointer;
     this.key = key;
@@ -93,13 +93,13 @@ export default class Build {
   }
 
   update() {
-    if (this.scene.Build.prePlaceStructure) {
+    if (this.scene.Place.prePlaceStructure) {
       if (this.scene.input.keyboard.checkDown(this.scene.keys.SHIFT)) {
-        this.scene.Build.prePlaceStructure.x = Math.floor(this.scene.pointer.worldX / 64) * 64;
-        this.scene.Build.prePlaceStructure.y = Math.floor(this.scene.pointer.worldY / 64) * 64;
+        this.scene.Place.prePlaceStructure.x = Math.floor(this.scene.pointer.worldX / 64) * 64;
+        this.scene.Place.prePlaceStructure.y = Math.floor(this.scene.pointer.worldY / 64) * 64;
       } else {
-        this.scene.Build.prePlaceStructure.x = this.scene.pointer.worldX - this.scene.Build.prePlaceStructure.width / 2;
-        this.scene.Build.prePlaceStructure.y = this.scene.pointer.worldY - this.scene.Build.prePlaceStructure.height / 2;
+        this.scene.Place.prePlaceStructure.x = this.scene.pointer.worldX - this.scene.Place.prePlaceStructure.width / 2;
+        this.scene.Place.prePlaceStructure.y = this.scene.pointer.worldY - this.scene.Place.prePlaceStructure.height / 2;
       }
     }
   }
