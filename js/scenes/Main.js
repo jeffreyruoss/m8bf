@@ -13,6 +13,7 @@ import Mouse from "./../Mouse.js";
 import Automaton from "./../Automaton.js";
 import AutomatonMovement from "./../AutomatonMovement.js";
 import TreeGrowth  from "./../TreeGrowth.js";
+import Smelt from "./../Smelt.js";
 import FPS from "./../FPS.js";
 
 export default class Main extends Phaser.Scene {
@@ -176,6 +177,7 @@ export default class Main extends Phaser.Scene {
     this.keys.SPACE.on('down', () => {
       this.PlayerActions.dialog();
       this.PlayerActions.pickUp();
+      this.PlayerActions.smelt();
     });
 
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });
@@ -203,6 +205,8 @@ export default class Main extends Phaser.Scene {
 
     this.TreeGrowth.update();
 
-    // this.FPS.update();
+    this.Smelt.update();
+
+    this.FPS.update();
   }
 }

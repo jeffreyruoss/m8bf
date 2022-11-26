@@ -183,7 +183,13 @@
   "furnace": {
     "name": "Furnace",
     "groupName": "furnaces",
-    "data": {}
+    "data": {
+      "smelting": false,
+      "smeltStartTime": 0,
+      "wood": 0,
+      "ironOre": 0,
+      "iron": 0
+    }
   },
   "natureShrine": {
     "name": "Nature Shrine",
