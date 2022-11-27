@@ -3,6 +3,7 @@ export default class SmeltMenu {
     this.scene = scene;
     this.smeltMenuOpen = false;
     this.smeltMenuItems = this.scene.add.group();
+    this.currentFurnace = null;
     this.smeltMenuCloseListener();
   }
 
@@ -18,11 +19,18 @@ export default class SmeltMenu {
         this.scene.player.enabled = false;
         this.smeltMenuOpen = true;
         this.openSmeltMenu(object);
+        this.currentFurnace = object;
       }
     });
   }
 
   openSmeltMenu(object) {
+    const furnaceHasWood = object.data.list.wood > 0;
+    const furnaceHasIronOre = object.data.list.ironOre > 0;
+    const furnaceHasIron = object.data.list.iron > 0;
+    const playerHasWood = this.scene.player.inventory.wood > 0;
+    const playerHasIronOre = this.scene.player.inventory.ironOre > 0;
+
     const padding = 15;
     let x = this.scene.cameras.main.worldView.x + this.scene.cameras.main.width / 2;
     let y = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2;
@@ -33,19 +41,19 @@ export default class SmeltMenu {
     x = menuBox.x + padding;
     y = menuBox.y + padding;
 
-    if (object.data.list.ironOre > 0) {
-      const inProgressText = this.scene.add.text(x, y, 'Smelting in progress.', {fontSize: "19px", fontFamily: this.scene.font}).setDepth(5);
-      this.smeltMenuItems.add(inProgressText);
-      y += 70;
-    }
+    const closeButton = this.scene.add.text(x + menuBox.width - padding * 2, y, 'Close', {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"}).setDepth(5);
+    closeButton.setOrigin(1, 0);
+    this.smeltMenuItems.add(closeButton);
+    this.scene.Mouse.buttonHover(closeButton);
+    closeButton.setInteractive();
+    closeButton.on('pointerdown', () => {
+      this.smeltMenuClose();
+    }, this);
 
     const addWoodButton = this.scene.add.text(x, y, 'Add wood', {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"}).setDepth(5);
     this.smeltMenuItems.add(addWoodButton);
-    if (this.scene.player.inventory.wood === 0) {
+    if (!playerHasWood) {
       addWoodButton.setAlpha(0.5);
-      y += 55;
-      const noWoodText = this.scene.add.text(x, y, 'You do not have any wood to add.', {fontSize: "19px", fontFamily: this.scene.font}).setDepth(5);
-      this.smeltMenuItems.add(noWoodText);
     } else {
       this.scene.Mouse.buttonHover(addWoodButton);
       addWoodButton.setInteractive();
@@ -53,18 +61,15 @@ export default class SmeltMenu {
         this.scene.player.inventory.wood -= 1;
         object.data.list.wood += 1;
         this.refreshSmeltMenu(object);
-      } , this);
+      }, this);
     }
 
     y += 70;
 
     const addIronOreButton = this.scene.add.text(x, y, 'Add Iron Ore', {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"}).setDepth(5);
     this.smeltMenuItems.add(addIronOreButton);
-    if (this.scene.player.inventory.ironOre === 0) {
+    if (!playerHasIronOre) {
       addIronOreButton.setAlpha(0.5);
-      y += 55;
-      const noIronOreText = this.scene.add.text(x, y, 'You do not have any iron ore to add.', {fontSize: "19px", fontFamily: this.scene.font}).setDepth(5);
-      this.smeltMenuItems.add(noIronOreText);
     } else {
       this.scene.Mouse.buttonHover(addIronOreButton);
       addIronOreButton.setInteractive();
@@ -72,19 +77,15 @@ export default class SmeltMenu {
         this.scene.player.inventory.ironOre -= 1;
         object.data.list.ironOre += 1;
         this.refreshSmeltMenu(object);
-      } , this);
+      }, this);
     }
 
     y += 70;
 
     const takeIronButton = this.scene.add.text(x, y, 'Take Iron', {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"}).setDepth(5);
     this.smeltMenuItems.add(takeIronButton);
-    console.log(object.data.list);
-    if (object.data.list.iron === 0) {
+    if (!furnaceHasIron) {
       takeIronButton.setAlpha(0.5);
-      y += 55;
-      const noIronText = this.scene.add.text(x, y, 'There is no iron to take.', {fontSize: "19px", fontFamily: this.scene.font}).setDepth(5);
-      this.smeltMenuItems.add(noIronText);
     } else {
       this.scene.Mouse.buttonHover(takeIronButton);
       takeIronButton.setInteractive();
@@ -92,7 +93,33 @@ export default class SmeltMenu {
         this.scene.player.inventory.iron += 1;
         object.data.list.iron -= 1;
         this.refreshSmeltMenu(object);
-      } , this);
+      }, this);
+    }
+
+    y += 70;
+
+    let margin = 0;
+    if (furnaceHasWood) {
+      const wood = this.scene.add.image(x, y, 'wood').setDepth(5).setOrigin(0, 0);
+      this.smeltMenuItems.add(wood);
+    }
+    if (furnaceHasIronOre) {
+      margin = furnaceHasWood ? 70 : 0;
+      const ironOre = this.scene.add.image(x + margin, y, 'ironOre').setDepth(5).setOrigin(0, 0);
+      this.smeltMenuItems.add(ironOre);
+    }
+    if (furnaceHasIron) {
+      margin = furnaceHasWood ? 70 : 0;
+      margin += furnaceHasIronOre ? 70 : 0
+      const iron = this.scene.add.image(x + margin, y, 'iron').setDepth(5).setOrigin(0, 0);
+      this.smeltMenuItems.add(iron);
+    }
+
+    y += 70;
+
+    if (furnaceHasWood && furnaceHasIronOre) {
+      const inProgressText = this.scene.add.text(x, y, 'Smelting in progress.', {color: "#fbf236", fontSize: "24px", fontFamily: this.scene.font}).setDepth(5);
+      this.smeltMenuItems.add(inProgressText);
     }
   }
 
