@@ -22,8 +22,9 @@ export default class Smelt {
           object.data.list.iron += 1;
           object.data.list.smelting = false;
           object.data.list.smeltStartTime = 0;
-          console.log(object.data.list);
-          this.scene.PlayerActions.SmeltMenu.refreshSmeltMenu(this.scene.PlayerActions.SmeltMenu.currentFurnace);
+          if (this.scene.PlayerActions.SmeltMenu.smeltMenuOpen) {
+            this.scene.PlayerActions.SmeltMenu.refreshSmeltMenu(this.scene.PlayerActions.SmeltMenu.currentFurnace);
+          }
         }
       }
     });
