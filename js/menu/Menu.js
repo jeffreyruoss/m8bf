@@ -49,16 +49,20 @@ export default class Menu {
   }
 
   createMenuRectangle() {
+    const width = 964;
+    const height = 890;
+    const x = this.scene.cameras.main.width / 2 - width / 2;
+    const y = this.scene.cameras.main.height / 2 - height / 2;
     this.scene.Menu.box = this.scene.add
-      .rectangle(30, 70, this.scene.cameras.main.width - 60, this.scene.cameras.main.height - 100, 0x222034);
-    this.scene.menuItems.add(this.scene.Menu.box);
+      .rectangle(x, y, width, height, 0x222034);
+    this.scene.menuItems.add(this.scene.Menu.box).setOrigin(1, 0);
   }
 
   nav() {
     const menuJSON = this.scene.menuJSON;
     const style = {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"}
     let x = this.box.x;
-    let y = 40 + this.padding;
+    let y = this.box.y;
     let mainNavItems = [];
     let systemNavItems = [];
     for (let item in menuJSON) {
