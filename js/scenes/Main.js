@@ -142,6 +142,8 @@ export default class Main extends Phaser.Scene {
 
     this.TreeGrowth = new TreeGrowth(this);
 
+    this.Smelt = new Smelt(this);
+
     this.anims.createFromAseprite('npc');
     this.npcs = this.add.group();
 

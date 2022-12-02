@@ -133,14 +133,22 @@ export default class SmeltMenu {
       margin += furnaceHasIronOre ? 70 : 0
       const iron = this.scene.add.image(x + margin, y, 'iron').setOrigin(0, 0);
       this.smeltMenuItems.add(iron);
+
+      const smeltingComplete = this.scene.add.text(x, y + 65, 'Smelting Complete',
+        {fontSize: "21px", fontFamily: this.scene.font});
+      this.smeltMenuItems.add(smeltingComplete);
     }
 
     y += 70;
 
     if (furnaceHasWood && furnaceHasIronOre) {
-      const inProgressText = this.scene.add.text(x, y, 'Smelting in progress.',
+      const inProgressText = this.scene.add.text(x, y, 'Smelting in progress',
         {color: "#fbf236", fontSize: "24px", fontFamily: this.scene.font});
       this.smeltMenuItems.add(inProgressText);
+      const smeltingTime = this.scene.Smelt.smeltingTime / 1000;
+      const smeltTimeText = this.scene.add.text(x, y + 30, `Smelting takes ${smeltingTime} seconds`,
+        {color: "#ffffff", fontSize: "20px", fontFamily: this.scene.font});
+      this.smeltMenuItems.add(smeltTimeText);
     }
 
     this.smeltMenuItems.children.iterate((object) => object.setDepth(5));
