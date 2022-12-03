@@ -199,6 +199,8 @@ export default class Main extends Phaser.Scene {
   }
 
   update() {
+    if (this.loopPaused) return;
+
     this.MapGenerator.scrollGrass();
 
     if (this.player.enabled) {
