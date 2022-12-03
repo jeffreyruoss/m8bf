@@ -6,12 +6,15 @@ export default class InfoBar {
   }
 
   createInfoBar(items) {
-    this.rectangle = this.scene.add.rectangle(0, -50, this.scene.sceneWidth, 50, 0x212133)
+    const orange = '0xdf7126';
+    const yellow = '0xfbf236';
+    const darkBlue = '0x222034';
+    this.rectangle = this.scene.add.rectangle(0, -50, this.scene.sceneWidth, 50, orange)
       .setAlpha(0.90).setScrollFactor(0).setOrigin(0).setDepth(4);
     let x = 15;
     const y = -50 + 15;
     items.forEach((item, index) => {
-      let style = { fontSize: "19px", fontFamily: this.scene.font };
+      let style = { fontSize: "19px", fontFamily: this.scene.font, color: "#ffffff" };
       const currentItem = this.scene.add.text(x, y, item, style).setOrigin(0).setScrollFactor(0).setDepth(4);
       x += currentItem.width + 50;
       this.texts.push(currentItem);
