@@ -112,6 +112,7 @@ export default class SmeltMenu {
       takeIronButton.on('pointerdown', () => {
         this.scene.player.inventory.iron += 1;
         object.data.list.iron -= 1;
+        this.scene.sound.play('ironMineCollect');
         this.refreshSmeltMenu(object);
       }, this);
     }
