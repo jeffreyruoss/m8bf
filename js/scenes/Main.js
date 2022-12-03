@@ -21,6 +21,7 @@ export default class Main extends Phaser.Scene {
     super('Main');
     this.font = 'earls-revenge';
     this.sceneSizeMultiplier = 1.5;
+    this.loopPaused = false;
 
     // for debugging
     document.scene = this;
@@ -104,7 +105,7 @@ export default class Main extends Phaser.Scene {
 
     this.InfoBar = new InfoBar(this);
 
-    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,I,ESC,SHIFT");
+    this.keys = this.input.keyboard.addKeys("W,A,S,D,SPACE,C,B,I,P,R,ESC,SHIFT");
 
     this.Mouse = new Mouse(this);
 
@@ -188,6 +189,9 @@ export default class Main extends Phaser.Scene {
     // this.music = this.sound.add('music', { loop: true, volume: 0.5 });
     // this.time.delayedCall(7000, () => this.music.play(), [], this);
 
+    this.keys.P.on('down', () =>  this.loopPaused = !this.loopPaused);
+
+    this.keys.R.on('down', () => this.scene.restart());
 
     // TESTING
     // this.FPS = new FPS(this, 'bottom-left');
