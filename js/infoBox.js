@@ -16,7 +16,7 @@ export default class InfoBox {
     const x = numBoxes * width + (numBoxes + 1) * margin;
     const text = this.scene.add.text(x, margin, this.message,
       {fontSize: "18px", fontFamily: this.scene.font, color: "#000000", backgroundColor: "#e8e4a4", padding: {x: padding, y: padding}})
-      .setDepth(5)
+      .setDepth(4)
       .setOrigin(0)
       .setScrollFactor(0)
       .setWordWrapWidth(width)
