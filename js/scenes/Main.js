@@ -9,6 +9,8 @@ import Craft from "./../Craft.js";
 import MessageManager from "./../MessageManager.js";
 import Place from "./../Place.js";
 import InfoBar from "./../InfoBar.js";
+import InfoBoxManager from "./../InfoBoxManager.js";
+import InfoBox from "./../InfoBox.js";
 import Mouse from "./../Mouse.js";
 import Automaton from "./../Automaton.js";
 import AutomatonMovement from "./../AutomatonMovement.js";

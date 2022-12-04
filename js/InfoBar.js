@@ -7,8 +7,8 @@ export default class InfoBar {
 
   createInfoBar(items) {
     const orange = '0xdf7126';
-    const yellow = '0xfbf236';
-    const darkBlue = '0x222034';
+    // const yellow = '0xfbf236';
+    // const darkBlue = '0x222034';
     this.rectangle = this.scene.add.rectangle(0, -50, this.scene.sceneWidth, 50, orange)
       .setAlpha(0.90).setScrollFactor(0).setOrigin(0).setDepth(4);
     let x = 15;
