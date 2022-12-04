@@ -26,7 +26,7 @@ export default class InfoBox {
     this.scene.tweens.add({
       targets: text,
       y: text.displayHeight + margin,
-      duration: 500,
+      duration: this.scene.InfoBoxManager.tweenDuration,
       ease: "Power2",
     });
 
