@@ -14,15 +14,24 @@ export default class InfoBox {
     const padding = 15;
     const width = 200;
     const x = numBoxes * width + (numBoxes + 1) * margin;
-    const text = this.scene.add.text(x, margin, this.message,
+    const text = this.scene.add.text(x, 0, this.message,
       {fontSize: "18px", fontFamily: this.scene.font, color: "#000000", backgroundColor: "#e8e4a4", padding: {x: padding, y: padding}})
       .setDepth(4)
-      .setOrigin(0)
+      .setOrigin(0, 1)
       .setScrollFactor(0)
       .setWordWrapWidth(width)
       .setInteractive();
     text.displayWidth = width;
+
+    this.scene.tweens.add({
+      targets: text,
+      y: text.displayHeight + margin,
+      duration: 500,
+      ease: "Power2",
+    });
+
     this.scene.InfoBoxManager.infoBoxes.add(text);
+
     text.on('pointerdown', () => {
       this.scene.InfoBoxManager.infoBoxes.remove(text);
       this.scene.InfoBoxManager.reApplyXPositions();
