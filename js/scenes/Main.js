@@ -130,17 +130,17 @@ export default class Main extends Phaser.Scene {
 
     // this.cameras.main.fadeIn(2000);
 
-    this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits');
-    this.MapGenerator.generateObjects('stoneFormation', 'stoneFormations');
-    this.MapGenerator.generateObjects('tree', 'trees');
+    this.MapGenerator.generateObjects('ironOreDeposit', 'ironOreDeposits', this.sceneSizeMultiplier);
+    this.MapGenerator.generateObjects('stoneFormation', 'stoneFormations', this.sceneSizeMultiplier);
+    this.MapGenerator.generateObjects('tree', 'trees', 2 * this.sceneSizeMultiplier);
     this.MapGenerator.generateObjects('sapling', 'saplings');
     this.MapGenerator.generateObjects('juvenileTree', 'juvenileTrees');
-    this.MapGenerator.generateObjects('crystalDeposit', 'crystalDeposits');
+    this.MapGenerator.generateObjects('crystalDeposit', 'crystalDeposits', this.sceneSizeMultiplier);
     this.MapGenerator.generateObjects('workshop', 'workshops');
     this.MapGenerator.generateObjects('ironMine', 'ironMines');
     this.MapGenerator.generateObjects('chest', 'chests');
-    this.MapGenerator.generateObjects('stone', 'stone');
-    this.MapGenerator.generateObjects('wood', 'wood');
+    this.MapGenerator.generateObjects('stone', 'stone', this.sceneSizeMultiplier);
+    this.MapGenerator.generateObjects('wood', 'wood', this.sceneSizeMultiplier);
     this.MapGenerator.generateObjects('workbench', 'workbenches');
     this.MapGenerator.generateObjects('furnace', 'furnaces');
     this.MapGenerator.generateObjects('natureShrine', 'natureShrines');

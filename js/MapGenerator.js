@@ -23,8 +23,9 @@ export default class MapGenerator {
    * Generate objects of a type on the map (trees, iron-mines, etc.)
    * @param type {string} Type of the object (tree, iron-mine, etc.)
    * @param group {string} Name of the group (trees, ironMines, etc.)
+   * @param min {number} Minimum number of objects to generate
    */
-  generateObjects(type, group) {
+  generateObjects(type, group, min = 0) {
     const width = this.scene.textures.get(type).getSourceImage().width;
     const height = this.scene.textures.get(type).getSourceImage().height;
 
@@ -61,6 +62,10 @@ export default class MapGenerator {
             this.generateObject(type, group, x, y, width, height, objJSON);
           }
         }
+      }
+      // if the minimum is not reached, run the function again
+      if (this.scene[group].getChildren().length < min) {
+        this.generateObjects(type, group, min);
       }
     }
   }
