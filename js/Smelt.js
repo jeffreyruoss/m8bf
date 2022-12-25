@@ -22,8 +22,8 @@ export default class Smelt {
           object.data.list.iron += 1;
           object.data.list.smelting = false;
           object.data.list.smeltStartTime = 0;
-          if (this.scene.PlayerActions.SmeltMenu.smeltMenuOpen) {
-            this.scene.PlayerActions.SmeltMenu.refreshSmeltMenu(this.scene.PlayerActions.SmeltMenu.currentFurnace);
+          if (this.scene.PlayerActions.ActionMenu.actionMenuOpen) {
+            this.scene.PlayerActions.ActionMenu.refreshActionMenu(this.scene.PlayerActions.ActionMenu.currentObject);
           }
         }
       }

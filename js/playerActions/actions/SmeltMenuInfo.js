@@ -1,74 +1,16 @@
-export default class SmeltMenu {
+export default class SmeltMenuInfo {
   constructor(scene) {
     this.scene = scene;
-    this.smeltMenuOpen = false;
-    this.smeltMenuItems = this.scene.add.group();
-    this.currentFurnace = null;
-    this.smeltMenuCloseListener();
   }
 
-  init() {
-    if (this.smeltMenuOpen) {
-      this.smeltMenuClose();
-      return;
-    }
-    this.scene.furnaces.children.iterate((object) => {
-      const playerBounds = this.scene.player.getBounds();
-      const objectBounds = object.getBounds();
-      if (Phaser.Geom.Intersects.RectangleToRectangle(playerBounds, objectBounds)) {
-        this.scene.player.enabled = false;
-        this.smeltMenuOpen = true;
-        this.openSmeltMenu(object);
-        this.currentFurnace = object;
-      }
-    });
-  }
-
-  smeltMenuCloseListener() {
-    this.scene.input.keyboard.on('keydown', (event) => {
-      if (event.key === 'Escape' && this.smeltMenuOpen) this.smeltMenuClose();
-    });
-  }
-
-  smeltMenuClose() {
-    this.smeltMenuOpen = false;
-    this.smeltMenuItems.children.each(item => item.destroy());
-    this.scene.player.enabled = true;
-  }
-
-  refreshSmeltMenu(object) {
-    this.smeltMenuClose();
-    this.smeltMenuOpen = true;
-    this.openSmeltMenu(object);
-  }
-
-  openSmeltMenu(object) {
+  static init(scene, object, actionMenu, x, y, buttonStyle) {
+    this.scene = scene;
+    this.smeltMenuItems = actionMenu.actionMenuItems;
     const furnaceHasWood = object.data.list.wood > 0;
     const furnaceHasIronOre = object.data.list.ironOre > 0;
     const furnaceHasIron = object.data.list.iron > 0;
     const playerHasWood = this.scene.player.inventory.wood > 0;
     const playerHasIronOre = this.scene.player.inventory.ironOre > 0;
-
-    const padding = 15;
-    let x = this.scene.cameras.main.worldView.x + this.scene.cameras.main.width / 2;
-    let y = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2;
-    const menu = this.scene.add.rectangle(x, y, 500, 500, 0x222034);
-    this.smeltMenuItems.add(menu);
-
-    const menuBox = menu.getBounds();
-    x = menuBox.x + padding;
-    y = menuBox.y + padding;
-
-    const buttonStyle = {fontSize: "19px", fontFamily: this.scene.font, padding: 15, backgroundColor: "#3f3f74"};
-
-    const closeButton = this.scene.add.text(x + menuBox.width - padding * 2, y, 'Close', buttonStyle);
-    closeButton.setOrigin(1, 0);
-    this.smeltMenuItems.add(closeButton);
-    this.scene.Mouse.buttonHover(closeButton);
-    closeButton.setInteractive();
-    closeButton.on('pointerdown', () => {
-      this.smeltMenuClose();
-    }, this);
 
     const addWoodButton = this.scene.add.text(x, y, 'Add wood', buttonStyle);
     this.smeltMenuItems.add(addWoodButton);
@@ -80,7 +22,7 @@ export default class SmeltMenu {
       addWoodButton.on('pointerdown', () => {
         this.scene.player.inventory.wood -= 1;
         object.data.list.wood += 1;
-        this.refreshSmeltMenu(object);
+        actionMenu.refreshActionMenu(object);
       }, this);
     }
 
@@ -96,7 +38,7 @@ export default class SmeltMenu {
       addIronOreButton.on('pointerdown', () => {
         this.scene.player.inventory.ironOre -= 1;
         object.data.list.ironOre += 1;
-        this.refreshSmeltMenu(object);
+        actionMenu.refreshActionMenu(object);
       }, this);
     }
 
@@ -113,7 +55,7 @@ export default class SmeltMenu {
         this.scene.player.inventory.iron += 1;
         object.data.list.iron -= 1;
         this.scene.sound.play('ironMineCollect');
-        this.refreshSmeltMenu(object);
+        actionMenu.refreshActionMenu(object);
       }, this);
     }
 
@@ -152,6 +94,7 @@ export default class SmeltMenu {
       this.smeltMenuItems.add(smeltTimeText);
     }
 
-    this.smeltMenuItems.children.iterate((object) => object.setDepth(5));
+
+
   }
 }

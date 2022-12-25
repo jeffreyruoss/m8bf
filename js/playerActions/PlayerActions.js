@@ -1,8 +1,7 @@
 import Dialog from './actions/Dialog.js';
 import Collect from './actions/Collect.js';
 import PickUp from './actions/PickUp.js';
-import SmeltMenu from './actions/SmeltMenu.js';
-import AutomatonMenu from './actions/AutomatonMenu.js';
+import ActionMenu from './actions/ActionMenu.js';
 import Inspect from './actions/Inspect.js';
 
 export default class PlayerActions {
@@ -11,8 +10,7 @@ export default class PlayerActions {
     this.Dialog = new Dialog(scene);
     this.Collect = new Collect(scene);
     this.PickUp = new PickUp(scene);
-    this.SmeltMenu = new SmeltMenu(scene);
-    this.AutomatonMenu = new AutomatonMenu(scene);
+    this.ActionMenu = new ActionMenu(scene);
     this.Inspect = new Inspect(scene);
   }
 
@@ -28,12 +26,8 @@ export default class PlayerActions {
     this.PickUp.pickUp();
   }
 
-  smelt() {
-    this.SmeltMenu.init();
-  }
-
-  automaton() {
-    this.AutomatonMenu.init();
+  actionMenu() {
+    this.ActionMenu.init();
   }
 
   inspect() {
