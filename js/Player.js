@@ -51,6 +51,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
         natureShrine: 0,
         ironMine: 1,
         crystalMine: 1
+        automaton: 0,
       }
       this.attributes = {
         movementSpeed: 300, // 300

@@ -215,5 +215,10 @@
     "groupName": "stone",
     "pickUp": true,
     "data": {}
+  },
+  "automaton": {
+    "name": "Automaton",
+    "groupName": "automatons",
+    "data": {}
   }
 }

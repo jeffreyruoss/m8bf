@@ -138,5 +138,15 @@
   "crystal": {
     "name": "Crystal",
     "description": "A resource harvested from crystal mines."
+  },
+  "automaton": {
+    "name": "Automaton",
+    "description": "A robot that can be programmed to do things.",
+    "recipe": {
+      "wood": 10,
+      "stone": 2
+    },
+    "requiredMapObject": "workbench",
+    "placeable": true
   }
 }

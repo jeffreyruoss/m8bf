@@ -124,7 +124,7 @@ export default class MapGenerator {
       });
     } else {
       new Npc(this.scene, this.scene.sceneWidth / 2 -100, this.scene.sceneHeight / 2 -100, 'markusTheGray', 'Markus the Gray');
-      new Automaton(this.scene, this.scene.sceneWidth / 2 + 100, this.scene.sceneHeight / 2 + 100);
+      // new Automaton(this.scene, this.scene.sceneWidth / 2 + 100, this.scene.sceneHeight / 2 + 100);
     }
   }
 }

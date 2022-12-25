@@ -1,3 +1,5 @@
+import Automaton from "./Automaton.js";
+
 export default class Place {
   constructor(scene) {
     this.scene = scene;
@@ -83,7 +85,11 @@ export default class Place {
     const width = this.scene.textures.get(this.key).getSourceImage().width;
     const height = this.scene.textures.get(this.key).getSourceImage().height;
     const objJSON = this.scene.mapObjectsJSON[this.key];
-    this.scene.MapGenerator.generateObject(this.key, objJSON.groupName, this.prePlaceStructure.x, this.prePlaceStructure.y, width, height, objJSON);
+    if (this.key === 'automaton') {
+      new Automaton(this.scene, this.prePlaceStructure.x, this.prePlaceStructure.y);
+    } else {
+      this.scene.MapGenerator.generateObject(this.key, objJSON.groupName, this.prePlaceStructure.x, this.prePlaceStructure.y, width, height, objJSON);
+    }
 
     this.scene.sound.play('placeStructure');
     this.scene.player.inventory[this.key] -= 1;
