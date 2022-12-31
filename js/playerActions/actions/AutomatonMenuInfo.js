@@ -3,7 +3,19 @@ export default class AutomatonMenuInfo {
     this.scene = scene;
   }
 
-  static init(scene) {
-    console.log('AutomatonMenuInfo.init()');
+  static init(scene, currentObject, actionMenu, x, y, buttonStyle) {
+    this.scene = scene;
+    this.automatonMenuItems = actionMenu.actionMenuItems;
+
+    const addPickUpButton = this.scene.add.text(x, y, 'Pick up Automaton', buttonStyle);
+    this.automatonMenuItems.add(addPickUpButton);
+    addPickUpButton.setInteractive();
+    this.scene.Mouse.buttonHover(addPickUpButton);
+    addPickUpButton.on('pointerdown', () => {
+      currentObject.destroy();
+      this.scene.player.inventory.automaton += 1;
+      actionMenu.actionMenuClose();
+      this.scene.MessageManager.createMessage(this.scene.pointer.worldX, this.scene.pointer.worldY, 'Automaton added to your inventory', 'positive');
+    });
   }
 }

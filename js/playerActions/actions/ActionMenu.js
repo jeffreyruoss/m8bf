@@ -60,7 +60,6 @@ export default class ActionMenu {
   }
 
   openActionMenu() {
-    console.log(this.currentObject);
     const padding = 15;
     let x = this.scene.cameras.main.worldView.x + this.scene.cameras.main.width / 2;
     let y = this.scene.cameras.main.worldView.y + this.scene.cameras.main.height / 2;

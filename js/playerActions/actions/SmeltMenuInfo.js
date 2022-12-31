@@ -93,8 +93,5 @@ export default class SmeltMenuInfo {
         {color: "#ffffff", fontSize: "20px", fontFamily: this.scene.font});
       this.smeltMenuItems.add(smeltTimeText);
     }
-
-
-
   }
 }
