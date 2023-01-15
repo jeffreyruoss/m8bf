@@ -37,8 +37,6 @@ export default class ActionMenu {
       this.actionMenuOpen = true;
       this.openActionMenu();
     }
-
-
   }
 
   actionMenuCloseListener() {
@@ -48,6 +46,7 @@ export default class ActionMenu {
   }
 
   actionMenuClose() {
+    this.currentObject = null;
     this.actionMenuOpen = false;
     this.actionMenuItems.children.each(item => item.destroy());
     this.scene.player.enabled = true;
