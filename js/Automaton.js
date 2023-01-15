@@ -15,8 +15,7 @@ export default class Automaton extends Phaser.Physics.Arcade.Sprite {
     scene.allObjects.add(this);
     scene.physics.add.collider(this, scene.allObjects);
     this.body.immovable = true;
-    // this.boundary = new Boundary(this.scene, x, y, 40, 65, -2, -10);
-    this.boundary = new Boundary(this.scene, x, y, 35, 28, 30, 45);
+    this.boundary = new Boundary(this.scene, x, y, 35, 69, 33, 22);
     this.on('destroy', () => { this.boundary.destroy() });
 
     scene.automatons.add(this);
