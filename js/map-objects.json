@@ -140,7 +140,6 @@
     "name": "Crystal Deposit",
     "groupName": "crystalDeposits",
     "harvestType": "mine",
-    "actionableByAutomaton": true,
     "resource": {
       "name": "Crystal",
       "key": "crystal"
