@@ -2,42 +2,44 @@ export default class Selection {
   constructor(scene) {
     this.scene = scene;
     this.selectionModeEnabled = false;
+    this.callBack = null;
+    this.onScreenObjects = [];
   }
 
-  getObject(scene, callBack) {
+  getObject(callBack) {
     if (this.selectionModeEnabled) return;
     this.selectionModeEnabled = true;
-    const objects = this.getOnScreenObjects(scene);
-    objects.forEach((object) => {
-      this.enterSelectionMode(scene, object, callBack);
+    this.callBack = callBack;
+    this.getOnScreenObjects();
+    this.onScreenObjects.forEach((object) => {
+      this.enterSelectionMode(object);
     });
   }
 
-  getOnScreenObjects(scene) {
-    const objects = [];
-    scene.allObjects.children.iterate((child) => {
-      if (scene.cameras.main.worldView.contains(child.x, child.y)) {
-        const objectJSON = scene.mapObjectsJSON[child.name];
+  getOnScreenObjects() {
+    this.scene.allObjects.children.iterate((child) => {
+      if (this.scene.cameras.main.worldView.contains(child.x, child.y)) {
+        const objectJSON = this.scene.mapObjectsJSON[child.name];
         if (objectJSON === undefined) return;
         if (objectJSON.actionableByAutomaton === undefined) return;
-        objects.push(child);
+        this.onScreenObjects.push(child);
       }
     });
-    return objects;
   }
 
-  enterSelectionMode(scene, object, callBack) {
+  enterSelectionMode(object) {
     object.setAlpha(1);
     object.setInteractive();
     object.on('pointerover', () => this.setTint(object));
     object.on('pointerout', () => this.clearTint(object));
     object.on('pointerdown', () => {
       this.clearTint(object);
-      callBack(object);
-      const objects = this.getOnScreenObjects(scene);
-      objects.forEach((object) => this.exitSelectionMode(object));
+      this.callBack(object);
+      this.onScreenObjects.forEach((object) => this.exitSelectionMode(object));
       this.selectionModeEnabled = false;
-      scene.player.enabled = true;
+      this.scene.player.enabled = true;
+      this.onScreenObjects = [];
+      this.callBack = null;
     });
   }
 
