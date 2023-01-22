@@ -16,6 +16,7 @@ import Automaton from "./../Automaton.js";
 import AutomatonMovement from "./../AutomatonMovement.js";
 import TreeGrowth  from "./../TreeGrowth.js";
 import Smelt from "./../Smelt.js";
+import Selection from "../Selection.js";
 import FPS from "./../FPS.js";
 
 export default class Main extends Phaser.Scene {
