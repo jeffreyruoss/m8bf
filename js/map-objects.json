@@ -4,6 +4,7 @@
     "name": "Tree",
     "groupName": "trees",
     "harvestType": "tree",
+    "actionableByAutomaton": true,
     "resource": {
       "name": "Wood",
       "key": "wood"
@@ -31,6 +32,7 @@
     "name": "Juvenile Tree",
     "groupName": "juvenileTrees",
     "harvestType": "tree",
+    "actionableByAutomaton": true,
     "resource": {
       "name": "Wood",
       "key": "wood"
@@ -58,6 +60,7 @@
     "name": "Sapling",
     "groupName": "saplings",
     "harvestType": "tree",
+    "actionableByAutomaton": true,
     "resource": {
       "name": "Wood",
       "key": "wood"
@@ -85,6 +88,7 @@
     "name": "Stone Formation",
     "groupName": "stoneFormations",
     "harvestType": "mine",
+    "actionableByAutomaton": true,
     "resource": {
       "name": "Stone",
       "key": "stone"
@@ -136,6 +140,7 @@
     "name": "Crystal Deposit",
     "groupName": "crystalDeposits",
     "harvestType": "mine",
+    "actionableByAutomaton": true,
     "resource": {
       "name": "Crystal",
       "key": "crystal"
@@ -168,11 +173,13 @@
   "ironMine": {
     "name": "Iron Mine",
     "groupName": "ironMines",
+    "actionableByAutomaton": true,
     "data": {}
   },
   "crystalMine": {
     "name": "Crystal Mine",
     "groupName": "crystalMines",
+    "actionableByAutomaton": true,
     "data": {}
   },
   "chest": {
@@ -183,6 +190,7 @@
   "furnace": {
     "name": "Furnace",
     "groupName": "furnaces",
+    "actionableByAutomaton": true,
     "data": {
       "smelting": false,
       "smeltStartTime": 0,

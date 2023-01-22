@@ -17,5 +17,15 @@ export default class AutomatonMenuInfo {
       actionMenu.actionMenuClose();
       this.scene.MessageManager.createMessage(this.scene.pointer.worldX, this.scene.pointer.worldY, 'Automaton added to your inventory', 'positive');
     });
+
+    const addAssignButton = this.scene.add.text(x, y + 60, 'Assign task', buttonStyle);
+    this.automatonMenuItems.add(addAssignButton);
+    addAssignButton.setInteractive();
+    this.scene.Mouse.buttonHover(addAssignButton);
+
+    addAssignButton.on('pointerdown', () => {
+      actionMenu.actionMenuClose();
+      currentObject.assignTask(currentObject);
+    });
   }
 }
