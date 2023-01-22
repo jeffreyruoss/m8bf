@@ -26,39 +26,78 @@ export default class Automaton extends Phaser.Physics.Arcade.Sprite {
       scene.AutomatonMovement.setIdleAnimation(this);
     });
 
-    this.scene.AutomatonMovement.clickToMove(this);
-  assignTask(automaton) {
+    // this.scene.AutomatonMovement.clickToMove(this);
+  }
+
+  assignTask() {
     this.scene.player.enabled = false;
+    const assignableObjects = this.getAssignableObjects();
+    assignableObjects.forEach((object) => {
+      this.enterSelectionMode(object);
+    });
+  }
+
+  getAssignableObjects() {
+    const objects = [];
     this.scene.allObjects.children.iterate((child) => {
       if (this.scene.cameras.main.worldView.contains(child.x, child.y)) {
         const objectJSON = this.scene.mapObjectsJSON[child.name];
         if (objectJSON === undefined) return;
         if (objectJSON.actionableByAutomaton === undefined) return;
-        child.setAlpha(1);
-        child.setInteractive();
-        child.on('pointerover', () => {
-          if (child.images) {
-            child.images.forEach((image) => {
-              image.setTint(0x00ff00);
-            });
-          } else {
-            child.setTint(0x00ff00);
-          }
-        });
-        child.on('pointerout', () => {
-          if (child.images) {
-            child.images.forEach((image) => {
-              image.clearTint();
-            });
-          } else {
-            child.clearTint();
-          }
-        });
-        child.on('pointerdown', () => {
-          automaton.setData('assignedTaskTarget', child);
-          this.scene.player.enabled = true;
-        });
+        objects.push(child);
       }
     });
+    return objects;
+  }
+
+  enterSelectionMode(object) {
+    object.setAlpha(1);
+    object.setInteractive();
+    object.on('pointerover', () => {
+      this.setTint(object);
+    });
+    object.on('pointerout', () => {
+      this.clearTint(object);
+    });
+    object.on('pointerdown', () => {
+      this.clearTint(object);
+      this.setData('assignedTaskTarget', object);
+      const assignableObjects = this.getAssignableObjects();
+      assignableObjects.forEach((object) => {
+        this.exitSelectionMode(object);
+      });
+
+      this.scene.player.enabled = true;
+    });
+  }
+
+  setTint(object) {
+    if (object.images) {
+      object.images.forEach((image) => {
+        image.setTint(0x00ff00);
+      });
+    } else {
+      object.setTint(0x00ff00);
+    }
+  }
+
+  clearTint(object) {
+    if (object.images) {
+      object.images.forEach((image) => {
+        image.clearTint();
+      });
+    } else {
+      object.clearTint();
+    }
+  }
+
+  exitSelectionMode(object) {
+    object.disableInteractive();
+    object.off('pointerover');
+    object.off('pointerout');
+    object.off('pointerdown');
+    if (!object.images) {
+      object.setAlpha(0);
+    }
   }
 }
