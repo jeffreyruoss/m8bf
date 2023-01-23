@@ -8,6 +8,7 @@ export default class Selection {
 
   getObject(callBack) {
     if (this.selectionModeEnabled) return;
+    this.scene.player.enabled = false;
     this.selectionModeEnabled = true;
     this.callBack = callBack;
     this.getOnScreenObjects();
