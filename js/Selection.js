@@ -35,11 +35,7 @@ export default class Selection {
     object.on('pointerdown', () => {
       this.clearTint(object);
       this.callBack(object);
-      this.onScreenObjects.forEach((object) => this.exitSelectionMode(object));
-      this.selectionModeEnabled = false;
-      this.scene.player.enabled = true;
-      this.onScreenObjects = [];
-      this.callBack = null;
+      this.exitSelectionMode();
     });
   }
 
@@ -63,14 +59,19 @@ export default class Selection {
     }
   }
 
-  exitSelectionMode(object) {
-    object.disableInteractive();
-    object.off('pointerover');
-    object.off('pointerout');
-    object.off('pointerdown');
-    if (!object.images) {
-      console.log('no images');
-      object.setAlpha(0);
-    }
+  exitSelectionMode() {
+    this.onScreenObjects.forEach((object) => {
+      object.disableInteractive();
+      object.off('pointerover');
+      object.off('pointerout');
+      object.off('pointerdown');
+      if (!object.images) {
+        object.setAlpha(0);
+      }
+    });
+    this.selectionModeEnabled = false;
+    this.scene.player.enabled = true;
+    this.onScreenObjects = [];
+    this.callBack = null;
   }
 }
