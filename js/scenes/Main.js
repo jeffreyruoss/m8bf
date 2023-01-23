@@ -121,6 +121,8 @@ export default class Main extends Phaser.Scene {
 
     this.MessageManager = new MessageManager(this);
 
+    this.Selection = new Selection(this);
+
     this.Place = new Place(this);
     this.Place.placeHandler();
     this.Place.cancelHandler();

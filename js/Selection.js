@@ -8,13 +8,8 @@ export default class Selection {
 
   getObject(callBack) {
     if (this.selectionModeEnabled) return;
-    this.scene.player.enabled = false;
-    this.selectionModeEnabled = true;
     this.callBack = callBack;
-    this.getOnScreenObjects();
-    this.onScreenObjects.forEach((object) => {
-      this.enterSelectionMode(object);
-    });
+    this.enterSelectionMode();
   }
 
   getOnScreenObjects() {
@@ -28,15 +23,20 @@ export default class Selection {
     });
   }
 
-  enterSelectionMode(object) {
-    object.setAlpha(1);
-    object.setInteractive();
-    object.on('pointerover', () => this.setTint(object));
-    object.on('pointerout', () => this.clearTint(object));
-    object.on('pointerdown', () => {
-      this.clearTint(object);
-      this.callBack(object);
-      this.exitSelectionMode();
+  enterSelectionMode() {
+    this.scene.player.enabled = false;
+    this.selectionModeEnabled = true;
+    this.getOnScreenObjects();
+    this.onScreenObjects.forEach((object) => {
+      object.setAlpha(1);
+      object.setInteractive();
+      object.on('pointerover', () => this.setTint(object));
+      object.on('pointerout', () => this.clearTint(object));
+      object.on('pointerdown', () => {
+        this.clearTint(object);
+        this.callBack(object);
+        this.exitSelectionMode();
+      });
     });
   }
 
