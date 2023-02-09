@@ -25,7 +25,7 @@ export default class Inspect {
         if (Phaser.Geom.Intersects.RectangleToRectangle(inspectBounds, objectBounds)) {
           console.log('---------------------');
           console.log('this object\'s name:', object.name);
-          console.log('This object\'s data: ', object.data.list);
+          console.log(object.data ? object.data.list : 'object.data is null');
           console.log('This object\'s full object: ', object);
           console.log('---------------------');
         }
