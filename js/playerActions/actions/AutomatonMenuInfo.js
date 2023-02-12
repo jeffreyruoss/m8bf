@@ -27,5 +27,13 @@ export default class AutomatonMenuInfo {
       actionMenu.actionMenuClose();
       currentObject.assignTask(currentObject);
     });
+
+    const assignedObject = currentObject.getData('assignedTaskTarget');
+    if (assignedObject) {
+      const name = scene.mapObjectsJSON[assignedObject.name].name;
+      const style = {fontSize: "19px", fontFamily: this.scene.font};
+      const assignedObjectText = this.scene.add.text(x, y + 120, `Assigned task: ${name}`, style);
+      this.automatonMenuItems.add(assignedObjectText);
+    }
   }
 }
