@@ -39,7 +39,7 @@ export default class Automaton extends Phaser.Physics.Arcade.Sprite {
       } else {
         message = 'Automaton task canceled';
       }
-      this.scene.MessageManager.createMessage(this.scene.pointer.worldX, this.scene.pointer.worldY, message, 'info');
+      this.scene.MessageManager.createMessage(this.x, this.y, message, 'info');
       this.scene.InfoBar.destroyInfoBar();
     });
   }
