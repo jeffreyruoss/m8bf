@@ -30,8 +30,12 @@ export default class Automaton extends Phaser.Physics.Arcade.Sprite {
   }
 
   assignTask() {
+    this.scene.InfoBar.createInfoBar(['Select an object to assign the Automaton to.']);
     this.scene.Selection.getObject((object) => {
       this.setData('assignedTaskTarget', object);
+      this.scene.InfoBar.destroyInfoBar();
+      const message = `Automaton assigned to ${object.name}`;
+      this.scene.MessageManager.createMessage(this.scene.pointer.worldX, this.scene.pointer.worldY, message, 'info');
     });
   }
 }
