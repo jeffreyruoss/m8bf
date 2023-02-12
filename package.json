@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "live-server"
+    "start": "live-server --ignorePattern=\".git|node_modules|.idea\""
+  },
+  "dependencies": {
+    "live-server": "^1.2.2"
   },
   "repository": {
     "type": "git",
