@@ -4,6 +4,7 @@ export default class Selection {
     this.selectionModeEnabled = false;
     this.callBack = null;
     this.onScreenObjects = [];
+    this.escapeListener = null;
   }
 
   getObject(callBack) {
@@ -27,6 +28,12 @@ export default class Selection {
     this.scene.player.enabled = false;
     this.selectionModeEnabled = true;
     this.getOnScreenObjects();
+    this.scene.input.keyboard.on('keydown', (event) => {
+      if (event.key === 'Escape') {
+        if (this.callBack !== null) this.callBack('cancel');
+        this.exitSelectionMode();
+      }
+    });
     this.onScreenObjects.forEach((object) => {
       object.setAlpha(1);
       object.setInteractive();
@@ -74,5 +81,6 @@ export default class Selection {
     this.scene.player.enabled = true;
     this.onScreenObjects = [];
     this.callBack = null;
+    this.scene.input.keyboard.off('keydown');
   }
 }
