@@ -39,8 +39,16 @@ export default class Menu {
   createMenu() {
     this.createMenuRectangle();
     this.nav();
-    const panelName = this.currentPanelName.charAt(0).toUpperCase() + this.currentPanelName.slice(1);
-    this.currentPanel = new (eval(panelName + 'Panel'))(this.scene);
+    const panelConstructors = new Map([
+      ['info', InfoPanel],
+      ['inventory', InventoryPanel],
+      ['tech', TechPanel],
+      ['dialogLog', DialogLogPanel],
+      ['save', SavePanel],
+      ['load', LoadPanel],
+    ]);
+    const Constructor = panelConstructors.get(this.currentPanelName);
+    if (Constructor) this.currentPanel = new Constructor(this.scene);
     this.currentPanel.createPanel(this);
     this.scene.menuItems.children.each(item => {
       item.setDepth(item.type === 'Text' ? 5 : 4);
