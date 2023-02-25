@@ -13,6 +13,10 @@
   <link rel="icon" href="img/favicon.png" type="image/x-icon">
 </head>
 <body>
-  <script src="js/index.js" type="module"></script>
+<script>
+  // If local, use the non-bundled js, otherwise use the bundled js
+  const src = window.location.hostname === '127.0.0.1' ? 'js/index.js' : 'dist/bundle.js';
+  document.write('<script src="' + src + '" type="module"><\/script>');
+</script>
 </body>
 </html>
