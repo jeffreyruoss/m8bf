@@ -35,7 +35,7 @@ export default class Automaton extends Phaser.Physics.Arcade.Sprite {
       let message = '';
       if (object !== 'cancel') {
         this.setData('assignedTaskTarget', object);
-        message = `Automaton assigned to ${object.name}`;
+        message = `Automaton assigned to ${this.scene.mapObjectsJSON[object.name].name}`;
       } else {
         message = 'Automaton task canceled';
       }
